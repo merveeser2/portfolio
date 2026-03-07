@@ -657,6 +657,106 @@
       color:rgba(11,18,32,.62);
       background:linear-gradient(180deg, rgba(247,248,252,.70), rgba(255,255,255,1));
     }
+
+    .tool-groups{
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+  margin-top:20px;
+}
+
+.tool-group{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.tool-group-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.tool-group-head h3{
+  margin:0;
+  font-size:1.25rem;
+  letter-spacing:-.02em;
+}
+
+.tools-grid{
+  display:grid;
+  gap:14px;
+}
+
+.tools-grid-3{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+@media (max-width: 980px){
+  .tools-grid-3{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width: 640px){
+  .tools-grid-3{
+    grid-template-columns:1fr;
+  }
+}
+
+.tool{
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-height:96px;
+  transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .22s var(--ease);
+}
+
+.tool:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow2);
+  border-color:rgba(79,70,229,.16);
+}
+
+.tool-ic{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(11,18,32,.10);
+  background:#fff;
+  flex:0 0 60px;
+  overflow:hidden;
+  padding:10px;
+}
+
+.tool-ic img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.tool-text{
+  min-width:0;
+}
+
+.tool-name{
+  margin:0;
+  font-weight:950;
+  line-height:1.1;
+  letter-spacing:-.01em;
+}
+
+.tool-sub{
+  margin:5px 0 0;
+  font-size:.92rem;
+  color:rgba(11,18,32,.62);
+  line-height:1.3;
+}
   </style>
 </head>
 
@@ -893,7 +993,7 @@
     <div class="reveal">
       <h2>Tools & Platforms</h2>
       <p class="section-lead">
-        Meine wichtigsten Tools für Design, Entwicklung, Hosting und Zusammenarbeit.
+        Design, Entwicklung, Projektmanagement, Hosting und CRM – mit originalen Logos.
       </p>
     </div>
 
@@ -907,7 +1007,9 @@
 
         <div class="tools-grid tools-grid-3">
           <div class="tool card">
-            <div class="tool-ic"><i class="devicon-figma-plain colored"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/figma.png" alt="Figma Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">Figma</p>
               <p class="tool-sub">UI · Wireframes · Prototyping</p>
@@ -916,16 +1018,18 @@
 
           <div class="tool card">
             <div class="tool-ic">
-              <img src="img/adobe-cc.svg" alt="Adobe Creative Cloud">
+              <img src="img/logos/adobe-cc.png" alt="Adobe Creative Cloud Logo">
             </div>
             <div class="tool-text">
-              <p class="tool-name">Adobe CC</p>
+              <p class="tool-name">Adobe Creative Cloud</p>
               <p class="tool-sub">Creative Suite</p>
             </div>
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-image"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/photoshop.png" alt="Photoshop Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">Photoshop</p>
               <p class="tool-sub">Bildbearbeitung</p>
@@ -933,18 +1037,12 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-video"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/premiere-pro.png" alt="Premiere Pro Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">Premiere Pro</p>
               <p class="tool-sub">Video Editing</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-pen-ruler"></i></div>
-            <div class="tool-text">
-              <p class="tool-name">Canva</p>
-              <p class="tool-sub">Visuals · Social Media</p>
             </div>
           </div>
         </div>
@@ -958,7 +1056,9 @@
 
         <div class="tools-grid tools-grid-3">
           <div class="tool card">
-            <div class="tool-ic"><i class="devicon-github-original colored"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/github.png" alt="GitHub Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">GitHub</p>
               <p class="tool-sub">Versionierung · Repositories</p>
@@ -966,7 +1066,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="devicon-vscode-plain colored"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/vscode.png" alt="VS Code Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">VS Code</p>
               <p class="tool-sub">Code Editor</p>
@@ -974,7 +1076,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="devicon-html5-plain colored"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/html5.png" alt="HTML5 Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">HTML5</p>
               <p class="tool-sub">Semantik · Struktur</p>
@@ -982,7 +1086,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="devicon-css3-plain colored"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/css3.png" alt="CSS3 Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">CSS3</p>
               <p class="tool-sub">Responsive UI</p>
@@ -990,7 +1096,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="devicon-javascript-plain colored"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/javascript.png" alt="JavaScript Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">JavaScript</p>
               <p class="tool-sub">Interaktion</p>
@@ -998,7 +1106,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="devicon-php-plain colored"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/php.png" alt="PHP Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">PHP</p>
               <p class="tool-sub">Backend Basics</p>
@@ -1006,10 +1116,12 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-code-branch"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/netlify.png" alt="Netlify Logo">
+            </div>
             <div class="tool-text">
-              <p class="tool-name">Git</p>
-              <p class="tool-sub">Branches · Commits</p>
+              <p class="tool-name">Netlify</p>
+              <p class="tool-sub">Deploy · Hosting</p>
             </div>
           </div>
         </div>
@@ -1023,7 +1135,9 @@
 
         <div class="tools-grid tools-grid-3">
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-brands fa-jira"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/jira.png" alt="Jira Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">Jira</p>
               <p class="tool-sub">Tickets · Projektsteuerung</p>
@@ -1031,7 +1145,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-diagram-project"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/miro.png" alt="Miro Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">Miro</p>
               <p class="tool-sub">Workshops · Struktur</p>
@@ -1039,7 +1155,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-book"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/notion.png" alt="Notion Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">Notion</p>
               <p class="tool-sub">Dokumentation · Planung</p>
@@ -1047,15 +1165,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-cloud"></i></div>
-            <div class="tool-text">
-              <p class="tool-name">Netlify</p>
-              <p class="tool-sub">Deploy · Hosting</p>
+            <div class="tool-ic">
+              <img src="img/logos/all-inkl.png" alt="ALL-INKL Logo">
             </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-server"></i></div>
             <div class="tool-text">
               <p class="tool-name">ALL-INKL</p>
               <p class="tool-sub">Hosting · Domains · DNS</p>
@@ -1063,7 +1175,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-user-shield"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/reseller-interface.png" alt="Reseller Interface Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">Reseller Interface</p>
               <p class="tool-sub">Accounts · Domains · Verwaltung</p>
@@ -1072,15 +1186,17 @@
         </div>
       </div>
 
-      <!-- CRM & Marketing -->
+      <!-- CRM & AI -->
       <div class="tool-group reveal">
         <div class="tool-group-head">
-          <h3>CRM & Marketing</h3>
+          <h3>CRM & AI</h3>
         </div>
 
         <div class="tools-grid tools-grid-3">
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-chart-line"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/hubspot.png" alt="HubSpot Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">HubSpot</p>
               <p class="tool-sub">CRM · Marketing</p>
@@ -1088,15 +1204,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-            <div class="tool-text">
-              <p class="tool-name">Google Analytics</p>
-              <p class="tool-sub">Tracking · Insights</p>
+            <div class="tool-ic">
+              <img src="img/logos/chatgpt.png" alt="ChatGPT Logo">
             </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
             <div class="tool-text">
               <p class="tool-name">ChatGPT</p>
               <p class="tool-sub">Ideation · UX Copy · Struktur</p>
@@ -1104,7 +1214,9 @@
           </div>
 
           <div class="tool card">
-            <div class="tool-ic"><i class="fa-solid fa-robot"></i></div>
+            <div class="tool-ic">
+              <img src="img/logos/gemini.png" alt="Gemini Logo">
+            </div>
             <div class="tool-text">
               <p class="tool-name">Gemini</p>
               <p class="tool-sub">Recherche · Varianten</p>
