@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fußballcamp Antalya – Landingpage · Merve Eser</title>
+  <meta name="description" content="Case Study: Landingpage für das VfB Stuttgart Kinder-Fußballcamp im Miracle Resort Antalya – UX/UI Design und Frontend-Umsetzung von Merve Eser." />
+  <meta property="og:title" content="Fußballcamp Antalya – Landingpage · Case Study von Merve Eser" />
+  <meta property="og:description" content="UX/UI Design und Frontend-Umsetzung der Landingpage für das VfB Stuttgart Kinder-Fußballcamps im Miracle Resort Antalya." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <style>
+    :root{
+      /* =========================
+         COLOR SYSTEM – CASE STUDY
+         ========================= */
+
+      /* Neutrals */
+      --color-bg:#ffffff;
+      --color-surface:#f9fafb;
+      --color-ink:#0f172a;
+      --color-muted:#6b7280;
+      --color-border:#e5e7eb;
+
+      /* Brand / Accent (ALT – Landingpage) */
+      --color-primary:#791e56;
+      --color-primary-dark:#601844;
+      --color-accent:#a16188;
+      --color-sun:#fbbf24;
+
+      /* =========================
+         NEW (REDESIGN) – aus deinem neuen Portal-Code
+         ========================= */
+      --new-brand-700:#05367c;
+      --new-brand-800:#083a80;
+      --new-brand-900:#0b4aa2;
+      --new-accent-600:#f59e0b;
+      --new-accent-700:#d97706;
+      --new-muted:#f6f8fc;
+      --new-text:#0f172a;
+      --new-text-2:#334155;
+      --new-text-3:#64748b;
+
+      /* Hero / Depth */
+      --color-hero-soft:#f3e8ff;
+      --color-hero-wash:rgba(190,144,176,.7);
+      --shadow-soft:0 10px 30px rgba(15,23,42,.12);
+      --shadow-strong:0 24px 60px rgba(15,23,42,.35);
+
+      /* Layout */
+      --radius-lg:22px;
+      --header-h:72px;
+
+      /* TYPO */
+      --font-family-base: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Noto Sans",Helvetica,Arial,sans-serif;
+
+      --font-size-body: 1rem;
+      --font-size-body-small: .9rem;
+      --font-size-kicker: .78rem;
+      --font-size-chip: .8rem;
+      --font-size-caption: .82rem;
+
+      --font-size-h1-min: 2rem;
+      --font-size-h1-max: 2.8rem;
+      --font-size-h2-min: 1.6rem;
+      --font-size-h2-max: 2.1rem;
+
+      --line-height-body: 1.6;
+      --line-height-heading: 1.1;
+
+      /* Blink CTA Ring */
+      --blink-ring: rgba(245,158,11,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    html{
+      scroll-behavior:smooth;
+    }
+    body{
+      font-family:var(--font-family-base);
+      background:var(--color-bg);
+      color:var(--color-ink);
+      line-height:var(--line-height-body);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      padding-top:var(--header-h);
+      font-size:var(--font-size-body);
+    }
+    img{max-width:100%;display:block}
+    a{color:var(--color-primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    section{padding:56px 0;scroll-margin-top:var(--header-h)}
+
+    .visually-hidden{
+      position:absolute!important;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .mt-10{margin-top:10px;}
+    .mt-14{margin-top:14px;}
+    .text-0-9{font-size:.9rem;}
+    .flex-row-gap-8{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    /* --- Basis-Animationen --- */
+    .fade-up,
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease-out, transform .6s ease-out;
+    }
+    .fade-up.is-visible,
+    .reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes pulse-soft {
+      0%   { transform: scale(1);   box-shadow:0 14px 40px rgba(15,23,42,.9); }
+      50%  { transform: scale(1.05);box-shadow:0 18px 50px rgba(15,23,42,1); }
+      100% { transform: scale(1);   box-shadow:0 14px 40px rgba(15,23,42,.9); }
+    }
+
+    /* =========================
+       NEW: Blink Button
+       ========================= */
+    @keyframes blinkGlow{
+      0%,100%{ box-shadow:0 0 0 0 rgba(245,158,11,0), 0 14px 34px rgba(2,6,23,.18); transform:translateY(0); }
+      50%{ box-shadow:0 0 0 6px var(--blink-ring), 0 20px 44px rgba(2,6,23,.22); transform:translateY(-1px); }
+    }
+    .btn.blink{
+      background: var(--new-accent-600);
+      color:#1f1300;
+      border-color:transparent;
+      box-shadow:0 14px 34px rgba(2,6,23,.18);
+      animation:blinkGlow 1.6s ease-in-out infinite;
+      font-weight:800;
+    }
+    .btn.blink:hover{
+      filter:brightness(1.03);
+      text-decoration:none;
+      animation:none;
+    }
+
+    /* Header */
+    header.site{
+      position:fixed;top:0;left:0;right:0;
+      height:var(--header-h);
+      background:#fff;
+      border-bottom:1px solid var(--color-border);
+      z-index:950;
+      box-shadow:0 2px 10px rgba(0,0,0,.06);
+    }
+    .nav{
+      height:100%;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;padding:0 20px;
+      position:relative;
+    }
+    .brand{font-weight:800;letter-spacing:.2px}
+    .brand small{display:block;color:var(--color-muted);font-weight:600;margin-top:2px;font-size:.8rem}
+
+    .menu{
+      display:flex;gap:10px;flex-wrap:wrap;font-size:var(--font-size-body-small);
+      align-items:center;
+    }
+    .menu a{padding:7px 11px;border-radius:999px}
+    .menu a:hover{background:var(--color-surface);text-decoration:none}
+
+    /* Mobile Toggle */
+    .menu-toggle{
+      display:none;
+      border:1px solid var(--color-border);
+      border-radius:999px;
+      background:#fff;
+      padding:8px 10px;
+      font-size:.9rem;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+    }
+    .menu-toggle i{font-size:1rem;}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 14px;border-radius:999px;
+      border:1px solid var(--color-border);background:#fff;
+      cursor:pointer;font-size:var(--font-size-body-small);
+      box-shadow:var(--shadow-soft);
+      transition:background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
+      transform:translateY(0);
+    }
+    .btn.primary{
+      background:var(--color-primary);
+      color:#fff;
+      border-color:transparent;
+    }
+    .btn.primary:hover{
+      background:var(--color-primary-dark);
+      box-shadow:0 18px 40px rgba(88,28,67,.45);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+    .btn.ghost{box-shadow:none;background:#fff}
+    .btn.ghost:hover{
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+    .btn.icon-only{padding:9px 10px;box-shadow:none;border-radius:999px}
+
+    .chip{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--color-border);
+      background:var(--color-surface);
+      font-size:var(--font-size-chip);
+      color:var(--color-muted);
+      white-space:nowrap;
+      transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .chip:hover{
+      background:#fff;
+      transform:translateY(-1px);
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+    }
+
+    /* HERO */
+    .hero{
+      background:
+        radial-gradient(800px 480px at -20% -20%, var(--color-hero-soft) 0%, transparent 60%),
+        radial-gradient(900px 520px at 120% 110%, var(--color-hero-wash) 0%, transparent 60%),
+        #ffffff;
+      border-bottom:1px solid var(--color-border);
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;
+      padding:50px 0 40px;
+    }
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr;gap:30px}
+    }
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:var(--font-size-kicker);
+      color:var(--color-muted);
+    }
+    h1{
+      margin:.5rem 0 .7rem;
+      font-size:clamp(var(--font-size-h1-min),3.4vw,var(--font-size-h1-max));
+      line-height:var(--line-height-heading);
+    }
+    section h2{
+      font-size:clamp(var(--font-size-h2-min),2.6vw,var(--font-size-h2-max));
+      margin:0 0 14px;
+    }
+    .accent{
+      background:linear-gradient(90deg,var(--color-primary) 0%, var(--color-accent) 70%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      font-weight:800;
+    }
+    .lead{
+      color:#374151;
+      font-size:1.02rem;
+      max-width:60ch;
+    }
+    .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+    .hero-highlight{
+      margin-top:18px;display:grid;gap:10px;
+    }
+    .hero-highlight-card{
+      border-radius:16px;padding:10px 12px;
+      background:#fff;border:1px solid var(--color-border);
+      box-shadow:0 8px 26px rgba(15,23,42,.06);
+      font-size:var(--font-size-body-small);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .hero-highlight-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 34px rgba(15,23,42,.1);
+    }
+    .hero-highlight-card b{display:block;margin-bottom:2px}
+
+    /* Hero Video */
+    .hero-media-card{
+      border-radius:24px;
+      background:#000;
+      box-shadow:var(--shadow-strong);
+      overflow:hidden;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .hero-media-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 30px 70px rgba(15,23,42,.4);
+    }
+    .hero-media-main{
+      position:relative;
+      aspect-ratio:16 / 9;
+      background:#000;
+    }
+    .hero-media-main video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .hero-video-toggle{
+      position:absolute;
+      right:18px;
+      bottom:18px;
+      z-index:2;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:48px;
+      height:48px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      background:rgba(15,23,42,.92);
+      color:#e5e7eb;
+      box-shadow:0 14px 40px rgba(15,23,42,.9);
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+      animation:pulse-soft 2.4s ease-in-out infinite;
+    }
+    .hero-video-toggle:hover{
+      transform:translateY(-1px);
+      box-shadow:0 20px 55px rgba(15,23,42,.95);
+      background:#020617;
+      animation:none;
+    }
+    .hero-video-toggle i{
+      font-size:1.2rem;
+    }
+
+    .muted{color:var(--color-muted);font-size:.95rem}
+
+    /* 2-Spaltig */
+    .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+    @media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+    .card{
+      border-radius:18px;border:1px solid var(--color-border);background:#fff;
+      padding:18px 16px;box-shadow:var(--shadow-soft);font-size:.95rem;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+
+    /* Meta-Grid */
+    .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px;font-size:.9rem}
+    @media(max-width:900px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){.meta-grid{grid-template-columns:1fr}}
+    .meta-card{
+      border-radius:16px;border:1px solid var(--color-border);background:#fff;
+      padding:10px 12px;box-shadow:0 8px 22px rgba(15,23,42,.04);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .meta-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(15,23,42,.08);
+    }
+    .meta-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--color-muted);margin-bottom:3px}
+    .meta-value{font-weight:600}
+
+    /* Listen */
+    ul.clean{margin:0 0 6px;padding-left:1.1em}
+    ul.clean li{margin-bottom:4px}
+
+    /* Typografie & Farben */
+    .style-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:10px}
+    @media(max-width:900px){.style-grid{grid-template-columns:1fr}}
+    .type-card,.color-card{
+      border-radius:18px;border:1px solid var(--color-border);
+      background:#fff;padding:14px 16px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .type-card:hover,.color-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+    .type-sample-title{font-size:1.35rem;font-weight:700;margin-bottom:4px}
+    .type-sample-body{font-size:.95rem;margin-top:4px}
+
+    .color-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+    .color-swatch{
+      display:flex;align-items:center;gap:10px;
+      border-radius:999px;
+      padding:6px 10px;
+      border:1px solid var(--color-border);
+      font-size:.85rem;
+    }
+    .swatch-dot{
+      width:18px;height:18px;border-radius:999px;border:1px solid #e5e7eb;
+    }
+    .swatch-primary{background:var(--color-primary);}
+    .swatch-accent{background:var(--color-accent);}
+    .swatch-sun{background:var(--color-sun);}
+
+    /* NEW Swatches (Redesign) */
+    .swatch-new-700{background:var(--new-brand-700);}
+    .swatch-new-900{background:var(--new-brand-900);}
+    .swatch-new-accent{background:var(--new-accent-600);}
+    .swatch-new-muted{background:var(--new-muted);}
+    .swatch-new-text2{background:var(--new-text-2);}
+
+    /* UI Shadows & Overlays */
+    .shadow-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    @media(max-width:900px){
+      .shadow-grid{grid-template-columns:1fr;}
+    }
+
+    .shadow-card{
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:14px 16px;
+      box-shadow:0 10px 30px rgba(15,23,42,.05);
+      font-size:.9rem;
+    }
+
+    .shadow-card h3{
+      margin:0 0 6px;
+      font-size:1rem;
+    }
+
+    .shadow-samples{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .shadow-sample{
+      border-radius:18px;
+      background:#fff;
+      padding:10px 14px;
+      font-size:.82rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+
+    .shadow-box{
+      width:56%;
+      height:52px;
+      border-radius:14px;
+      background:#ffffff;
+    }
+
+    .shadow-meta{
+      flex:1;
+      padding-left:12px;
+    }
+
+    .shadow-meta strong{
+      display:block;
+      margin-bottom:2px;
+    }
+
+    .shadow-token{
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,"Liberation Mono","Courier New",monospace;
+      font-size:.78rem;
+      color:var(--color-muted);
+    }
+
+    .shadow-soft-box{ box-shadow:var(--shadow-soft); }
+    .shadow-strong-box{ box-shadow:var(--shadow-strong); }
+    .shadow-header-box{ box-shadow:0 2px 10px rgba(0,0,0,.06); }
+
+    /* Overlay-Chips */
+    .overlay-list{
+      margin-top:6px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      font-size:.85rem;
+    }
+
+    .overlay-chip{
+      border-radius:999px;
+      padding:6px 10px;
+      border:1px solid var(--color-border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .overlay-label{
+      font-weight:500;
+    }
+
+    .overlay-swatch{
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+    }
+
+    .overlay-hero{
+      background:linear-gradient(90deg,var(--color-hero-soft),var(--color-hero-wash));
+    }
+    .overlay-dark{
+      background:rgba(15,23,42,.92);
+    }
+    .overlay-light{
+      background:rgba(248,250,252,.95);
+    }
+
+    /* --- Social Media Sektion (Karten) --- */
+    #social h2{
+      margin-bottom:10px;
+    }
+
+    #social > .container > .muted:first-of-type{
+      margin-top:0;
+    }
+
+    #social .muted.mt-14{
+      margin-top:10px;
+    }
+
+    .social-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-top:16px;
+    }
+    @media(max-width:900px){
+      .social-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+    @media(max-width:640px){
+      .social-grid{grid-template-columns:1fr;}
+    }
+    .social-card{
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:14px 16px;
+      box-shadow:0 10px 26px rgba(15,23,42,.06);
+      font-size:.9rem;
+    }
+    .social-date{
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:var(--color-muted);
+      margin-bottom:4px;
+    }
+    .social-channel{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:600;
+      margin-bottom:6px;
+    }
+    .social-channel i{
+      font-size:.95rem;
+    }
+    .social-number{
+      font-size:1rem;
+      font-weight:600;
+    }
+    .social-note{
+      font-size:.85rem;
+      color:var(--color-muted);
+      margin-top:4px;
+    }
+    .social-bar{
+      margin-top:8px;
+      height:5px;
+      border-radius:999px;
+      background:#e5e7eb;
+      overflow:hidden;
+    }
+    .social-bar span{
+      display:block;
+      height:100%;
+      background:linear-gradient(90deg,var(--color-primary),var(--color-accent));
+    }
+
+    /* Drei Mockups nebeneinander */
+    .mockup-row{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      align-items:flex-start;
+    }
+    @media(max-width:900px){
+      .mockup-row{grid-template-columns:1fr;}
+    }
+
+    /* --- Social Media Sektion: Instagram / iPhone Frames --- */
+    .insta-mockup{
+      border-radius:24px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      box-shadow:0 18px 46px rgba(15,23,42,.08);
+      max-width:420px;
+      font-size:.9rem;
+      overflow:hidden;
+      margin:0 auto;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .insta-mockup:hover{
+      transform:translateY(-6px);
+      box-shadow:0 26px 60px rgba(15,23,42,.18);
+    }
+
+    .insta-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 14px;
+    }
+
+    .insta-user{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .insta-avatar{
+      width:32px;
+      height:32px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#f97316,#ec4899,#8b5cf6);
+      padding:2px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .insta-avatar-inner{
+      width:100%;
+      height:100%;
+      border-radius:999px;
+      background:#fff;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .insta-avatar-img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .insta-username{
+      font-weight:600;
+      font-size:.85rem;
+    }
+
+    .insta-location{
+      font-size:.7rem;
+      color:var(--color-muted);
+    }
+
+    .insta-three-dots{
+      font-size:1.1rem;
+      color:#6b7280;
+      cursor:pointer;
+      transition:transform .15s ease;
+    }
+    .insta-three-dots:hover{
+      transform:scale(1.1);
+    }
+
+    .insta-media{
+      position:relative;
+      background:#000;
+      aspect-ratio:4 / 5;
+      overflow:hidden;
+    }
+
+    .insta-media img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .4s ease;
+    }
+    .insta-mockup:hover .insta-media img{
+      transform:scale(1.03);
+    }
+
+    .insta-carousel-nav{
+      position:absolute;
+      inset:auto 0 10px 0;
+      display:flex;
+      justify-content:center;
+      gap:6px;
+      z-index:2;
+    }
+
+    .insta-dot{
+      width:6px;
+      height:6px;
+      border-radius:999px;
+      background:rgba(255,255,255,.5);
+      cursor:pointer;
+      transition:width .2s ease, background .2s ease, transform .2s ease;
+    }
+
+    .insta-dot.active{
+      width:14px;
+      background:#fff;
+      transform:translateY(-1px);
+    }
+
+    .insta-arrow{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      border:none;
+      background:rgba(15,23,42,.55);
+      color:#e5e7eb;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      z-index:2;
+      transition:background .2s ease, transform .2s ease;
+    }
+    .insta-arrow:hover{
+      background:rgba(15,23,42,.9);
+      transform:translateY(-50%) scale(1.05);
+    }
+
+    .insta-arrow-left{left:10px;}
+    .insta-arrow-right{right:10px;}
+    .insta-arrow i{font-size:.85rem;}
+
+    .insta-footer{
+      padding:10px 14px 12px;
+    }
+
+    .insta-icons{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:6px;
+    }
+
+    .insta-icons-left{
+      display:flex;
+      gap:10px;
+      font-size:1.1rem;
+    }
+    .insta-icons-left i,
+    .insta-icons > i{
+      cursor:pointer;
+      transition:transform .15s ease;
+    }
+    .insta-icons-left i:hover,
+    .insta-icons > i:hover{
+      transform:scale(1.15);
+    }
+
+    .insta-likes{
+      font-size:var(--font-size-caption);
+      font-weight:600;
+      margin-bottom:4px;
+    }
+
+    .insta-caption{
+      font-size:var(--font-size-caption);
+    }
+
+    .insta-caption strong{
+      font-weight:600;
+    }
+
+    .insta-link-row{
+      margin-top:6px;
+      font-size:.78rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      color:var(--color-muted);
+    }
+
+    .insta-link-row a{
+      font-size:.78rem;
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+    }
+
+    /* Story iPhone Mockups */
+    .iphone-frame{
+      max-width:280px;
+      margin:0 auto;
+      padding:10px;
+      border-radius:40px;
+      background:linear-gradient(145deg,#111827,#4b1640);
+      box-shadow:0 18px 50px rgba(15,23,42,.55);
+      position:relative;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .iphone-frame:hover{
+      transform:translateY(-6px) rotate3d(1,-1,0,6deg);
+      box-shadow:0 26px 60px rgba(15,23,42,.8);
+    }
+
+    .iphone-inner{
+      position:relative;
+      border-radius:32px;
+      background:#000;
+      overflow:hidden;
+      aspect-ratio:9 / 16;
+    }
+
+    .iphone-notch{
+      position:absolute;
+      top:10px;
+      left:50%;
+      transform:translateX(-50%);
+      width:88px;
+      height:14px;
+      border-radius:999px;
+      background:#020617;
+      z-index:2;
+    }
+
+    .iphone-video-wrap{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      overflow:hidden;
+      z-index:1;
+    }
+
+    .iphone-video-wrap video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+    }
+
+    .story-toggle{
+      position:absolute;
+      right:16px;
+      bottom:16px;
+      z-index:3;
+      width:40px;height:40px;
+      border-radius:999px;
+      border:none;
+      background:rgba(15,23,42,.9);
+      color:#e5e7eb;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;
+      box-shadow:0 14px 40px rgba(15,23,42,.9);
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease, opacity .2s ease;
+      opacity:.95;
+    }
+    .story-toggle:hover{
+      transform:translateY(-1px);
+      box-shadow:0 20px 55px rgba(15,23,42,.95);
+      background:#020617;
+    }
+    .iphone-frame:hover .story-toggle{
+      opacity:1;
+    }
+    .story-toggle i{font-size:1rem;}
+
+    .story-label{
+      text-align:center;
+      margin-top:8px;
+      font-size:.8rem;
+      color:var(--color-muted);
+    }
+    .story-link{
+      text-align:center;
+      margin-top:4px;
+      font-size:.78rem;
+    }
+    .story-link a{text-decoration:underline;}
+
+    .kuno-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:10px;
+      font-size:.85rem;
+      color:var(--color-muted);
+      flex-wrap:wrap;
+    }
+    .kuno-row img{
+      height:22px;
+      width:auto;
+      display:block;
+    }
+
+    /* Bottom Nav */
+    .bottom-nav{
+      margin-top:32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      font-size:.9rem;
+      border-top:1px solid var(--color-border);
+      padding-top:16px;
+      flex-wrap:wrap;
+    }
+
+    footer{
+      border-top:1px solid var(--color-border);
+      padding:18px 0 26px;
+      background:var(--color-surface);
+      margin-top:40px;
+      font-size:.88rem;
+    }
+    footer .frow{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:10px;flex-wrap:wrap;
+    }
+
+    /* =========================
+       NEW: Redesign Preview Blocks
+       ========================= */
+    .redesign-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+      align-items:start;
+      margin-top:14px;
+    }
+    @media(max-width:900px){
+      .redesign-grid{grid-template-columns:1fr;}
+    }
+    .preview-card{
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      box-shadow:0 14px 40px rgba(15,23,42,.08);
+      overflow:hidden;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .preview-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 20px 55px rgba(15,23,42,.14);
+    }
+    .preview-img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+    .preview-meta{
+      padding:12px 14px 14px;
+      border-top:1px solid var(--color-border);
+      font-size:.9rem;
+    }
+    .preview-meta strong{display:block;margin-bottom:4px;}
+    .preview-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    /* ================= RESPONSIVE TWEAKS ================= */
+    @media (max-width: 768px){
+      body{
+        padding-top:64px;
+      }
+      section{
+        padding:40px 0;
+      }
+      .nav{
+        padding:0 14px;
+      }
+      .menu-toggle{
+        display:inline-flex;
+      }
+      .menu{
+        position:absolute;
+        top:100%;
+        right:0;
+        left:0;
+        background:#fff;
+        border-bottom:1px solid var(--color-border);
+        padding:8px 16px 12px;
+        flex-direction:column;
+        gap:4px;
+        display:none;
+      }
+      .menu.is-open{
+        display:flex;
+      }
+      .menu a{
+        width:100%;
+        text-align:left;
+        padding:8px 10px;
+      }
+      .hero-grid{
+        padding:40px 0 30px;
+      }
+      .hero-actions .btn,
+      .hero-meta .chip{
+        width:100%;
+        justify-content:center;
+      }
+      .bottom-nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .insta-mockup{
+        max-width:100%;
+      }
+      .iphone-frame:hover{
+        transform:none;
+        box-shadow:0 18px 50px rgba(15,23,42,.55);
+      }
+      .preview-card:hover{transform:none;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="site" role="banner">
+    <div class="nav">
+      <div class="brand">
+        Merve Eser
+        <small>UX/UI · Frontend</small>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button class="menu-toggle" type="button" aria-label="Navigation öffnen" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+        <span>Menü</span>
+      </button>
+
+      <nav class="menu" aria-label="Hauptnavigation">
+        <a href="index.html#arbeiten">Zur Übersicht</a>
+        <!-- NEW -->
+        <a href="#update">Redesign-Update</a>
+        <a href="#redesign-preview">Redesign Einblick</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="fade-up" id="hero-text">
+          <div class="kicker">Landingpage · Reise & Sport</div>
+          <h1 id="hero-title">
+            Fußballcamp in Antalya – <span class="accent">Landingpage</span><br>
+            für Familien & VfB Kids
+          </h1>
+          <p class="lead">
+            Konzeption, UX/UI-Design und Frontend-Umsetzung einer Landingpage
+            für das <strong>VfB Stuttgart Kinder-Fußballcamp</strong> im 5★ Miracle Resort in Antalya –
+            inkl. Leistungen, Preise, FAQ und Buchungsanfrage.
+          </p>
+
+          <div class="hero-meta">
+            <span class="chip"><i class="fa-solid fa-futbol"></i> VfB Stuttgart Fußballcamp (7–14 Jahre)</span>
+            <span class="chip"><i class="fa-solid fa-hotel"></i> Miracle Resort, Lara · Antalya</span>
+            <span class="chip"><i class="fa-solid fa-calendar-days"></i> 27.12.2025 – 03.01.2026</span>
+            <!-- NEW -->
+            <span class="chip"><i class="fa-solid fa-rotate"></i> Nach Event: Interessenportal</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="https://fussballcamp-antalya.de" target="_blank" rel="noopener">
+              <i class="fa-solid fa-up-right-from-square"></i> Live-Seite öffnen
+            </a>
+            <!-- GitHub-Link bleibt unverändert als Platzhalter -->
+            <a class="btn ghost" href="HREF_GITHUB_HIER" target="_blank" rel="noopener">
+              <i class="fa-brands fa-github"></i> Code auf GitHub
+            </a>
+            <!-- NEW -->
+            <a class="btn blink" href="#redesign-preview">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Redesign ansehen
+            </a>
+          </div>
+
+          <div class="hero-highlight">
+            <div class="hero-highlight-card">
+              <b>Ziel</b>
+              Eltern in wenigen Sekunden überzeugen: <strong>„Urlaub + professionelles Fußballcamp“</strong>.
+              Klar strukturierte Infos zu Leistungen, Termin, Ort und Preisen – mit direkter Buchungsanfrage.
+            </div>
+            <div class="hero-highlight-card">
+              <b>Ergebnis</b>
+              Eine fokussierte Landingpage mit klaren Abschnitten (Leistungen, Fußballcamp, Preise, FAQ, Kontakt),
+              die Vertrauen aufbaut und den Einstieg in die Buchung erleichtert.
+              <br><br>
+              <strong>Phase 2:</strong> Nach Veranstaltungsende wurde die Seite zum <strong>Interessenportal</strong>
+              weiterentwickelt, um langfristig neue Anfragen zu sammeln.
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero-Video -->
+        <aside aria-label="Landingpage-Video" class="fade-up" id="hero-media">
+          <div class="hero-media-card">
+            <div class="hero-media-main">
+              <p id="camp-video-desc" class="visually-hidden">
+                Screenrecording der Landingpage des VfB Stuttgart Kinder-Fußballcamps im Miracle Resort Antalya.
+              </p>
+              <button class="hero-video-toggle" id="camp-video-toggle" aria-label="Video pausieren" aria-pressed="true">
+                <i class="fa-solid fa-pause"></i>
+              </button>
+              <video
+                id="camp-video"
+                src="fussbalwebseite.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                aria-describedby="camp-video-desc"
+              ></video>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =========================
+         NEW: Redesign Update Section
+         ========================= -->
+    <section id="update" aria-labelledby="update-title">
+      <div class="container reveal">
+        <h2 id="update-title">Redesign nach Veranstaltungsende: Interessenportal</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Warum wurde umgebaut?</h3>
+            <p>
+              Nach dem Ende der Veranstaltung wurde <strong>www.fussballcamp-antalya.de</strong>
+              nicht abgeschaltet, sondern strategisch weiterentwickelt:
+              von einer eventbasierten Landingpage zu einer <strong>Always-On Nachfrage-/Interessenportal-Seite</strong>.
+            </p>
+            <ul class="clean">
+              <li><strong>Von:</strong> Termin-/Event-Fokus (Kampagne)</li>
+              <li><strong>Zu:</strong> Interesse sammeln (Leads) + Updates senden</li>
+              <li><strong>Ziel:</strong> Kontinuierliche Nachfrage aufbauen &amp; potenzielle Teilnehmer früh binden</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Welche UX/UI Änderungen sind sichtbar?</h3>
+            <ul class="clean">
+              <li><strong>Topbar + Kontakt</strong> (Telefon/E-Mail) → mehr Vertrauen</li>
+              <li><strong>Sticky Navigation</strong> → schnellere Orientierung</li>
+              <li><strong>CTA-Fokus:</strong> „Updates erhalten“ statt „Jetzt buchen“</li>
+              <li><strong>Typografie stärker gewichtet</strong> (bold/extra bold) → klarere Hierarchie</li>
+              <li><strong>Farbwelt:</strong> Blau (Trust/Service) + Gelb (CTA)</li>
+            </ul>
+            <div class="mt-14">
+              <a class="btn primary" href="https://fussballcamp-antalya.de" target="_blank" rel="noopener">
+                <i class="fa-solid fa-up-right-from-square"></i> Aktuelle Live-Version ansehen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <p class="muted mt-14">
+          Für dein Portfolio ist das ein starkes Signal: Das Projekt wurde nicht nur umgesetzt,
+          sondern <strong>weitergeführt</strong> (Produktdenken/Iteration statt „nur Kampagne“).
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================
+         NEW: Redesign Preview + Screenshot
+         ========================= -->
+    <section id="redesign-preview" aria-labelledby="redesign-title">
+      <div class="container reveal">
+        <h2 id="redesign-title">Redesign Einblick: neue Seite (Interessenportal)</h2>
+
+        <div class="redesign-grid">
+          <figure class="preview-card" aria-label="Screenshot der neuen Interessenportal-Seite">
+            <!-- Lege dein Screenshot als ./img/redesign.png ab -->
+            <img class="preview-img" src="./img/redesign.png" alt="Screenshot: Fußballcamp Interessenportal – Header, Navigation und CTA" loading="lazy">
+            <figcaption class="preview-meta">
+              <strong>Neuer Above-the-fold Aufbau</strong>
+              Topbar (Kontakt), sticky Navigation, Hero mit CTA „Updates erhalten“ und modernisierte Typo-Hierarchie.
+            </figcaption>
+          </figure>
+
+          <div class="card">
+            <h3>Was Unternehmen hier erkennen (Erweiterung & Wirkung)</h3>
+            <p>
+              Das Redesign ist eine funktionale Weiterentwicklung: statt einmaliger Event-Kommunikation
+              wird jetzt <strong>dauerhaft Nachfrage</strong> gesammelt. Das ist messbar über Interaktionen
+              (Klicks, Scrolls, CTA-Klicks, Formularstarts/-Sends).
+            </p>
+
+            <h3 class="mt-14">Neue Farben (aus dem Redesign-Code)</h3>
+            <div class="color-row">
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-new-700"></span>
+                <span><strong>Brand 700</strong> · <code>#05367c</code><br><small>Buttons / Service</small></span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-new-900"></span>
+                <span><strong>Brand 900</strong> · <code>#0b4aa2</code><br><small>Navigation / Trust</small></span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-new-accent"></span>
+                <span><strong>Accent</strong> · <code>#f59e0b</code><br><small>CTA „Updates“</small></span>
+              </div>
+            </div>
+
+            <h3 class="mt-14">Typografie – was ist anders?</h3>
+            <ul class="clean">
+              <li><strong>Stärkere Gewichte</strong> (bold/extra bold) in Navigation &amp; CTA → mehr Klarheit.</li>
+              <li><strong>„Produkt“-Look</strong> statt Kampagnenlook → wirkt seriöser/vertrauenswürdiger.</li>
+              <li><strong>Kontrast- &amp; Lesbarkeit</strong> in Hero/Buttons optimiert.</li>
+            </ul>
+
+            <div class="preview-actions">
+              <a class="btn blink" href="https://fussballcamp-antalya.de" target="_blank" rel="noopener">
+                <i class="fa-solid fa-up-right-from-square"></i> Live-Redesign öffnen
+              </a>
+              <a class="btn ghost" href="#kpi-title">
+                <i class="fa-solid fa-chart-line"></i> Wirkung / KPIs
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Original Content -->
+    <section aria-labelledby="ctx-title">
+      <div class="container reveal">
+        <h2 id="ctx-title">Projektkontext & Rolle</h2>
+
+        <div class="meta-grid">
+          <div class="meta-card"><div class="meta-label">Projekt</div><div class="meta-value">Landingpage Fußballcamp Antalya</div></div>
+          <div class="meta-card"><div class="meta-label">Rolle</div><div class="meta-value">UX/UI Design · Frontend</div></div>
+          <div class="meta-card"><div class="meta-label">Zielgruppe</div><div class="meta-value">Familien & fußballbegeisterte Kinder</div></div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Ausgangslage</h3>
+            <p>
+              Für eine Kooperation zwischen ReiseGesucht, Bentour Reisen und der VfB Stuttgart Fußballschule
+              sollte eine Landingpage entstehen, die das Komplettpaket aus Reise und Fußballcamp
+              klar, einfach und vertrauenswürdig präsentiert.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Meine Aufgaben</h3>
+            <ul class="clean">
+              <li>Struktur & Aufbau der Landingpage</li>
+              <li>UX/UI Design (Desktop-first, responsive)</li>
+              <li>HTML/CSS/JS Umsetzung</li>
+              <li>Inhalte priorisieren: Reiseleistungen, Campinfos, Preise & FAQ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="content-title">
+      <div class="container reveal">
+        <h2 id="content-title">Lösung & Seitenaufbau</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Klare Informationsblöcke</h3>
+            <p>
+              Die Seite führt Eltern Schritt für Schritt durch das Angebot:
+            </p>
+            <ul class="clean">
+              <li>Reisepaket inkl. Flug, Hotel & Transfer</li>
+              <li>Fußballcamp mit lizenzierten VfB-Trainer:innen</li>
+              <li>Preise für verschiedene Familienmodelle</li>
+              <li>FAQ zu Training, Ausrüstung & Anreise</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Fokus auf Vertrauen</h3>
+            <p>
+              Eltern wollen Sicherheit: Die Seite zeigt daher deutlich Logos,
+              Partner, Kontaktinfos, Zahlungs- und Absicherungsdetails.
+            </p>
+            <p>
+              Dazu kommen klare Call-to-Actions wie „Buchungsanfrage senden“,
+              die direkt zum Formular führen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPIs / verbessert als "Erfolg erklären" ohne echte Zahlen zu erzwingen -->
+    <section aria-labelledby="kpi-title">
+      <div class="container reveal">
+        <h2 id="kpi-title">Projektwirkung & KPIs (Portfolio-freundlich)</h2>
+        <div class="card">
+          <p>
+            Für dein Portfolio ist wichtig: Unternehmen sollen verstehen, <strong>welchen Effekt</strong> deine Arbeit hatte –
+            auch wenn du nicht alle internen Zahlen öffentlich teilst.
+          </p>
+
+          <h3>Woran erkennt man hier Erfolg?</h3>
+          <ul class="clean">
+            <li><strong>Weiterentwicklung statt Abschaltung:</strong> Die Seite wurde nach dem Event als <strong>Interessenportal</strong> ausgebaut (Always-On Lead-Gen).</li>
+            <li><strong>Messbare Nutzung:</strong> Viele Interaktionen (Events) zeigen, dass Nutzer:innen klicken, scrollen, Videos ansehen und CTAs nutzen.</li>
+            <li><strong>UX-Flow:</strong> Klarer Weg von Nutzen → Vertrauen → CTA → Anfrage.</li>
+            <li><strong>Marketing-Fit:</strong> Struktur + Mobile-UX passen zu Traffic aus Social Media.</li>
+          </ul>
+
+          <h3 class="mt-14">Welche KPIs würdest du (intern) reporten?</h3>
+          <ul class="clean">
+            <li><strong>CTA Klickrate:</strong> „Updates erhalten“ / „Buchungsanfrage“</li>
+            <li><strong>Formular-Funnel:</strong> Start → Abbruch → Absenden</li>
+            <li><strong>Scroll Tiefe:</strong> ob Preise/FAQ erreicht werden</li>
+            <li><strong>Engagement:</strong> Events pro Nutzer, Verweildauer, Returning Visitors</li>
+          </ul>
+
+          <p class="muted">
+            Tipp: Wenn du keine Zahlen einträgst, ist das nicht schlimm – formuliere einfach
+            „Tracking wurde eingerichtet, um CTA- und Funnel-Performance zu messen“ und zeige, dass du weißt,
+            <strong>wie</strong> man Optimierungen ableitet.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typografie & Farben & Shadows -->
+    <section aria-labelledby="style-title">
+      <div class="container reveal">
+        <h2 id="style-title">Typografie, Farben &amp; UI-Shadows</h2>
+
+        <div class="style-grid">
+          <div class="type-card">
+            <h3>Typografie</h3>
+            <div class="type-sample-title">Headline – System Sans / clamp(2–2.8rem) / Bold</div>
+            <div class="type-sample-body">
+              Body – System Sans / Regular.<br>
+            </div>
+            <p class="mt-10 text-0-9">
+              Die Hierarchie besteht aus:
+            </p>
+            <ul class="clean">
+              <li>H1: Kampagnenheadline mit Highlight („Fußballcamp in Antalya“)</li>
+              <li>H2: Abschnittstitel (Leistungen, Preise, FAQ …)</li>
+              <li>H3: Untertitel (z.B. „Reisepaket“, „Fußballcamp-Leistungen“)</li>
+            </ul>
+
+            <h3 class="mt-14">Typografie (Redesign – Interessenportal)</h3>
+            <p class="muted">
+              Beim Redesign wurde die Typo stärker gewichtet (mehr Bold/Extra-Bold) und die Hierarchie
+              „produktiger“ gestaltet: Navigation/CTAs stechen klarer hervor.
+            </p>
+          </div>
+
+          <div class="color-card">
+            <h3>Farben</h3>
+            <div class="color-row">
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-primary"></span>
+                <span>
+                  Primary · <code>#791e56</code><br>
+                  <small>Buttons, Links, Gradients</small>
+                </span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-accent"></span>
+                <span>
+                  Accent · <code>#a16188</code><br>
+                  <small>Highlights &amp; Badges</small>
+                </span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-sun"></span>
+                <span>
+                  Sun · <code>#fbbf24</code><br>
+                  <small>Sonne &amp; Sticker</small>
+                </span>
+              </div>
+            </div>
+
+            <div class="color-row mt-10">
+              <div class="color-swatch">
+                <span class="swatch-dot" style="background:#0f172a;"></span>
+                <span>
+                  Ink · <code>#0f172a</code><br>
+                  <small>Fließtext / Headlines</small>
+                </span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot" style="background:#f9fafb;"></span>
+                <span>
+                  Surface · <code>#f9fafb</code><br>
+                  <small>Karten- und Seitenhintergründe</small>
+                </span>
+              </div>
+            </div>
+
+            <div class="color-row mt-10">
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-new-900"></span>
+                <span>
+                  Redesign Brand · <code>#0b4aa2</code><br>
+                  <small>Navigation / Trust</small>
+                </span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-new-accent"></span>
+                <span>
+                  Redesign CTA · <code>#f59e0b</code><br>
+                  <small>„Updates erhalten“</small>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Learnings -->
+    <section aria-labelledby="learn-title">
+      <div class="container reveal">
+        <h2 id="learn-title">Learnings</h2>
+        <div class="card">
+          <ul class="clean">
+            <li>
+              <strong>Eine klare Reihenfolge hilft:</strong>
+              Wenn die wichtigsten Infos direkt am Anfang stehen, finden Eltern schneller das,
+              was sie wissen möchten.
+            </li>
+
+            <li>
+              <strong>Kurze und klare Texte funktionieren am besten:</strong>
+              Eine Mischung aus kleinen Absätzen und kurzen Punkten macht die Seite angenehm zu lesen.
+            </li>
+
+            <li>
+              <strong>Vertrauen ist entscheidend:</strong>
+              Logos, Bewertungen und eine sichtbare Kontaktmöglichkeit geben Eltern Sicherheit
+              und machen eine Anfrage wahrscheinlicher.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Media Kampagne -->
+    <section id="social" aria-labelledby="social-title">
+      <div class="container reveal">
+        <h2 id="social-title">Social Media Kampagne</h2>
+        <p class="muted">
+          Kurzüberblick über die Kampagnen-Posts: Datum, Kanal und wie sichtbar sie waren.
+        </p>
+
+        <div class="social-grid" aria-label="Social Media Ergebnisse">
+          <!-- Instagram -->
+          <article class="social-card">
+            <div class="social-date">17.10. &amp; 23.10.2025</div>
+            <div class="social-channel">
+              <i class="fa-brands fa-instagram"></i>
+              <span>Instagram (Reel · Story · Feed)</span>
+            </div>
+            <div class="social-number">≈ 270 Aufrufe · 7 Likes</div>
+            <div class="social-bar" aria-hidden="true">
+              <span style="width:45%"></span>
+            </div>
+            <p class="social-note">
+              Mittlere Reichweite, wenig Interaktion – keine direkte Buchung.
+            </p>
+          </article>
+
+          <!-- Facebook -->
+          <article class="social-card">
+            <div class="social-date">17.10.2025</div>
+            <div class="social-channel">
+              <i class="fa-brands fa-facebook"></i>
+              <span>Facebook (Reel · Story)</span>
+            </div>
+            <div class="social-number">37 Aufrufe · 0 Likes</div>
+            <div class="social-bar" aria-hidden="true">
+              <span style="width:20%"></span>
+            </div>
+            <p class="social-note">
+              Geringe Reichweite, keine Interaktion.<br><br>
+            </p>
+          </article>
+
+          <!-- TikTok -->
+          <article class="social-card">
+            <div class="social-date">05.11.2025</div>
+            <div class="social-channel">
+              <i class="fa-brands fa-tiktok"></i>
+              <span>TikTok (Kurzvideo)</span>
+            </div>
+            <div class="social-number">768 Views · 0 Likes</div>
+            <div class="social-bar" aria-hidden="true">
+              <span style="width:80%"></span>
+            </div>
+            <p class="social-note">
+              Hohe Sichtbarkeit, aber keine direkte Buchung über TikTok.
+            </p>
+          </article>
+        </div>
+
+        <p class="muted mt-14">
+          Fazit: Die Kampagne erzeugt <strong>Reichweite</strong>, aber ohne optimierten Buchungsflow
+          und klaren Call-to-Action bleiben <strong>0 direkte Buchungen über Social Media</strong>.
+        </p>
+
+        <div class="mockup-row" aria-label="Visuals der Social Media Kampagne">
+          <!-- iPhone Story · Deutsch -->
+          <div>
+            <div class="iphone-frame">
+              <div class="iphone-inner">
+                <div class="iphone-notch"></div>
+                <div class="iphone-video-wrap">
+                  <button class="story-toggle" id="story-de-toggle" type="button" aria-label="Deutsche Story abspielen" aria-pressed="false">
+                    <i class="fa-solid fa-play"></i>
+                  </button>
+                  <video
+                    id="story-de-video"
+                    src="story-de.mp4"
+                    preload="metadata"
+                    playsinline
+                  ></video>
+                </div>
+              </div>
+            </div>
+            <div class="story-label">Story-Variante · Deutsch</div>
+          </div>
+
+          <!-- iPhone Story · Türkisch -->
+          <div>
+            <div class="iphone-frame">
+              <div class="iphone-inner">
+                <div class="iphone-notch"></div>
+                <div class="iphone-video-wrap">
+                  <button class="story-toggle" id="story-tr-toggle" type="button" aria-label="Türkische Story abspielen" aria-pressed="false">
+                    <i class="fa-solid fa-play"></i>
+                  </button>
+                  <video
+                    id="story-tr-video"
+                    src="story-tr.mp4"
+                    preload="metadata"
+                    playsinline
+                  ></video>
+                </div>
+              </div>
+            </div>
+            <div class="story-label">Story-Variante · Türkisch</div>
+          </div>
+
+          <!-- Instagram-Post Mockup -->
+          <div>
+            <div class="insta-mockup" aria-label="Instagram Feed-Post Mockup">
+              <div class="insta-header">
+                <div class="insta-user">
+                  <div class="insta-avatar">
+                    <div class="insta-avatar-inner">
+                      <img src="./img/logoreise.png" alt="Logo Reisegesucht" class="insta-avatar-img" loading="lazy">
+                    </div>
+                  </div>
+                  <div>
+                    <div class="insta-username">reisegesucht</div>
+                  </div>
+                </div>
+                <div class="insta-three-dots">
+                  <i class="fa-solid fa-ellipsis"></i>
+                </div>
+              </div>
+              <div class="insta-media">
+                <button class="insta-arrow insta-arrow-left" type="button" aria-label="Vorheriges Bild" id="insta-prev">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button class="insta-arrow insta-arrow-right" type="button" aria-label="Nächstes Bild" id="insta-next">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <img id="insta-slide" src="./img/w1.png" alt="Instagram Post Fußballcamp Antalya" loading="lazy">
+                <div class="insta-carousel-nav" aria-hidden="true">
+                  <span class="insta-dot active" data-dot="0"></span>
+                  <span class="insta-dot" data-dot="1"></span>
+                  <span class="insta-dot" data-dot="2"></span>
+                </div>
+              </div>
+              <div class="insta-footer">
+                <div class="insta-icons">
+                  <div class="insta-icons-left">
+                    <i class="fa-regular fa-heart"></i>
+                    <i class="fa-regular fa-comment"></i>
+                    <i class="fa-regular fa-paper-plane"></i>
+                  </div>
+                  <i class="fa-regular fa-bookmark"></i>
+                </div>
+                <div class="insta-likes">5&nbsp;Gefällt mir (erster Post) + 2&nbsp;Gefällt mir (zweiter Post)</div>
+                <div class="insta-caption">
+                  <strong>reisegesucht</strong> ⚽ VfB Stuttgart Kinder-Fußballcamp 2025/26!
+                  7–14 Jahre | 27.12.25 – 03.01.26 | Türkei 🇹🇷 ... mehr
+                  <div class="insta-link-row">
+                    <span>Original auf Instagram ansehen:</span>
+                    <a href="https://www.instagram.com/p/DQJqno1DVg9/?utm_source=ig_web_copy_link&amp;igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener">
+                      <i class="fa-solid fa-up-right-from-square"></i> Zum Post
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <section>
+      <div class="container reveal">
+        <div class="bottom-nav">
+          <a href="index.html#arbeiten"><i class="fa-solid fa-arrow-left"></i> Zurück zu allen Projekten</a>
+          <div class="flex-row-gap-8">
+            <a class="chip" href="https://fussballcamp-antalya.de" target="_blank" rel="noopener">
+              <i class="fa-solid fa-up-right-from-square"></i> Live ansehen
+            </a>
+            <!-- GitHub-Link bleibt hier ebenfalls unverändert -->
+            <a class="chip" href="HREF_GITHUB_HIER" target="_blank" rel="noopener">
+              <i class="fa-brands fa-github"></i> GitHub-Code
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container frow">
+      <div>© <span id="y"></span> Merve Eser · Fußballcamp Antalya</div>
+      <div class="muted">Landingpage – UX/UI & Frontend</div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Jahr im Footer
+      const yearEl = document.getElementById('y');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      // Mobile-Menü
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('.menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          const isOpen = menu.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        // Menü nach Klick auf beliebigen Link schließen (Mobile UX)
+        menu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (menu.classList.contains('is-open')) {
+              menu.classList.remove('is-open');
+              toggle.setAttribute('aria-expanded', 'false');
+            }
+          });
+        });
+      }
+
+      // Hero-Video Play/Pause
+      const heroVideo = document.getElementById('camp-video');
+      const heroToggleBtn = document.getElementById('camp-video-toggle');
+      if (heroVideo && heroToggleBtn) {
+        const icon = heroToggleBtn.querySelector('i');
+        heroToggleBtn.setAttribute('aria-pressed', 'true');
+
+        heroToggleBtn.addEventListener('click', () => {
+          if (heroVideo.paused) {
+            heroVideo.play();
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
+            heroToggleBtn.setAttribute('aria-label','Video pausieren');
+            heroToggleBtn.setAttribute('aria-pressed','true');
+          } else {
+            heroVideo.pause();
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+            heroToggleBtn.setAttribute('aria-label','Video abspielen');
+            heroToggleBtn.setAttribute('aria-pressed','false');
+          }
+        });
+      }
+
+      // Instagram Carousel
+      const instaImages = ['./img/w1.png','./img/w2.png','./img/w3.png'];
+      let instaIndex = 0;
+      const instaImgEl = document.getElementById('insta-slide');
+      const instaPrev = document.getElementById('insta-prev');
+      const instaNext = document.getElementById('insta-next');
+      const instaDots = document.querySelectorAll('.insta-dot');
+
+      function updateInstaSlide() {
+        if (!instaImgEl) return;
+        instaImgEl.src = instaImages[instaIndex];
+        instaDots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === instaIndex);
+        });
+      }
+
+      if (instaPrev && instaNext && instaImgEl && instaDots.length) {
+        instaPrev.addEventListener('click', () => {
+          instaIndex = (instaIndex - 1 + instaImages.length) % instaImages.length;
+          updateInstaSlide();
+        });
+        instaNext.addEventListener('click', () => {
+          instaIndex = (instaIndex + 1) % instaImages.length;
+          updateInstaSlide();
+        });
+        instaDots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const idx = Number(dot.getAttribute('data-dot'));
+            if (!Number.isNaN(idx)) {
+              instaIndex = idx;
+              updateInstaSlide();
+            }
+          });
+        });
+      }
+
+      // Story-Videos (mit Ton beim Klicken)
+      function setupStoryVideo(videoId, btnId) {
+        const v = document.getElementById(videoId);
+        const b = document.getElementById(btnId);
+        if (!v || !b) return;
+        const icon = b.querySelector('i');
+        b.setAttribute('aria-pressed','false');
+
+        b.addEventListener('click', () => {
+          if (v.paused) {
+            v.muted = false;
+            v.play();
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
+            b.setAttribute('aria-pressed','true');
+          } else {
+            v.pause();
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+            b.setAttribute('aria-pressed','false');
+          }
+        });
+      }
+
+      setupStoryVideo('story-de-video','story-de-toggle');
+      setupStoryVideo('story-tr-video','story-tr-toggle');
+
+      // Fade-Up beim Seitenladen für Hero
+      ['hero-text','hero-media'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          window.requestAnimationFrame(() => {
+            el.classList.add('is-visible');
+          });
+        }
+      });
+
+      // Scroll-Reveal für .reveal-Elemente
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && revealEls.length) {
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+
+        revealEls.forEach(el => obs.observe(el));
+      }
+
+      // Smooth Scroll für interne Anker auf dieser Seite
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+          const targetId = link.getAttribute('href').slice(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            e.preventDefault();
+            const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+            const offset = target.offsetTop - headerOffset;
+            window.scrollTo({
+              top: offset,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

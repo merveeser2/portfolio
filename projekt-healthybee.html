@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Healthybee – Bienenfreundliche Gärten · Case Study</title>
+  <meta name="description" content="Case Study: Healthybee – App-Prototyp für bienenfreundliche Gärten. Domänenrecherche, UX-Konzept und Prototyp-Design." />
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <style>
+    :root{
+      /* =========================
+         COLOR SYSTEM – Healthybee
+         ========================= */
+
+      /* Neutrals */
+      --color-bg:#ffffff;
+      --color-surface:#f9fafb;
+      --color-ink:#111827;
+      --color-muted:#6b7280;
+      --color-border:#e5e7eb;
+
+      /* Brand / Accent (Healthybee) */
+      --color-primary:#15803d;       /* Grün */
+      --color-primary-dark:#116932;
+      --color-accent:#fbbf24;        /* Gelb */
+
+      /* Layout */
+      --radius-lg:22px;
+      --header-h:72px;
+
+      /* Shadows */
+      --shadow-soft:0 10px 30px rgba(15,23,42,.12);
+      --shadow-strong:0 24px 60px rgba(15,23,42,.35);
+
+      /* Typo */
+      --font-family-base: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Noto Sans",Helvetica,Arial,sans-serif;
+      --font-size-body: 1rem;
+      --font-size-body-small: .9rem;
+      --font-size-kicker: .78rem;
+      --font-size-chip: .8rem;
+      --font-size-caption: .82rem;
+
+      --font-size-h1-min: 2rem;
+      --font-size-h1-max: 2.6rem;
+      --font-size-h2-min: 1.5rem;
+      --font-size-h2-max: 2.0rem;
+
+      --line-height-body: 1.6;
+      --line-height-heading: 1.1;
+
+      /* Hero */
+      --color-hero-soft: rgba(21,128,61,.14);
+      --color-hero-wash: rgba(251,191,36,.20);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:var(--font-family-base);
+      background:var(--color-bg);
+      color:var(--color-ink);
+      line-height:var(--line-height-body);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      padding-top:var(--header-h);
+      font-size:var(--font-size-body);
+    }
+    img,video{max-width:100%;display:block}
+    a{color:var(--color-primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    section{padding:56px 0;scroll-margin-top:var(--header-h)}
+    .muted{color:var(--color-muted);font-size:.95rem}
+    ul.clean{margin:0 0 6px;padding-left:1.1em}
+    ul.clean li{margin-bottom:4px}
+
+    .visually-hidden{
+      position:absolute!important;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .mt-10{margin-top:10px;}
+    .mt-14{margin-top:14px;}
+    .flex-row-gap-8{display:flex;gap:8px;flex-wrap:wrap;}
+
+    /* --- Basis-Animationen --- */
+    .fade-up,.reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease-out, transform .6s ease-out;
+    }
+    .fade-up.is-visible,.reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes pulse-soft {
+      0%   { transform: scale(1);   box-shadow:0 14px 40px rgba(15,23,42,.85); }
+      50%  { transform: scale(1.05);box-shadow:0 18px 50px rgba(15,23,42,.95); }
+      100% { transform: scale(1);   box-shadow:0 14px 40px rgba(15,23,42,.85); }
+    }
+
+    /* Header */
+    header.site{
+      position:fixed;top:0;left:0;right:0;
+      height:var(--header-h);
+      background:#fff;
+      border-bottom:1px solid var(--color-border);
+      z-index:950;
+      box-shadow:0 2px 10px rgba(0,0,0,.06);
+    }
+    .nav{
+      height:100%;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;padding:0 20px;
+      position:relative;
+    }
+    .brand{font-weight:800;letter-spacing:.2px}
+    .brand small{display:block;color:var(--color-muted);font-weight:600;margin-top:2px;font-size:.8rem}
+
+    .menu{
+      display:flex;gap:10px;flex-wrap:wrap;font-size:var(--font-size-body-small);
+      align-items:center;
+    }
+    .menu a{padding:7px 11px;border-radius:999px}
+    .menu a:hover{background:var(--color-surface);text-decoration:none}
+
+    .menu-toggle{
+      display:none;
+      border:1px solid var(--color-border);
+      border-radius:999px;
+      background:#fff;
+      padding:8px 10px;
+      font-size:.9rem;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+    }
+    .menu-toggle i{font-size:1rem;}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 14px;border-radius:999px;
+      border:1px solid var(--color-border);background:#fff;
+      cursor:pointer;font-size:var(--font-size-body-small);
+      box-shadow:var(--shadow-soft);
+      transition:background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
+      transform:translateY(0);
+    }
+    .btn.primary{
+      background:var(--color-primary);
+      color:#fff;border-color:transparent;
+    }
+    .btn.primary:hover{
+      background:var(--color-primary-dark);
+      box-shadow:0 18px 40px rgba(21,128,61,.28);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+    .btn.ghost{box-shadow:none;background:#fff}
+    .btn.ghost:hover{
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .chip{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--color-border);
+      background:var(--color-surface);
+      font-size:var(--font-size-chip);
+      color:var(--color-muted);
+      white-space:nowrap;
+      transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .chip i{color:var(--color-primary);}
+    .chip:hover{
+      background:#fff;
+      transform:translateY(-1px);
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+    }
+
+    /* HERO */
+    .hero{
+      background:
+        radial-gradient(800px 480px at -20% -20%, var(--color-hero-soft) 0%, transparent 60%),
+        radial-gradient(900px 520px at 120% 110%, var(--color-hero-wash) 0%, transparent 60%),
+        #ffffff;
+      border-bottom:1px solid var(--color-border);
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;
+      padding:50px 0 40px;
+    }
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr;gap:30px}
+    }
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:var(--font-size-kicker);
+      color:var(--color-muted);
+    }
+    h1{
+      margin:.5rem 0 .7rem;
+      font-size:clamp(var(--font-size-h1-min),3.2vw,var(--font-size-h1-max));
+      line-height:var(--line-height-heading);
+    }
+    section h2{
+      font-size:clamp(var(--font-size-h2-min),2.6vw,var(--font-size-h2-max));
+      margin:0 0 14px;
+    }
+    .accent{
+      background:linear-gradient(90deg,var(--color-primary) 0%, var(--color-accent) 70%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      font-weight:800;
+    }
+    .lead{
+      color:#374151;
+      font-size:1.02rem;
+      max-width:60ch;
+    }
+    .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+    .hero-highlight{
+      margin-top:18px;display:grid;gap:10px;
+    }
+    .hero-highlight-card{
+      border-radius:16px;padding:10px 12px;
+      background:#fff;border:1px solid var(--color-border);
+      box-shadow:0 8px 26px rgba(15,23,42,.06);
+      font-size:var(--font-size-body-small);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .hero-highlight-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 34px rgba(15,23,42,.1);
+    }
+    .hero-highlight-card b{display:block;margin-bottom:2px}
+
+    /* Cards / Grids */
+    .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+    @media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+    .card{
+      border-radius:18px;border:1px solid var(--color-border);background:#fff;
+      padding:18px 16px;box-shadow:var(--shadow-soft);font-size:.95rem;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+
+    .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px;font-size:.9rem}
+    @media(max-width:900px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){.meta-grid{grid-template-columns:1fr}}
+    .meta-card{
+      border-radius:16px;border:1px solid var(--color-border);background:#fff;
+      padding:10px 12px;box-shadow:0 8px 22px rgba(15,23,42,.04);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .meta-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(15,23,42,.08);
+    }
+    .meta-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--color-muted);margin-bottom:3px}
+    .meta-value{font-weight:600}
+
+    /* Style Section */
+    .style-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:10px}
+    @media(max-width:900px){.style-grid{grid-template-columns:1fr}}
+    .type-card,.color-card{
+      border-radius:18px;border:1px solid var(--color-border);
+      background:#fff;padding:14px 16px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .type-card:hover,.color-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+    .type-sample-title{font-size:1.1rem;font-weight:700;margin-bottom:4px}
+    .type-sample-body{font-size:.95rem;margin-top:4px}
+    .color-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+    .color-swatch{
+      display:flex;align-items:center;gap:10px;
+      border-radius:999px;
+      padding:6px 10px;
+      border:1px solid var(--color-border);
+      font-size:.85rem;
+    }
+    .swatch-dot{width:18px;height:18px;border-radius:999px;border:1px solid #e5e7eb;}
+    .swatch-primary{background:var(--color-primary);}
+    .swatch-accent{background:var(--color-accent);}
+    .swatch-surface{background:var(--color-surface);}
+
+    /* Hero Media Card */
+    .hero-media-card{
+      border-radius:24px;
+      background:#fff;
+      box-shadow:var(--shadow-strong);
+      overflow:hidden;
+      border:1px solid var(--color-border);
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .hero-media-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 30px 70px rgba(15,23,42,.35);
+    }
+    .hero-media-main{
+      position:relative;
+      background:#fff;
+      border-bottom:1px solid var(--color-border);
+      padding:14px 14px 16px;
+    }
+    .hero-media-caption{
+      padding:10px 14px 12px;
+      font-size:.85rem;
+      color:var(--color-muted);
+      text-align:center;
+    }
+
+    /* iPhone Mockup (aus deinem Code, leicht harmonisiert) */
+    .mockup-scene{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .iphone-frame{
+      position:relative;
+      max-width:260px;
+      width:100%;
+      aspect-ratio:9 / 19.5;
+      border-radius:42px;
+      padding:5px;
+      background:linear-gradient(145deg,#f9fafb,#d1d5db);
+      box-shadow:0 22px 40px rgba(15,23,42,.3), 0 0 0 1px rgba(148,163,184,.7);
+      animation:phoneFloat 6s ease-in-out infinite;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    @keyframes phoneFloat{
+      0%   { transform:translateY(0); }
+      50%  { transform:translateY(-8px); }
+      100% { transform:translateY(0); }
+    }
+    .hero-media-card:hover .iphone-frame{
+      animation-play-state:paused;
+      transform:translateY(-4px);
+      box-shadow:0 28px 55px rgba(15,23,42,.36), 0 0 0 1px rgba(148,163,184,.85);
+    }
+
+    .iphone-frame::before,
+    .iphone-frame::after{
+      content:"";
+      position:absolute;
+      left:-3px;
+      width:4px;
+      border-radius:999px;
+      background:linear-gradient(to bottom,#9ca3af,#6b7280);
+      opacity:.9;
+    }
+    .iphone-frame::before{
+      top:60px;height:34px;
+      box-shadow:0 44px 0 0 rgba(107,114,128,.98);
+    }
+    .iphone-frame::after{top:130px;height:52px;}
+
+    .iphone-bezel{
+      position:relative;
+      width:100%;
+      height:100%;
+      border-radius:36px;
+      background:#020617;
+      padding:7px;
+      box-shadow:inset 0 0 0 1px rgba(15,23,42,.85);
+      overflow:hidden;
+    }
+
+    .iphone-notch{
+      position:absolute;
+      top:9px;
+      left:50%;
+      transform:translateX(-50%);
+      width:84px;height:20px;border-radius:999px;
+      background:#020617;
+      box-shadow:0 4px 8px rgba(15,23,42,.9), 0 0 0 1px rgba(15,23,42,.9);
+      z-index:2;
+    }
+    .iphone-notch::before{
+      content:"";
+      position:absolute;top:5px;left:15px;
+      width:8px;height:8px;border-radius:999px;
+      background:radial-gradient(circle at 30% 30%,#e5e7eb 0,#1f2937 45%,#020617 100%);
+    }
+    .iphone-notch::after{
+      content:"";
+      position:absolute;top:7px;right:16px;
+      width:26px;height:3px;border-radius:999px;
+      background:linear-gradient(to right,#4b5563,#9ca3af);
+      opacity:.9;
+    }
+
+    .iphone-screen{
+      position:relative;
+      width:100%;
+      height:100%;
+      border-radius:27px;
+      overflow:hidden;
+      background:#000;
+    }
+
+    .phone-video{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:contain;
+      background:#000;
+    }
+
+    .hero-video-toggle{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      z-index:3;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      background:rgba(15,23,42,.96);
+      color:#e5e7eb;
+      box-shadow:0 14px 40px rgba(15,23,42,.9);
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease, opacity .2s ease;
+      animation:pulse-soft 2.4s ease-in-out infinite;
+    }
+    .hero-video-toggle:hover{
+      transform:translateY(-1px);
+      box-shadow:0 20px 55px rgba(15,23,42,.95);
+      background:#020617;
+      animation:none;
+    }
+    .hero-video-toggle i{font-size:1rem;}
+
+    .iphone-home{
+      position:absolute;
+      bottom:8px;
+      left:50%;
+      transform:translateX(-50%);
+      width:56px;
+      height:3.5px;
+      border-radius:999px;
+      background:radial-gradient(circle at top,#e5e7eb,#9ca3af);
+      opacity:.9;
+      z-index:3;
+    }
+
+    @media (max-width:640px){
+      .iphone-frame{max-width:220px;}
+    }
+
+    /* Bottom Nav + Footer */
+    .bottom-nav{
+      margin-top:32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      font-size:.9rem;
+      border-top:1px solid var(--color-border);
+      padding-top:16px;
+      flex-wrap:wrap;
+    }
+
+    footer{
+      border-top:1px solid var(--color-border);
+      padding:18px 0 26px;
+      background:var(--color-surface);
+      margin-top:40px;
+      font-size:.88rem;
+    }
+    footer .frow{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:10px;flex-wrap:wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px){
+      body{padding-top:64px;}
+      section{padding:40px 0;}
+      .nav{padding:0 14px;}
+      .menu-toggle{display:inline-flex;}
+      .menu{
+        position:absolute;
+        top:100%;
+        right:0;
+        left:0;
+        background:#fff;
+        border-bottom:1px solid var(--color-border);
+        padding:8px 16px 12px;
+        flex-direction:column;
+        gap:4px;
+        display:none;
+      }
+      .menu.is-open{display:flex;}
+      .menu a{width:100%;text-align:left;padding:8px 10px;}
+      .hero-grid{padding:40px 0 30px;}
+      .hero-actions .btn,
+      .hero-meta .chip{width:100%;justify-content:center;}
+      .bottom-nav{flex-direction:column;align-items:flex-start;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+
+<body id="top">
+  <!-- Header -->
+  <header class="site" role="banner">
+    <div class="nav">
+      <div class="brand">
+        Merve Eser
+        <small>UX/UI · Product Design</small>
+      </div>
+
+      <button class="menu-toggle" type="button" aria-label="Navigation öffnen" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+        <span>Menü</span>
+      </button>
+
+      <nav class="menu" aria-label="Hauptnavigation">
+        <a href="index.html#arbeiten">Zur Übersicht</a>
+        <a href="#ctx-title">Kontext</a>
+        <a href="#concept-title">Konzept</a>
+        <a href="#style-title">Style</a>
+        <a href="#learn-title">Learnings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <!-- Text -->
+        <div class="fade-up" id="hero-text">
+          <div class="kicker">UX Case Study · Nachhaltigkeit</div>
+          <h1 id="hero-title">
+            Healthybee – <span class="accent">bienenfreundliche Gärten</span>
+          </h1>
+
+          <p class="lead">
+            Healthybee unterstützt Nutzer*innen dabei, Gärten und Balkone bienenfreundlicher zu gestalten.
+            Die App verbindet Pflanzenwahl, Blühzeiten und ökologische Kennzahlen wie unterstützte Bienen
+            und eingespartes CO₂.
+          </p>
+
+          <div class="hero-meta">
+            <span class="chip"><i class="fa-solid fa-leaf"></i> Öko-Features</span>
+            <span class="chip"><i class="fa-solid fa-globe"></i> Domänenrecherche</span>
+            <span class="chip"><i class="fa-brands fa-figma"></i> Prototyp</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#concept-title">
+              <i class="fa-solid fa-diagram-project"></i> Konzept ansehen
+            </a>
+            <a class="btn ghost" href="index.html#arbeiten">
+              <i class="fa-solid fa-arrow-left"></i> Zur Übersicht
+            </a>
+          </div>
+
+          <div class="hero-highlight">
+            <div class="hero-highlight-card">
+              <b>Ziel</b>
+              Eine App, die <strong>konkret zeigt, wie Pflanzenwahl Bienen unterstützt</strong> –
+              mit verständlichen Kennzahlen statt abstrakter Nachhaltigkeitsversprechen.
+            </div>
+            <div class="hero-highlight-card">
+              <b>Ergebnis</b>
+              Ein Prototyp, in dem Nutzer*innen Pflanzen und Bienenweiden auswählen, Blüh- und Erntezeiten prüfen
+              und einen Eindruck vom ökologischen Impact ihrer Entscheidungen erhalten.
+            </div>
+          </div>
+
+          <div class="hero-highlight mt-14">
+            <div class="hero-highlight-card">
+              <b>KPIs (Beispiel / Platzhalter)</b>
+              <ul class="clean">
+                <li>„X simulierte Bienen pro Saison unterstützt“</li>
+                <li>„geschätztes eingespartes CO₂ pro Jahr“</li>
+              </ul>
+              <p class="muted mt-10" style="margin:0;">
+                Reale Berechnungen könnten später über Datenquellen, Excel/Sheets oder Modelle ergänzt werden.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Media -->
+        <aside aria-label="Healthybee Prototyp Video" class="fade-up" id="hero-media">
+          <div class="hero-media-card">
+            <div class="hero-media-main">
+              <p id="hb-video-desc" class="visually-hidden">
+                Screenrecording des Healthybee-Prototyps, eingebettet in ein iPhone-Mockup.
+              </p>
+
+              <div class="mockup-scene">
+                <div class="iphone-frame">
+                  <div class="iphone-bezel">
+                    <div class="iphone-notch"></div>
+
+                    <!-- Toggle -->
+                    <button class="hero-video-toggle" id="hb-video-toggle" type="button" aria-label="Video abspielen" aria-pressed="false">
+                      <i class="fa-solid fa-play"></i>
+                    </button>
+
+                    <div class="iphone-screen">
+                      <video
+                        id="hb-video"
+                        class="phone-video"
+                        src="healty.mp4"
+                        muted
+                        playsinline
+                        preload="metadata"
+                        aria-describedby="hb-video-desc"
+                      ></video>
+                    </div>
+
+                    <div class="iphone-home"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-media-caption">
+              Screen-Recording des Healthybee-Prototyps im animierten iPhone-Mockup.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Projektkontext & Rolle -->
+    <section aria-labelledby="ctx-title">
+      <div class="container reveal">
+        <h2 id="ctx-title">Projektkontext & Rolle</h2>
+
+        <div class="meta-grid">
+          <div class="meta-card">
+            <div class="meta-label">Projekt</div>
+            <div class="meta-value">Healthybee · App-Prototyp</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Rolle</div>
+            <div class="meta-value">UX-Konzept · Research · Prototyp</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Fokus</div>
+            <div class="meta-value">Blühzeiten · Impact-Kennzahlen</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Status</div>
+            <div class="meta-value">Konzept / Prototype</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Ausgangslage</h3>
+            <p>
+              Ausgangspunkt war eine <strong>Domänenrecherche</strong>:
+              Welche Pflanzen sind bienenfreundlich? Wie hängen Blühzeiten, Nahrungsangebot und Bienenpopulation zusammen?
+              Daraus wurden zentrale Objekte abgeleitet (Pflanzen, Blühfenster, Nektar-/Pollenangebot, regionale Unterschiede).
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Wichtige Anforderungen</h3>
+            <ul class="clean">
+              <li>Einfache Auswahl von Pflanzen / Bienenweiden.</li>
+              <li>Visualisierung von <strong>Blüh- und Erntezeiten</strong> über das Jahr.</li>
+              <li>Vereinfachtes Modell: „Wie viele Bienen profitieren ungefähr?“</li>
+              <li>Kommunikation des Nutzens z.B. als „eingespartes CO₂“.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Konzept -->
+    <section aria-labelledby="concept-title">
+      <div class="container reveal">
+        <h2 id="concept-title">Konzeptbeschreibung</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Was Nutzer*innen tun</h3>
+            <ul class="clean">
+              <li><strong>Bienenweiden & Pflanzen</strong> auswählen und kombinieren.</li>
+              <li><strong>Blühzeiten</strong> über das Jahr visualisieren, um Versorgungslücken zu vermeiden.</li>
+              <li><strong>Impact</strong> als Kennzahlen (Bienen / CO₂) verständlich darstellen.</li>
+            </ul>
+            <p class="muted mt-10">
+              Ziel ist ein „Aha“-Moment: Kleine Entscheidungen (Pflanzenwahl) werden direkt spürbar.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Warum das funktioniert</h3>
+            <ul class="clean">
+              <li>Komplexe Öko-Themen werden in <strong>handlungsnahe Schritte</strong> übersetzt.</li>
+              <li>Der Jahresverlauf (Blühfenster) macht Planung sichtbar.</li>
+              <li>Kennzahlen sind Motivation: „Ich habe heute wirklich etwas unterstützt.“</li>
+            </ul>
+            <p class="muted mt-10">
+              KPIs bleiben hier bewusst als Beispiel-Platzhalter – das Konzept zeigt aber bereits, wie man sie reporten könnte.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typografie & Farben -->
+    <section aria-labelledby="style-title">
+      <div class="container reveal">
+        <h2 id="style-title">Typografie & Farben</h2>
+        <p class="muted">
+          Fokus auf natürliches Grün (Pflanzen) plus warmes Gelb (Biene) – ruhig, freundlich und klar.
+        </p>
+
+        <div class="style-grid">
+          <div class="type-card">
+            <h3>Typografie</h3>
+            <div class="type-sample-title">Titel – System Sans / Bold</div>
+            <div class="type-sample-body">
+              Body – System Sans / Regular.<br>
+              Der Stil bleibt bewusst schlicht, damit Datenvisualisierung und Inhalte im Vordergrund stehen.
+            </div>
+          </div>
+
+          <div class="color-card">
+            <h3>Farben</h3>
+            <div class="color-row">
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-primary"></span>
+                <span><strong>Primary</strong><br><small>Grün – Natur & Pflanzen</small></span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-accent"></span>
+                <span><strong>Accent</strong><br><small>Gelb – Bienen & Highlights</small></span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-surface"></span>
+                <span><strong>Surface</strong><br><small>Hintergründe & Karten</small></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Learnings -->
+    <section aria-labelledby="learn-title">
+      <div class="container reveal">
+        <h2 id="learn-title">Learnings</h2>
+        <div class="card">
+          <ul class="clean">
+            <li>Umwelt-Themen profitieren von konkreten, greifbaren Kennzahlen statt rein abstrakten Aussagen.</li>
+            <li>Die Kombination aus Wissenschaft (z.B. Blühzeiten) und UX erfordert enge Abstimmung mit Expert*innen.</li>
+            <li>Gute Visualisierung (z.B. Jahresverlauf der Blühzeiten) motiviert Nutzer*innen, tatsächlich aktiv zu werden.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <section>
+      <div class="container reveal">
+        <div class="bottom-nav">
+          <a href="index.html#arbeiten"><i class="fa-solid fa-arrow-left"></i> Zurück zu allen Projekten</a>
+          <div class="flex-row-gap-8">
+            <a class="chip" href="#top"><i class="fa-solid fa-arrow-up"></i> Nach oben</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container frow" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div>© <span id="y"></span> Merve Eser · Healthybee</div>
+      <div class="muted">UX Case Study – Prototyp</div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Jahr im Footer
+      const yearEl = document.getElementById('y');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // Mobile-Menü
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('.menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          const isOpen = menu.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        menu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (menu.classList.contains('is-open')) {
+              menu.classList.remove('is-open');
+              toggle.setAttribute('aria-expanded', 'false');
+            }
+          });
+        });
+      }
+
+      // Hero-Video Toggle (iPhone)
+      const v = document.getElementById('hb-video');
+      const b = document.getElementById('hb-video-toggle');
+      if (v && b) {
+        const icon = b.querySelector('i');
+        b.setAttribute('aria-pressed','false');
+
+        const setState = (playing) => {
+          if (!icon) return;
+          icon.classList.toggle('fa-play', !playing);
+          icon.classList.toggle('fa-pause', playing);
+          b.setAttribute('aria-pressed', playing ? 'true' : 'false');
+          b.setAttribute('aria-label', playing ? 'Video pausieren' : 'Video abspielen');
+        };
+
+        // Start: paused
+        setState(false);
+
+        b.addEventListener('click', () => {
+          if (v.paused) {
+            v.play().catch(() => {});
+            setState(true);
+          } else {
+            v.pause();
+            setState(false);
+          }
+        });
+      }
+
+      // Fade-Up beim Seitenladen für Hero
+      ['hero-text','hero-media'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) window.requestAnimationFrame(() => el.classList.add('is-visible'));
+      });
+
+      // Scroll-Reveal für .reveal-Elemente
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && revealEls.length) {
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        revealEls.forEach(el => obs.observe(el));
+      }
+
+      // Smooth Scroll für interne Anker
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+          const targetId = link.getAttribute('href').slice(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            e.preventDefault();
+            const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+            const offset = target.offsetTop - headerOffset;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

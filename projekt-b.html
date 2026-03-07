@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terra Hotel Broschüre – Print & Web · Merve Eser</title>
+  <meta name="description" content="Terra Hotel Broschüre in einfacher Sprache – Gestaltung in Canva, Print, PDF und interaktive Buch-Darstellung im Web von Merve Eser." />
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <style>
+    :root{
+      /* ===== Farb- & Layoutsystem – Terra-Hotel-Case ===== */
+
+      /* Neutrals */
+      --color-bg:#f5f7fb;
+      --color-surface:#ffffff;
+      --color-ink:#0b1020;
+      --color-muted:#6b7280;
+      --color-border:#d4d7e8;
+
+      /* Brand / Accent – komplett auf Blau */
+      --color-primary:#1b1e74;         /* dein Button-Blau */
+      --color-primary-dark:#141654;
+      --color-accent:#4b50c9;          /* helleres Blau als Akzent */
+
+      /* Feedback */
+      --color-success:#16a34a;
+      --color-danger:#dc2626;
+
+      /* Shadows & Radius */
+      --shadow-soft:0 10px 30px rgba(15,23,42,.12);
+      --shadow-card:0 6px 18px rgba(15,23,42,.08);
+      --radius-lg:22px;
+      --header-h:72px;
+
+      /* Typo */
+      --font-family-base: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Noto Sans",Helvetica,Arial,sans-serif;
+
+      --font-size-body: 1rem;
+      --font-size-body-small:.9rem;
+      --font-size-kicker:.78rem;
+      --font-size-chip:.8rem;
+      --font-size-caption:.82rem;
+
+      --font-size-h1-min:2rem;
+      --font-size-h1-max:2.4rem;
+      --font-size-h2-min:1.4rem;
+      --font-size-h2-max:1.9rem;
+
+      --line-height-body:1.6;
+      --line-height-heading:1.1;
+
+      /* Blink CTA Ring */
+      --blink-ring: rgba(75,80,201,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--font-family-base);
+      background:var(--color-bg);
+      color:var(--color-ink);
+      line-height:var(--line-height-body);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      padding-top:var(--header-h);
+      font-size:var(--font-size-body);
+    }
+    img,video{max-width:100%;display:block}
+    a{color:var(--color-primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    section{padding:56px 0;scroll-margin-top:var(--header-h)}
+
+    .visually-hidden{
+      position:absolute!important;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .mt-10{margin-top:10px;}
+    .mt-14{margin-top:14px;}
+    .text-0-9{font-size:.9rem;}
+    .flex-row-gap-8{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    /* ===== Basis-Animationen ===== */
+    .fade-up,
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease-out, transform .6s ease-out;
+    }
+    .fade-up.is-visible,
+    .reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* =========================
+       Blink Button (wie Referenz)
+       ========================= */
+    @keyframes blinkGlow{
+      0%,100%{ box-shadow:0 0 0 0 rgba(75,80,201,0), 0 14px 34px rgba(2,6,23,.18); transform:translateY(0); }
+      50%{ box-shadow:0 0 0 6px var(--blink-ring), 0 20px 44px rgba(2,6,23,.22); transform:translateY(-1px); }
+    }
+    .btn.blink{
+      background: var(--color-accent);
+      color:#0b1020;
+      border-color:transparent;
+      box-shadow:0 14px 34px rgba(2,6,23,.18);
+      animation:blinkGlow 1.6s ease-in-out infinite;
+      font-weight:800;
+    }
+    .btn.blink:hover{
+      filter:brightness(1.03);
+      text-decoration:none;
+      animation:none;
+    }
+
+    /* ===== Header / Navigation ===== */
+    header.site{
+      position:fixed;top:0;left:0;right:0;
+      height:var(--header-h);
+      background:#fff;
+      border-bottom:1px solid var(--color-border);
+      z-index:950;
+      box-shadow:0 2px 10px rgba(0,0,0,.06);
+    }
+    .nav{
+      height:100%;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;padding:0 20px;
+      position:relative;
+    }
+    .brand{font-weight:800;letter-spacing:.2px}
+    .brand small{display:block;color:var(--color-muted);font-weight:600;margin-top:2px;font-size:.8rem}
+
+    .menu{
+      display:flex;gap:10px;flex-wrap:wrap;font-size:var(--font-size-body-small);
+      align-items:center;
+    }
+    .menu a{padding:7px 11px;border-radius:999px}
+    .menu a:hover{background:var(--color-surface);text-decoration:none}
+
+    .menu-toggle{
+      display:none;
+      border:1px solid var(--color-border);
+      border-radius:999px;
+      background:#fff;
+      padding:8px 10px;
+      font-size:.9rem;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+    }
+    .menu-toggle i{font-size:1rem;}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 14px;border-radius:999px;
+      border:1px solid var(--color-border);background:#fff;
+      cursor:pointer;font-size:var(--font-size-body-small);
+      box-shadow:var(--shadow-soft);
+      transition:background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
+      transform:translateY(0);
+    }
+    .btn.primary{
+      background:var(--color-primary);
+      color:#fff;
+      border-color:transparent;
+    }
+    .btn.primary:hover{
+      background:var(--color-primary-dark);
+      box-shadow:0 18px 40px rgba(15,23,42,.3);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+    .btn.ghost{box-shadow:none;background:#fff}
+    .btn.ghost:hover{
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .chip{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--color-border);
+      background:var(--color-surface);
+      font-size:var(--font-size-chip);
+      color:var(--color-muted);
+      white-space:nowrap;
+      transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .chip i{color:var(--color-primary);}
+    .chip:hover{
+      background:#fff;
+      transform:translateY(-1px);
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+      text-decoration:none;
+    }
+
+    /* ===== HERO ===== */
+    .hero{
+      background:
+        radial-gradient(900px 520px at -20% -20%, rgba(75,80,201,.25) 0%, transparent 60%),
+        radial-gradient(950px 520px at 120% 110%, rgba(27,30,116,.5) 0%, transparent 60%),
+        #f5f7fb;
+      border-bottom:1px solid var(--color-border);
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.05fr 1.1fr;gap:40px;align-items:center;
+      padding:50px 0 40px;
+    }
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr;gap:30px}
+    }
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:var(--font-size-kicker);
+      color:var(--color-muted);
+    }
+    h1{
+      margin:.5rem 0 .7rem;
+      font-size:clamp(var(--font-size-h1-min),3vw,var(--font-size-h1-max));
+      line-height:var(--line-height-heading);
+    }
+    section h2{
+      font-size:clamp(var(--font-size-h2-min),2.4vw,var(--font-size-h2-max));
+      margin:0 0 14px;
+    }
+    .accent{
+      background:linear-gradient(90deg,var(--color-primary) 0%, var(--color-accent) 70%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      font-weight:800;
+    }
+    .lead{
+      color:#1f2937;
+      font-size:1.02rem;
+      max-width:60ch;
+    }
+    .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+    .hero-highlight{margin-top:18px;display:grid;gap:10px}
+    .hero-highlight-card{
+      border-radius:16px;padding:10px 12px;
+      background:#fff;border:1px solid var(--color-border);
+      box-shadow:0 8px 26px rgba(15,23,42,.06);
+      font-size:var(--font-size-body-small);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .hero-highlight-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 34px rgba(15,23,42,.1);
+    }
+    .hero-highlight-card b{display:block;margin-bottom:2px}
+
+    .muted{color:var(--color-muted);font-size:.95rem}
+
+    /* Logo */
+    .terra-logo {
+      height: 42px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    #hero-book .terra-logo {
+      height: 36px;
+      margin-bottom: 10px;
+      opacity: .95;
+    }
+
+    /* ===== Buch-Hero ===== */
+    #hero-book{width:100%;}
+    #hero-book .hero-book-card{
+      background:linear-gradient(135deg,#151742,#222a7c);
+      border-radius:var(--radius-lg);
+      padding:18px;
+      box-shadow:var(--shadow-card);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    #hero-book .hero-book-main{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .book{
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      background: #0f122f;
+      border-radius: 20px;
+      border: 1px solid rgba(249,250,251,.14);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 18px;
+      overflow: hidden;
+      perspective: 2000px;
+    }
+    .book::before{
+      content: "";
+      position: absolute;
+      top: 16px;
+      bottom: 16px;
+      left: 50%;
+      width: 4px;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(255,255,255,.22), rgba(0,0,0,.35));
+      opacity: .65;
+      pointer-events: none;
+      border-radius: 999px;
+    }
+
+    .book-pages{
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #1c2145;
+    }
+
+    .book-page{
+      position: absolute;
+      inset: 0;
+      display: flex;
+      pointer-events: none;
+      opacity: 0;
+      transition:opacity .3s ease-out;
+    }
+    .book-page.active{
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .book-side{
+      flex: 1;
+      overflow: hidden;
+      background: #0b0f25;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    .book-side.single{flex: 1 1 100%;}
+    .book-side img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      backface-visibility: hidden;
+    }
+
+    /* Flip vorwärts (rechte Seite klappt nach links) */
+    .book-page.anim-next .book-side:last-child{
+      animation: flipRight 0.7s ease forwards;
+      transform-origin: right center;
+    }
+    /* Flip zurück (linke Seite klappt nach rechts) */
+    .book-page.anim-prev .book-side:first-child{
+      animation: flipLeft 0.7s ease forwards;
+      transform-origin: left center;
+    }
+
+    @keyframes flipRight{
+      0% { transform: rotateY(0); }
+      50% { transform: rotateY(-90deg); }
+      100% { transform: rotateY(-180deg); }
+    }
+    @keyframes flipLeft{
+      0% { transform: rotateY(0); }
+      50% { transform: rotateY(90deg); }
+      100% { transform: rotateY(180deg); }
+    }
+
+    /* Pfeile links/rechts IM Buch */
+    .book-nav-arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      background: rgba(15,23,42,0.85);
+      color:#fff;
+      border: 1px solid rgba(255,255,255,.5);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: 0.2s ease;
+    }
+    .book-nav-arrow:hover:not(:disabled){
+      background: rgba(20,22,84,1);
+      box-shadow: 0 12px 30px rgba(0,0,0,.45);
+      transform: translateY(-50%) translateY(-1px);
+    }
+    .book-nav-arrow:disabled{
+      opacity:.35;
+      cursor:default;
+      box-shadow:none;
+    }
+    .left-arrow{left: -80px;}
+    .right-arrow{right: -80px;}
+    @media(max-width:900px){
+      .left-arrow{left:8px;}
+      .right-arrow{right:8px;}
+    }
+
+    .book-controls{
+      margin-top:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      font-size:.9rem;
+      flex-wrap:wrap;
+    }
+
+    .book-controls button{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    /* Buttons im Buchbereich in Blau */
+    #hero-book .book-controls button{
+      background: #1b1e74;
+      border-color: #1b1e74;
+      color: #fff;
+    }
+    #hero-book .book-controls button:not(:disabled):hover{
+      background: #141654;
+      border-color: #141654;
+    }
+
+    /* Blautönige Typo im Buchbereich */
+    #hero-book .book-page-indicator,
+    #hero-book .hero-book-note{
+      color: #cbd2ff;
+    }
+
+    /* ===== Grids & Cards ===== */
+    .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+    @media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+    .card{
+      border-radius:18px;border:1px solid var(--color-border);background:#fff;
+      padding:18px 16px;box-shadow:var(--shadow-soft);font-size:.95rem;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+
+    .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px;font-size:.9rem}
+    @media(max-width:900px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){.meta-grid{grid-template-columns:1fr}}
+    .meta-card{
+      border-radius:16px;border:1px solid var(--color-border);background:#fff;
+      padding:10px 12px;box-shadow:0 8px 22px rgba(15,23,42,.04);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .meta-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(15,23,42,.08);
+    }
+    .meta-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--color-muted);margin-bottom:3px}
+    .meta-value{font-weight:600}
+
+    ul.clean{margin:0 0 6px;padding-left:1.1em}
+    ul.clean li{margin-bottom:4px}
+
+    /* ===== Style-Section ===== */
+    .style-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:10px}
+    @media(max-width:900px){.style-grid{grid-template-columns:1fr}}
+
+    .type-card,.color-card{
+      border-radius:18px;border:1px solid var(--color-border);
+      background:#fff;padding:14px 16px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .type-card:hover,.color-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+    .type-sample-title{font-size:1.35rem;font-weight:700;margin-bottom:4px}
+    .type-sample-body{font-size:.95rem;margin-top:4px}
+
+    .color-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+    .color-swatch{
+      display:flex;align-items:center;gap:10px;
+      border-radius:999px;
+      padding:6px 10px;
+      border:1px solid var(--color-border);
+      font-size:.85rem;
+    }
+    .swatch-dot{
+      width:18px;height:18px;border-radius:999px;border:1px solid #e5e7eb;
+    }
+    .swatch-primary{background:var(--color-primary);}
+    .swatch-accent{background:var(--color-accent);}
+    .swatch-surface{background:var(--color-surface);}
+
+    /* ===== Bottom Nav & Footer ===== */
+    .bottom-nav{
+      margin-top:32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      font-size:.9rem;
+      border-top:1px solid var(--color-border);
+      padding-top:16px;
+      flex-wrap:wrap;
+    }
+    footer{
+      border-top:1px solid var(--color-border);
+      padding:18px 0 26px;
+      background:var(--color-surface);
+      margin-top:40px;
+      font-size:.88rem;
+    }
+    footer .frow{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:10px;flex-wrap:wrap;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px){
+      body{padding-top:64px;}
+      section{padding:40px 0;}
+      .nav{padding:0 14px;}
+      .menu-toggle{display:inline-flex;}
+      .menu{
+        position:absolute;
+        top:100%;
+        right:0;
+        left:0;
+        background:#fff;
+        border-bottom:1px solid var(--color-border);
+        padding:8px 16px 12px;
+        flex-direction:column;
+        gap:4px;
+        display:none;
+      }
+      .menu.is-open{display:flex;}
+      .menu a{
+        width:100%;
+        text-align:left;
+        padding:8px 10px;
+      }
+      .hero-grid{padding:40px 0 30px;}
+      .hero-actions .btn,
+      .hero-meta .chip{
+        width:100%;
+        justify-content:center;
+      }
+      .bottom-nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      /* Buchpfeile mobil bleiben sichtbar */
+      .left-arrow{left:8px;}
+      .right-arrow{right:8px;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+
+<body id="top">
+  <!-- Header -->
+  <header class="site" role="banner">
+    <div class="nav">
+      <div class="brand">
+        Merve Eser
+        <small>UX/UI · Product Design</small>
+      </div>
+
+      <button class="menu-toggle" type="button" aria-label="Navigation öffnen" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+        <span>Menü</span>
+      </button>
+
+      <!-- Struktur wie Referenz: Übersicht + Sprungmarken -->
+      <nav class="menu" aria-label="Hauptnavigation">
+        <a href="index.html#arbeiten">Zur Übersicht</a>
+        <a href="#terra-broschuere">Broschüre</a>
+        <a href="#ctx">Kontext</a>
+        <a href="#flow">Lösung</a>
+        <a href="#proc">Prozess</a>
+        <a href="#style">Styles</a>
+        <a href="#learn">Learnings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <!-- Text -->
+        <div class="fade-up" id="hero-text">
+          <img src="img/logoterra.png" alt="Terra Hotel Logo" class="terra-logo">
+          <div class="kicker">Print & Web Case Study · Terra Hotel</div>
+          <h1 id="hero-title">
+            Terra Hotel – <span class="accent">Ankommen wie in einer anderen Welt</span>
+          </h1>
+          <p class="lead">
+            <strong>Terra</strong> bedeutet „Welt“ – und genau dieses Gefühl
+            soll das fiktive <strong>Terra Hotel</strong> in Köln-Porz auslösen:
+            Man kommt in der Stadt an, aber fühlt sich, als würde man in ein
+            anderes Land oder in einen ruhigen Abenteuerfilm hineingehen.
+          </p>
+          <p class="lead">
+            In Canva habe ich eine Broschüre in
+            <strong>einfacher Sprache</strong> gestaltet und sie anschließend
+            als <strong>interaktives Buch</strong> ins Web übertragen.
+          </p>
+
+          <div class="hero-meta">
+            <span class="chip">
+              <i class="fa-solid fa-print"></i>
+              Print & PDF
+            </span>
+            <span class="chip">
+              <i class="fa-regular fa-calendar"></i>
+              2025
+            </span>
+            <span class="chip">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              Layout in Canva
+            </span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn blink" href="#terra-broschuere">
+              <i class="fa-solid fa-book-open"></i> Interaktive Broschüre ansehen
+            </a>
+            <a
+              class="btn ghost"
+              href="terra-hotel-broschuere.pdf"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-regular fa-file-pdf"></i> Original-PDF öffnen
+            </a>
+          </div>
+
+          <div class="hero-highlight">
+            <div class="hero-highlight-card">
+              <b>Gestaltungsziel</b>
+              In wenigen Momenten klar machen, worum es im Terra Hotel geht: Natur, Ruhe und das Gefühl,
+              einmal kurz „die Welt zu wechseln“ – direkt in Köln-Porz.
+            </div>
+          </div>
+        </div>
+
+        <!-- Buch im Mittelpunkt -->
+        <aside aria-label="Interaktive Terra-Hotel-Broschüre" class="fade-up" id="hero-book">
+          <div class="hero-book-card">
+            <img src="img/logoterra.png" alt="Terra Hotel Logo" class="terra-logo">
+            <div class="hero-book-main">
+              <div class="book" aria-label="Terra Hotel Broschüre – interaktive Vorschau">
+
+                <!-- Navigation links/rechts -->
+                <button class="book-nav-arrow left-arrow" id="prevPageBtn2" aria-label="Vorherige Seite">
+                  <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+
+                <button class="book-nav-arrow right-arrow" id="nextPageBtn2" aria-label="Nächste Seite">
+                  <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
+
+                <div class="book-pages" id="bookPages">
+
+                  <!-- Titelseite – Einzel-Seite -->
+                  <div class="book-page active">
+                    <div class="book-side single">
+                      <img src="img/kitap/1.1.png" alt="Terra Hotel Broschüre – Titelseite">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 2 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/1.2.png" alt="Terra Hotel Broschüre – Seite 2">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/1.3.png" alt="Terra Hotel Broschüre – Seite 3">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 3 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/1.4.png" alt="Terra Hotel Broschüre – Seite 4">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/1.5.png" alt="Terra Hotel Broschüre – Seite 5">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 4 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/1.6.png" alt="Terra Hotel Broschüre – Seite 6">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/1.7.png" alt="Terra Hotel Broschüre – Seite 7">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 5 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/1.8.png" alt="Terra Hotel Broschüre – Seite 8">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/1.9.png" alt="Terra Hotel Broschüre – Seite 9">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 6 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/1.10.png" alt="Terra Hotel Broschüre – Seite 10">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/1.11.png" alt="Terra Hotel Broschüre – Seite 11">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 7 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/12.png" alt="Terra Hotel Broschüre – Seite 12">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/13.png" alt="Terra Hotel Broschüre – Seite 13">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 8 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/14.png" alt="Terra Hotel Broschüre – Seite 14">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/15.png" alt="Terra Hotel Broschüre – Seite 15">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 9 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/16.png" alt="Terra Hotel Broschüre – Seite 16">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/17.png" alt="Terra Hotel Broschüre – Seite 17">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 10 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/18.png" alt="Terra Hotel Broschüre – Seite 18">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/19.png" alt="Terra Hotel Broschüre – Seite 19">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 11 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/20.png" alt="Terra Hotel Broschüre – Seite 20">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/21.png" alt="Terra Hotel Broschüre – Seite 21">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 12 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/22.png" alt="Terra Hotel Broschüre – Seite 22">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/23.png" alt="Terra Hotel Broschüre – Seite 23">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 13 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/24.png" alt="Terra Hotel Broschüre – Seite 24">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/25.png" alt="Terra Hotel Broschüre – Seite 25">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 14 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/26.png" alt="Terra Hotel Broschüre – Seite 26">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/27.png" alt="Terra Hotel Broschüre – Seite 27">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 15 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/28.png" alt="Terra Hotel Broschüre – Seite 28">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/29.png" alt="Terra Hotel Broschüre – Seite 29">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 16 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/30.png" alt="Terra Hotel Broschüre – Seite 30">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/31.png" alt="Terra Hotel Broschüre – Seite 31">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 17 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/32.png" alt="Terra Hotel Broschüre – Seite 32">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/33.png" alt="Terra Hotel Broschüre – Seite 33">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 18 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/34.png" alt="Terra Hotel Broschüre – Seite 34">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/35.png" alt="Terra Hotel Broschüre – Seite 35">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 19 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/36.png" alt="Terra Hotel Broschüre – Seite 36">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/37.png" alt="Terra Hotel Broschüre – Seite 37">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 20 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/38.png" alt="Terra Hotel Broschüre – Seite 38">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/39.png" alt="Terra Hotel Broschüre – Seite 39">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 21 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/40.png" alt="Terra Hotel Broschüre – Seite 40">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/41.png" alt="Terra Hotel Broschüre – Seite 41">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 22 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/42.png" alt="Terra Hotel Broschüre – Seite 42">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/43.png" alt="Terra Hotel Broschüre – Seite 43">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 23 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/44.png" alt="Terra Hotel Broschüre – Seite 44">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/45.png" alt="Terra Hotel Broschüre – Seite 45">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 24 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/46.png" alt="Terra Hotel Broschüre – Seite 46">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/47.png" alt="Terra Hotel Broschüre – Seite 47">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 25 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/48.png" alt="Terra Hotel Broschüre – Seite 48">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/49.png" alt="Terra Hotel Broschüre – Seite 49">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 26 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/50.png" alt="Terra Hotel Broschüre – Seite 50">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/51.png" alt="Terra Hotel Broschüre – Seite 51">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 27 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/52.png" alt="Terra Hotel Broschüre – Seite 52">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/53.png" alt="Terra Hotel Broschüre – Seite 53">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 28 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/54.png" alt="Terra Hotel Broschüre – Seite 54">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/55.png" alt="Terra Hotel Broschüre – Seite 55">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 29 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/56.png" alt="Terra Hotel Broschüre – Seite 56">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/57.png" alt="Terra Hotel Broschüre – Seite 57">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 30 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/58.png" alt="Terra Hotel Broschüre – Seite 58">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/59.png" alt="Terra Hotel Broschüre – Seite 59">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 31 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/60.png" alt="Terra Hotel Broschüre – Seite 60">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/61.png" alt="Terra Hotel Broschüre – Seite 61">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 32 (Merve & Yasmine) -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/Merve&Yasmine (2).png" alt="Terra Hotel Broschüre – Merve & Yasmine Seite 1">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/Merve&Yasmine.png" alt="Terra Hotel Broschüre – Merve & Yasmine Seite 2">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 33 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/64.png" alt="Terra Hotel Broschüre – Seite 64">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/65.png" alt="Terra Hotel Broschüre – Seite 65">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 34 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/66.png" alt="Terra Hotel Broschüre – Seite 66">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/67.png" alt="Terra Hotel Broschüre – Seite 67">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 35 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/68.png" alt="Terra Hotel Broschüre – Seite 68">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/69.png" alt="Terra Hotel Broschüre – Seite 69">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 36 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/70.png" alt="Terra Hotel Broschüre – Seite 70">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/71.png" alt="Terra Hotel Broschüre – Seite 71">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 37 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/72.png" alt="Terra Hotel Broschüre – Seite 72">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/73.png" alt="Terra Hotel Broschüre – Seite 73">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 38 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/74.png" alt="Terra Hotel Broschüre – Seite 74">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/75.png" alt="Terra Hotel Broschüre – Seite 75">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 39 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/76.png" alt="Terra Hotel Broschüre – Seite 76">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/77.png" alt="Terra Hotel Broschüre – Seite 77">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 40 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/78.png" alt="Terra Hotel Broschüre – Seite 78">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/79.png" alt="Terra Hotel Broschüre – Seite 79">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 41 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/80.png" alt="Terra Hotel Broschüre – Seite 80">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/81.png" alt="Terra Hotel Broschüre – Seite 81">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 42 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/82.png" alt="Terra Hotel Broschüre – Seite 82">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/83.png" alt="Terra Hotel Broschüre – Seite 83">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 43 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/84.png" alt="Terra Hotel Broschüre – Seite 84">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/85.png" alt="Terra Hotel Broschüre – Seite 85">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 44 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/86.png" alt="Terra Hotel Broschüre – Seite 86">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/87.png" alt="Terra Hotel Broschüre – Seite 87">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 45 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/88.png" alt="Terra Hotel Broschüre – Seite 88">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/89.png" alt="Terra Hotel Broschüre – Seite 89">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 46 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/90.png" alt="Terra Hotel Broschüre – Seite 90">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/91.png" alt="Terra Hotel Broschüre – Seite 91">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 47 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/92.png" alt="Terra Hotel Broschüre – Seite 92">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/93.png" alt="Terra Hotel Broschüre – Seite 93">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 48 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/94.png" alt="Terra Hotel Broschüre – Seite 94">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/95.png" alt="Terra Hotel Broschüre – Seite 95">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 49 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/96.png" alt="Terra Hotel Broschüre – Seite 96">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/97.png" alt="Terra Hotel Broschüre – Seite 97">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 50 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/98.png" alt="Terra Hotel Broschüre – Seite 98">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/99.png" alt="Terra Hotel Broschüre – Seite 99">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 51 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/100.png" alt="Terra Hotel Broschüre – Seite 100">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/101.png" alt="Terra Hotel Broschüre – Seite 101">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 52 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/102.png" alt="Terra Hotel Broschüre – Seite 102">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/103.png" alt="Terra Hotel Broschüre – Seite 103">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 53 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/104.png" alt="Terra Hotel Broschüre – Seite 104">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/105.png" alt="Terra Hotel Broschüre – Seite 105">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 54 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/106.png" alt="Terra Hotel Broschüre – Seite 106">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/107.png" alt="Terra Hotel Broschüre – Seite 107">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 55 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/108.png" alt="Terra Hotel Broschüre – Seite 108">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/109.png" alt="Terra Hotel Broschüre – Seite 109">
+                    </div>
+                  </div>
+
+                  <!-- Doppelseite 56 -->
+                  <div class="book-page">
+                    <div class="book-side">
+                      <img src="img/kitap/110.png" alt="Terra Hotel Broschüre – Seite 110">
+                    </div>
+                    <div class="book-side">
+                      <img src="img/kitap/111.png" alt="Terra Hotel Broschüre – Seite 111">
+                    </div>
+                  </div>
+
+                  <!-- Letzte Seite – Einzel-Seite -->
+                  <div class="book-page">
+                    <div class="book-side single">
+                      <img src="img/kitap/112.png" alt="Terra Hotel Broschüre – Seite 112">
+                    </div>
+                  </div>
+
+                </div><!-- .book-pages -->
+              </div><!-- .book -->
+
+              <div class="book-controls">
+                <button id="prevPageBtn">
+                  <i class="fa-solid fa-arrow-left"></i> Vorherige Seite
+                </button>
+                <button id="nextPageBtn">
+                  Nächste Seite <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <span class="book-page-indicator" id="pageIndicator">
+                  Doppelseite 1 von 57
+                </span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Projektkontext & Rolle -->
+    <section id="ctx" aria-labelledby="ctx-title">
+      <div class="container reveal">
+        <h2 id="ctx-title">Projektkontext & Rolle</h2>
+
+        <div class="meta-grid">
+          <div class="meta-card">
+            <div class="meta-label">Projekt</div>
+            <div class="meta-value">Terra Hotel – Imagebroschüre</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Rolle</div>
+            <div class="meta-value">Konzept, Layout & Web-Übertragung</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Ort</div>
+            <div class="meta-value">Köln-Porz – Ankommen in einer „anderen Welt“</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Jahr & Tools</div>
+            <div class="meta-value">2024 · Layout in Canva · PDF-Export</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Worum es geht</h3>
+            <p>
+              Das <strong>Terra Hotel</strong> steht für ein Gefühl:
+              Die Welt hinter sich lassen – auch wenn man „nur“ in Köln-Porz ankommt.
+              Der Name Terra ist bewusst gewählt: Erde, Welt, Reisen.
+            </p>
+            <p>
+              Die Broschüre soll dieses Gefühl sichtbar machen:
+              ruhige Bilder, klare Struktur, einfache Sprache.
+              Gäste sollen in wenigen Seiten verstehen:
+              <em>Hier kann ich ankommen, durchatmen und kurz in eine andere Welt eintauchen.</em>
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Mein Beitrag</h3>
+            <ul class="clean">
+              <li>Story & Positionierung rund um „Terra = Welt“ und Köln-Porz als Tor.</li>
+              <li>Gestaltung der Broschüre in Canva – mit Fokus auf Ruhe & Klarheit.</li>
+              <li>Export und Aufbereitung für Print und PDF.</li>
+              <li>Umsetzung als interaktives Blätter-Erlebnis im Web – ohne externe Libraries.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lösung & Seitenaufbau -->
+    <section id="flow" aria-labelledby="flow-title">
+      <div class="container reveal" id="terra-broschuere">
+        <h2 id="flow-title">Lösung & Aufbau der Broschüre</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Eine kleine Reise durch das Hotel</h3>
+            <p>
+              Die Broschüre ist wie ein kurzer Film:
+              Seite für Seite begleitet sie Gäste von der Ankunft bis zur Umgebung.
+            </p>
+            <ul class="clean">
+              <li><strong>Ankommen:</strong> Erste Stimmung, Lage und das Gefühl „Welt wechseln“.</li>
+              <li><strong>Zimmer:</strong> Räume, die sich wie Szenen aus einem Abenteuerfilm anfühlen.</li>
+              <li><strong>Essen:</strong> Regionale Küche, die trotzdem nach Fernweh schmeckt.</li>
+              <li><strong>Entdecken:</strong> Natur, Rhein und kleine Ausflüge rund um Köln-Porz.</li>
+            </ul>
+            <p class="muted mt-10">
+              Pro Doppelseite: ein klares Thema, viel Bildfläche, wenig Text –
+              damit man schnell versteht, worum es geht.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Von Canva ins Web</h3>
+            <p>Um das Projekt im Portfolio erlebbar zu machen, habe ich:</p>
+            <ul class="clean">
+              <li>die Canva-Broschüre als PDF exportiert und in Einzelseiten aufgeteilt,</li>
+              <li>diese Seiten als Bilder eingebunden,</li>
+              <li>eine Buchoptik mit 3D-Flipp-Effekt gestaltet,</li>
+              <li>und eine Navigation über Buttons, Pfeile und Pfeiltasten umgesetzt.</li>
+            </ul>
+            <p class="muted mt-10">
+              So fühlt sich das Terra Hotel online an wie ein echtes Buch,
+              ohne dass Nutzer ein PDF herunterladen müssen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prozess -->
+    <section id="proc" aria-labelledby="proc-title">
+      <div class="container reveal">
+        <h2 id="proc-title">Prozess in drei Schritten</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>1. Story & Struktur</h3>
+            <p>
+              Ausgangspunkt war die Frage:
+              <em>Was sollen Menschen fühlen, wenn sie das Terra Hotel entdecken?</em>
+            </p>
+            <ul class="clean">
+              <li>Terra = Welt, Erde, Unterwegssein.</li>
+              <li>Köln-Porz als überraschender Startpunkt einer Reise.</li>
+              <li>Klare Kapitel statt überladener Informationsbroschüre.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>2. Layout in Canva & Web-Übertragung</h3>
+            <ul class="clean">
+              <li>Gestaltung der Broschüre in Canva mit ruhiger Sans-Serif-Typografie.</li>
+              <li>Blaue, tief wirkende Farbwelt als Klammer – wie eine Abendstimmung.</li>
+              <li>Export für Druck und PDF.</li>
+              <li>Interaktivierung im Web mit HTML, CSS und etwas JavaScript.</li>
+            </ul>
+            <p class="muted mt-10">
+              Ziel: Ein Case, der sich schnell erfassen lässt – und trotzdem
+              die Stimmung eines „anderen Ortes“ transportiert.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typografie & Farben -->
+    <section id="style" aria-labelledby="style-title">
+      <div class="container reveal">
+        <h2 id="style-title">Typografie & Farbwelt</h2>
+        <p class="muted">
+          Die Gestaltung ist bewusst ruhig gehalten. Die meisten Entscheidungen
+          basieren auf wenigen, klaren Styles – damit der Fokus auf den Bildern liegt.
+        </p>
+
+        <div class="style-grid">
+          <div class="type-card">
+            <h3>Typografie</h3>
+            <div class="type-sample-title">Terra Hotel – Sans Serif / 24 px / Bold</div>
+            <div class="type-sample-body">
+              Body – Sans Serif / 16 px / Regular.<br>
+              Kurze Sätze, einfache Sprache, wenig Fachbegriffe: Auch Menschen,
+              die selten Broschüren lesen, sollen sich schnell zurechtfinden.
+            </div>
+            <p class="mt-10 text-0-9">Hierarchie im Layout:</p>
+            <ul class="clean">
+              <li>H1: Projekt- oder Kapitelname.</li>
+              <li>H2: Bereich oder Stimmung (z.B. „Ankommen“).</li>
+              <li>Body: ruhige, erklärende Texte mit Luft zum Atmen.</li>
+            </ul>
+          </div>
+
+          <div class="color-card">
+            <h3>Farben</h3>
+            <div class="color-row">
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-primary"></span>
+                <span>
+                  Primary<br>
+                  <small>Tiefes Blau (#1b1e74) für Überschriften, Buttons und Interaktion.</small>
+                </span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-accent"></span>
+                <span>
+                  Accent<br>
+                  <small>Helleres Blau (#4b50c9) für Verläufe und weiche Highlights.</small>
+                </span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-surface"></span>
+                <span>
+                  Surface<br>
+                  <small>Helle Flächen für Inhalte, damit Bilder und Text wirken können.</small>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Learnings -->
+    <section id="learn" aria-labelledby="learn-title">
+      <div class="container reveal">
+        <h2 id="learn-title">Learnings</h2>
+        <div class="card">
+          <ul class="clean">
+            <li>
+              <strong>Weniger Inhalt ist oft klarer:</strong>
+              Gerade bei Broschüren reicht eine gute Story –
+              nicht jede Information muss auf die erste Seite.
+            </li>
+            <li>
+              <strong>Terra als „Welt“ ist ein starkes Bild:</strong>
+              Der Name hilft, den Vibe zu transportieren:
+              Ankommen, Aufbrechen, in eine andere Stimmung eintauchen.
+            </li>
+            <li>
+              <strong>Print & Web können sich ergänzen:</strong>
+              Mit wenigen Zeilen JS lässt sich ein klassisches Print-Projekt
+              zu einem interaktiven Portfolio-Highlight machen.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <section>
+      <div class="container reveal">
+        <div class="bottom-nav">
+          <a href="index.html#arbeiten"><i class="fa-solid fa-arrow-left"></i> Zurück zu allen Projekten</a>
+          <div class="flex-row-gap-8">
+            <a class="chip" href="terra-hotel-broschuere.pdf" target="_blank" rel="noopener">
+              <i class="fa-regular fa-file-pdf"></i> Terra Hotel · PDF
+            </a>
+            <a class="chip" href="#top">
+              <i class="fa-solid fa-arrow-up"></i> Nach oben
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container frow">
+      <div>© <span id="y"></span> Merve Eser · Terra Hotel Broschüre</div>
+      <div class="muted">Print & Web Case Study – Terra Hotel</div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Jahr im Footer
+      const yearEl = document.getElementById('y');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      // Mobile-Menü
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('.menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          const isOpen = menu.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        menu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (menu.classList.contains('is-open')) {
+              menu.classList.remove('is-open');
+              toggle.setAttribute('aria-expanded','false');
+            }
+          });
+        });
+      }
+
+      // Fade-Up beim Seitenladen für Hero
+      ['hero-text','hero-book'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          window.requestAnimationFrame(() => el.classList.add('is-visible'));
+        }
+      });
+
+      // Scroll-Reveal für .reveal-Elemente
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && revealEls.length) {
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        revealEls.forEach(el => obs.observe(el));
+      }
+
+      // Smooth Scroll für interne Anker (wie Referenz, mit Header-Offset)
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+          const href = link.getAttribute('href');
+          if (!href || href === '#') return;
+
+          const targetId = href.slice(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            e.preventDefault();
+            const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+            const offset = target.offsetTop - headerOffset;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+          }
+        });
+      });
+
+      // Buch-Blättereffekt mit Flip-Animation
+      const pages = Array.from(document.querySelectorAll('#bookPages .book-page'));
+      const prevBtn = document.getElementById('prevPageBtn');
+      const nextBtn = document.getElementById('nextPageBtn');
+      const prevBtn2 = document.getElementById('prevPageBtn2');
+      const nextBtn2 = document.getElementById('nextPageBtn2');
+      const indicator = document.getElementById('pageIndicator');
+
+      if (pages.length && prevBtn && nextBtn && indicator) {
+        let currentIndex = 0;
+        let isAnimating = false;
+        const total = pages.length;
+
+        function updateIndicator() {
+          indicator.textContent = `Doppelseite ${currentIndex + 1} von ${total}`;
+        }
+
+        function updateButtons() {
+          const disablePrev = currentIndex === 0 || isAnimating;
+          const disableNext = currentIndex === total - 1 || isAnimating;
+
+          prevBtn.disabled = disablePrev;
+          nextBtn.disabled = disableNext;
+
+          if (prevBtn2) prevBtn2.disabled = disablePrev;
+          if (nextBtn2) nextBtn2.disabled = disableNext;
+        }
+
+        function flipTo(newIndex, direction) {
+          if (isAnimating || newIndex < 0 || newIndex >= total || newIndex === currentIndex) return;
+
+          const oldPage = pages[currentIndex];
+          const newPage = pages[newIndex];
+
+          isAnimating = true;
+          updateButtons();
+
+          newPage.classList.add('active');
+          oldPage.classList.add(direction === 'next' ? 'anim-next' : 'anim-prev');
+
+          setTimeout(() => {
+            oldPage.classList.remove('active', 'anim-next', 'anim-prev');
+            currentIndex = newIndex;
+            updateIndicator();
+            isAnimating = false;
+            updateButtons();
+          }, 700);
+        }
+
+        prevBtn.addEventListener('click', () => flipTo(currentIndex - 1, 'prev'));
+        nextBtn.addEventListener('click', () => flipTo(currentIndex + 1, 'next'));
+
+        if (prevBtn2) prevBtn2.addEventListener('click', () => flipTo(currentIndex - 1, 'prev'));
+        if (nextBtn2) nextBtn2.addEventListener('click', () => flipTo(currentIndex + 1, 'next'));
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') flipTo(currentIndex + 1, 'next');
+          if (e.key === 'ArrowLeft') flipTo(currentIndex - 1, 'prev');
+        });
+
+        // Initial
+        updateIndicator();
+        updateButtons();
+      }
+    });
+  </script>
+</body>
+</html>

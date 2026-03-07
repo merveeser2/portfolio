@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "merve-portfolio",
+			"path": "."
+		},
+		{
+			"name": "buch",
+			"path": "../buch"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "merve-portfolio"
+	}
+}

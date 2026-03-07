@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Antragsübersichtsseite – 4-Schritte-Flow · Merve Eser</title>
+  <meta name="description" content="Case Study: Antragsübersichtsseite als 4-Schritte-Flow – UX-Konzeption, UI-Design und Figma-Prototyp von Merve Eser." />
+  <meta property="og:title" content="Antragsübersichtsseite – 4-Schritte-Flow · Case Study von Merve Eser" />
+  <meta property="og:description" content="UX-Konzeption, UI-Design und Figma-Prototyp für eine Antragsübersicht im 4-Schritte-Flow." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <!-- Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* ===== Farb- & Layoutsystem – Antrags-Case ===== */
+
+      /* Neutrals */
+      --color-bg:#ffffff;
+      --color-surface:#f9fafb;
+      --color-ink:#111827;
+      --color-muted:#6b7280;
+      --color-border:#e5e7eb;
+
+      /* Brand / Accent (Antragsprojekt) */
+      --color-primary:#0b4c7a;
+      --color-primary-dark:#083854;
+      --color-accent:#c7b39a;
+
+      /* Feedback */
+      --color-success:#16a34a;
+      --color-danger:#dc2626;
+
+      /* Hero */
+      --color-hero-soft:#e0f2fe;
+      --color-hero-wash:rgba(199,179,154,.35);
+
+      /* Shadows & Radius */
+      --shadow-soft:0 10px 30px rgba(15,23,42,.12);
+      --shadow-strong:0 24px 60px rgba(15,23,42,.25);
+      --radius-lg:22px;
+      --header-h:72px;
+
+      /* Typo */
+      --font-family-base: "Inter", system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Noto Sans",Helvetica,Arial,sans-serif;
+
+      --font-size-body: 1rem;
+      --font-size-body-small:.9rem;
+      --font-size-kicker:.78rem;
+      --font-size-chip:.8rem;
+      --font-size-caption:.82rem;
+
+      --font-size-h1-min:2rem;
+      --font-size-h1-max:2.4rem;
+      --font-size-h2-min:1.4rem;
+      --font-size-h2-max:1.9rem;
+
+      --line-height-body:1.6;
+      --line-height-heading:1.1;
+
+      /* Blink CTA Ring */
+      --blink-ring: rgba(11, 76, 122, .28);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--font-family-base);
+      background:var(--color-bg);
+      color:var(--color-ink);
+      line-height:var(--line-height-body);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      padding-top:var(--header-h);
+      font-size:var(--font-size-body);
+    }
+    img,video{max-width:100%;display:block}
+    a{color:var(--color-primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    section{padding:56px 0;scroll-margin-top:var(--header-h)}
+
+    .visually-hidden{
+      position:absolute!important;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .mt-10{margin-top:10px;}
+    .mt-14{margin-top:14px;}
+    .text-0-9{font-size:.9rem;}
+    .flex-row-gap-8{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    /* ===== Basis-Animationen ===== */
+    .fade-up,
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease-out, transform .6s ease-out;
+    }
+    .fade-up.is-visible,
+    .reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes pulse-soft {
+      0%   { transform: scale(1);   box-shadow:0 14px 40px rgba(15,23,42,.8); }
+      50%  { transform: scale(1.05);box-shadow:0 18px 50px rgba(15,23,42,.9); }
+      100% { transform: scale(1);   box-shadow:0 14px 40px rgba(15,23,42,.8); }
+    }
+
+    /* ===== NEW: Blink Button (wie Referenz) ===== */
+    @keyframes blinkGlow{
+      0%,100%{ box-shadow:0 0 0 0 rgba(11,76,122,0), 0 14px 34px rgba(2,6,23,.12); transform:translateY(0); }
+      50%{ box-shadow:0 0 0 6px var(--blink-ring), 0 20px 44px rgba(2,6,23,.16); transform:translateY(-1px); }
+    }
+    .btn.blink{
+      background: var(--color-accent);
+      color:#2b2117;
+      border-color:transparent;
+      box-shadow:0 14px 34px rgba(2,6,23,.14);
+      animation:blinkGlow 1.6s ease-in-out infinite;
+      font-weight:800;
+    }
+    .btn.blink:hover{
+      filter:brightness(1.02);
+      text-decoration:none;
+      animation:none;
+    }
+
+    /* ===== Header / Navigation ===== */
+    header.site{
+      position:fixed;top:0;left:0;right:0;
+      height:var(--header-h);
+      background:#fff;
+      border-bottom:1px solid var(--color-border);
+      z-index:950;
+      box-shadow:0 2px 10px rgba(0,0,0,.06);
+    }
+    .nav{
+      height:100%;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;padding:0 20px;
+      position:relative;
+    }
+    .brand{font-weight:800;letter-spacing:.2px}
+    .brand small{display:block;color:var(--color-muted);font-weight:600;margin-top:2px;font-size:.8rem}
+
+    .menu{
+      display:flex;gap:10px;flex-wrap:wrap;font-size:var(--font-size-body-small);
+      align-items:center;
+    }
+    .menu a{padding:7px 11px;border-radius:999px}
+    .menu a:hover{background:var(--color-surface);text-decoration:none}
+
+    .menu-toggle{
+      display:none;
+      border:1px solid var(--color-border);
+      border-radius:999px;
+      background:#fff;
+      padding:8px 10px;
+      font-size:.9rem;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+    }
+    .menu-toggle i{font-size:1rem;}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 14px;border-radius:999px;
+      border:1px solid var(--color-border);background:#fff;
+      cursor:pointer;font-size:var(--font-size-body-small);
+      box-shadow:var(--shadow-soft);
+      transition:background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
+      transform:translateY(0);
+    }
+    .btn.primary{
+      background:var(--color-primary);
+      color:#fff;
+      border-color:transparent;
+    }
+    .btn.primary:hover{
+      background:var(--color-primary-dark);
+      box-shadow:0 18px 40px rgba(15,23,42,.25);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+    .btn.ghost{box-shadow:none;background:#fff}
+    .btn.ghost:hover{
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .chip{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--color-border);
+      background:var(--color-surface);
+      font-size:var(--font-size-chip);
+      color:var(--color-muted);
+      white-space:nowrap;
+      transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .chip:hover{
+      background:#fff;
+      transform:translateY(-1px);
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+      text-decoration:none;
+    }
+
+    /* ===== HERO ===== */
+    .hero{
+      background:
+        radial-gradient(800px 480px at -20% -20%, var(--color-hero-soft) 0%, transparent 60%),
+        radial-gradient(900px 520px at 120% 110%, var(--color-hero-wash) 0%, transparent 60%),
+        #ffffff;
+      border-bottom:1px solid var(--color-border);
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;
+      padding:50px 0 40px;
+    }
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr;gap:30px}
+    }
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:var(--font-size-kicker);
+      color:var(--color-muted);
+    }
+    h1{
+      margin:.5rem 0 .7rem;
+      font-size:clamp(var(--font-size-h1-min),3vw,var(--font-size-h1-max));
+      line-height:var(--line-height-heading);
+    }
+    section h2{
+      font-size:clamp(var(--font-size-h2-min),2.4vw,var(--font-size-h2-max));
+      margin:0 0 14px;
+    }
+    .accent{
+      background:linear-gradient(90deg,var(--color-primary) 0%, var(--color-accent) 70%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      font-weight:800;
+    }
+    .lead{
+      color:#374151;
+      font-size:1.02rem;
+      max-width:60ch;
+    }
+    .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+    .hero-highlight{
+      margin-top:18px;display:grid;gap:10px;
+    }
+    .hero-highlight-card{
+      border-radius:16px;padding:10px 12px;
+      background:#fff;border:1px solid var(--color-border);
+      box-shadow:0 8px 26px rgba(15,23,42,.06);
+      font-size:var(--font-size-body-small);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .hero-highlight-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 34px rgba(15,23,42,.1);
+    }
+    .hero-highlight-card b{display:block;margin-bottom:2px}
+
+    /* TL;DR-Kasten */
+    .hero-tldr{
+      margin-top:10px;
+      border-radius:16px;
+      border:1px dashed var(--color-border);
+      background:#f9fafb;
+      padding:10px 12px;
+      font-size:.9rem;
+    }
+    .hero-tldr-title{
+      font-weight:600;
+      margin-bottom:4px;
+      font-size:.88rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--color-muted);
+    }
+
+    /* Hero Media Card */
+    .hero-media-card{
+      border-radius:24px;
+      background:#fff;
+      box-shadow:var(--shadow-strong);
+      overflow:hidden;
+      border:1px solid var(--color-border);
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .hero-media-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 30px 70px rgba(15,23,42,.28);
+    }
+
+    .hero-media-main{
+      position:relative;
+      background:#fff;
+      border-bottom:1px solid var(--color-border);
+      aspect-ratio:16 / 9;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-media-main video{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+
+    .hero-video-toggle{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      z-index:2;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      background:rgba(15,23,42,.96);
+      color:#e5e7eb;
+      box-shadow:0 14px 40px rgba(15,23,42,.9);
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease, opacity .2s ease;
+      animation:pulse-soft 2.4s ease-in-out infinite;
+    }
+    .hero-video-toggle:hover{
+      transform:translateY(-1px);
+      box-shadow:0 20px 55px rgba(15,23,42,.95);
+      background:#020617;
+      animation:none;
+    }
+    .hero-video-toggle i{font-size:1rem;}
+
+    .hero-media-caption{
+      padding:10px 14px 12px;
+      font-size:.85rem;
+      color:var(--color-muted);
+    }
+    .hero-media-variants{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .variant-chip{
+      border-radius:999px;
+      border:1px solid var(--color-border);
+      padding:5px 10px;
+      font-size:.78rem;
+      background:#f3f4f6;
+      color:var(--color-muted);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+      transition:background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .variant-chip i{font-size:.8rem;}
+    .variant-chip.is-active{
+      background:#fff;
+      color:var(--color-primary);
+      border-color:var(--color-primary);
+      box-shadow:0 8px 22px rgba(15,23,42,.12);
+      transform:translateY(-1px);
+    }
+
+    .muted{color:var(--color-muted);font-size:.95rem}
+
+    /* ===== Grids & Cards ===== */
+    .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+    @media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+    .card{
+      border-radius:18px;border:1px solid var(--color-border);background:#fff;
+      padding:18px 16px;box-shadow:var(--shadow-soft);font-size:.95rem;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+
+    .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px;font-size:.9rem}
+    @media(max-width:900px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){.meta-grid{grid-template-columns:1fr}}
+    .meta-card{
+      border-radius:16px;border:1px solid var(--color-border);background:#fff;
+      padding:10px 12px;box-shadow:0 8px 22px rgba(15,23,42,.04);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .meta-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(15,23,42,.08);
+    }
+    .meta-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--color-muted);margin-bottom:3px}
+    .meta-value{font-weight:600}
+
+    ul.clean{margin:0 0 6px;padding-left:1.1em}
+    ul.clean li{margin-bottom:4px}
+
+    /* ===== Style-Section ===== */
+    .style-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:10px}
+    @media(max-width:900px){.style-grid{grid-template-columns:1fr}}
+
+    .type-card,.color-card{
+      border-radius:18px;border:1px solid var(--color-border);
+      background:#fff;padding:14px 16px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .type-card:hover,.color-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+    .type-sample-title{font-size:1.35rem;font-weight:700;margin-bottom:4px}
+    .type-sample-body{font-size:.95rem;margin-top:4px}
+
+    .color-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+    .color-swatch{
+      display:flex;align-items:center;gap:10px;
+      border-radius:999px;
+      padding:6px 10px;
+      border:1px solid var(--color-border);
+      font-size:.85rem;
+    }
+    .swatch-dot{
+      width:18px;height:18px;border-radius:999px;border:1px solid #e5e7eb;
+    }
+    .swatch-primary{background:var(--color-primary);}
+    .swatch-accent{background:var(--color-accent);}
+    .swatch-surface{background:var(--color-surface);}
+
+    /* ===== Bottom Nav & Footer ===== */
+    .bottom-nav{
+      margin-top:32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      font-size:.9rem;
+      border-top:1px solid var(--color-border);
+      padding-top:16px;
+      flex-wrap:wrap;
+    }
+    footer{
+      border-top:1px solid var(--color-border);
+      padding:18px 0 26px;
+      background:var(--color-surface);
+      margin-top:40px;
+      font-size:.88rem;
+    }
+    footer .frow{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:10px;flex-wrap:wrap;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px){
+      body{padding-top:64px;}
+      section{padding:40px 0;}
+      .nav{padding:0 14px;}
+      .menu-toggle{display:inline-flex;}
+      .menu{
+        position:absolute;
+        top:100%;
+        right:0;
+        left:0;
+        background:#fff;
+        border-bottom:1px solid var(--color-border);
+        padding:8px 16px 12px;
+        flex-direction:column;
+        gap:4px;
+        display:none;
+      }
+      .menu.is-open{display:flex;}
+      .menu a{
+        width:100%;
+        text-align:left;
+        padding:8px 10px;
+      }
+      .hero-grid{padding:40px 0 30px;}
+      .hero-actions .btn,
+      .hero-meta .chip{
+        width:100%;
+        justify-content:center;
+      }
+      .bottom-nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+
+<body>
+  <a id="top" class="visually-hidden" href="#top">Top</a>
+
+  <!-- Header -->
+  <header class="site" role="banner">
+    <div class="nav">
+      <div class="brand">
+        Merve Eser
+        <small>UX/UI · Product Design</small>
+      </div>
+
+      <button class="menu-toggle" type="button" aria-label="Navigation öffnen" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+        <span>Menü</span>
+      </button>
+
+      <!-- Struktur wie Referenz: mehrere Anker -->
+      <nav class="menu" aria-label="Hauptnavigation">
+        <a href="index.html#arbeiten">Zur Übersicht</a>
+        <a href="#ctx-title">Kontext</a>
+        <a href="#flow-title">Lösung</a>
+        <a href="#proc-title">Prozess</a>
+        <a href="#style-title">Style</a>
+        <a href="#learn-title">Learnings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="fade-up" id="hero-text">
+          <div class="kicker">UX Case Study · Online-Antrag</div>
+          <h1 id="hero-title">
+            Antragsübersichtsseite – <span class="accent">4-Schritte-Flow</span>
+          </h1>
+          <p class="lead">
+            Konzeption und UI-Design einer <strong>übersichtlichen Abschlussseite</strong>
+            für einen mehrstufigen Online-Antrag. Nutzer*innen sehen ihren Fortschritt im Stepper
+            und können alle Angaben vor dem Absenden prüfen.
+          </p>
+
+          <div class="hero-meta">
+            <span class="chip"><i class="fa-solid fa-diagram-project"></i> 4 Schritte + Übersichtsseite</span>
+            <span class="chip"><i class="fa-regular fa-calendar"></i> 2024</span>
+            <span class="chip"><i class="fa-brands fa-figma"></i> Prototyp in Figma</span>
+          </div>
+
+          <div class="hero-actions">
+            <a
+              class="btn primary"
+              href="https://www.figma.com/design/438dB2UdOwzH69FX5bJ5Jf/Untitled?node-id=0-1&amp;p=f&amp;t=qltpH6TzdtVhCZFo-0"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-brands fa-figma"></i> Antragsübersichtsseite
+            </a>
+
+            <a
+              class="btn ghost"
+              href="https://www.figma.com/design/1OfqmPksQMW7WxK0hWYk6M/Portalrahmen?node-id=0-1&amp;p=f&amp;t=52CGDesKtJu9eOxW-0"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-brands fa-figma"></i> Portalrahmen
+            </a>
+
+            <!-- wie Referenz: auffälliger CTA (nur Struktur, Farben bleiben) -->
+            <a class="btn blink" href="#flow-title">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Lösung ansehen
+            </a>
+          </div>
+
+          <div class="hero-highlight">
+            <div class="hero-highlight-card">
+              <b>Ziel</b>
+              Einen <strong>klar geführten Antragsprozess</strong> gestalten, bei dem Nutzer*innen:
+              <ul class="clean">
+                <li>wissen, wo im Prozess sie sich befinden,</li>
+                <li>Fehler früh erkennen können,</li>
+                <li>und vor dem Absenden Sicherheit über ihre Angaben haben.</li>
+              </ul>
+            </div>
+            <div class="hero-highlight-card">
+              <b>Ergebnis</b>
+              Strukturierter Stepper mit gut lesbarer Zusammenfassung aller Angaben.
+              Die Seite unterstützt Nutzer*innen dabei, letzte Unklarheiten vor dem Absenden zu klären.
+            </div>
+          </div>
+
+          <div class="hero-tldr">
+            <div class="hero-tldr-title">Kurzüberblick</div>
+            <ul class="clean">
+              <li><strong>Produkt:</strong> Online-Antrag in einem Self-Service-Portal.</li>
+              <li><strong>Problem:</strong> Unsicherheit vor dem Absenden &amp; unübersichtliche Zusammenfassung.</li>
+              <li><strong>Beitrag:</strong> Strukturierter 4-Schritte-Flow + klare Abschlussseite mit Korrekturpfaden.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Hero-Video mit Varianten -->
+        <aside aria-label="Screenrecordings der Antragsübersichtsseite" class="fade-up" id="hero-media">
+          <div class="hero-media-card">
+            <div class="hero-media-main" id="hero-media-main">
+              <p id="antrag-video-desc" class="visually-hidden">
+                Screenrecording der Antragsübersichtsseite mit 4-Schritte-Flow und Zusammenfassung.
+              </p>
+              <button
+                class="hero-video-toggle"
+                id="antrag-video-toggle"
+                type="button"
+                aria-label="Video pausieren"
+                aria-pressed="true"
+              >
+                <i class="fa-solid fa-pause"></i>
+              </button>
+              <video
+                id="antrag-video"
+                src="img/antrag1.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-describedby="antrag-video-desc"
+              ></video>
+            </div>
+
+            <div class="hero-media-caption">
+              Je nach Gerät werden unterschiedliche Ansichten gezeigt – von der Desktop-Übersicht
+              bis zur Tablet-Variante.
+              <div class="hero-media-variants" aria-label="Video-Varianten: Desktop und Tablet">
+                <button
+                  type="button"
+                  class="variant-chip is-active"
+                  data-video-variant="desktop-1"
+                  data-src="img/antrag1.mp4"
+                  data-aspect="16 / 9"
+                  aria-pressed="true"
+                >
+                  <i class="fa-solid fa-desktop"></i> Desktop · Ansicht
+                </button>
+                <button
+                  type="button"
+                  class="variant-chip"
+                  data-video-variant="tablet"
+                  data-src="img/antrag2.mp4"
+                  data-aspect="3 / 4"
+                  aria-pressed="false"
+                >
+                  <i class="fa-solid fa-tablet-screen-button"></i> Tablet · Ansicht
+                </button>
+                <button
+                  type="button"
+                  class="variant-chip"
+                  data-video-variant="desktop-2"
+                  data-src="img/portalrahmen.mp4"
+                  data-aspect="16 / 9"
+                  aria-pressed="false"
+                >
+                  <i class="fa-solid fa-desktop"></i> Desktop · Portalrahmen
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Projektkontext & Rolle -->
+    <section aria-labelledby="ctx-title">
+      <div class="container reveal">
+        <h2 id="ctx-title">Projektkontext &amp; Rolle</h2>
+
+        <div class="meta-grid">
+          <div class="meta-card">
+            <div class="meta-label">Projekt</div>
+            <div class="meta-value">Antragsübersichtsseite · Online-Antrag</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Rolle</div>
+            <div class="meta-value">UX-Konzeption &amp; UI-Design</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Jahr</div>
+            <div class="meta-value">2024</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Tool</div>
+            <div class="meta-value"><i class="fa-brands fa-figma"></i> Figma</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Ausgangslage</h3>
+            <p>
+              Die Antragsübersichtsseite bildet den Abschluss eines mehrstufigen Online-Antrags.
+              Nutzer*innen werden Schritt für Schritt durch die Eingabe geführt und sollen am Ende
+              alle Angaben <strong>übersichtlich prüfen</strong> können, bevor sie den Antrag verbindlich absenden.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Meine Aufgaben</h3>
+            <ul class="clean">
+              <li>Analyse der bestehenden Journey &amp; Abbruchstellen</li>
+              <li>Konzeption des 4-Schritte-Flows inkl. Abschlussseite</li>
+              <li>UI-Design von Stepper, Formularblöcken und Zusammenfassung</li>
+              <li>Erstellung eines klickbaren Figma-Prototyps für Reviews</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lösung & Flow -->
+    <section aria-labelledby="flow-title">
+      <div class="container reveal">
+        <h2 id="flow-title">Lösung &amp; Seitenaufbau</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Geführter 4-Schritte-Flow</h3>
+            <p>
+              Der Antragsprozess ist als <strong>Vier-Schritte-Flow</strong> mit Stepper umgesetzt:
+            </p>
+            <ul class="clean">
+              <li>Schrittweise Dateneingabe statt „Formularwand“.</li>
+              <li>Pro Schritt klare Felder, validierte Eingaben und Hilfetexte.</li>
+              <li>Der Stepper zeigt jederzeit, wo sich Nutzer*innen befinden.</li>
+              <li>Nach den vier Schritten folgt eine <strong>Übersichtsseite</strong> mit allen Angaben.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Übersicht &amp; Korrektur-Möglichkeiten</h3>
+            <p>
+              Die Übersicht gruppiert alle Angaben nach Themenblöcken und macht das Prüfen leicht:
+            </p>
+            <ul class="clean">
+              <li>Klare Abschnittstitel für die wichtigsten Themenbereiche.</li>
+              <li>Zusammengefasste Kernangaben statt überladener Detaildarstellung.</li>
+              <li>Sprunglinks zu den jeweiligen Schritten, um Felder gezielt zu korrigieren.</li>
+            </ul>
+            <p class="muted mt-10">
+              Ziel: Nutzer*innen sollen den Antrag mit einem <strong>sicheren Gefühl</strong> absenden,
+              ohne Angst, etwas Wichtiges übersehen zu haben.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prozess -->
+    <section aria-labelledby="proc-title">
+      <div class="container reveal">
+        <h2 id="proc-title">Prozess</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>1. Analyse der bestehenden Journey</h3>
+            <p>
+              Zum Start wurden der bestehende Antragsprozess und die Formularstrukturen analysiert:
+            </p>
+            <ul class="clean">
+              <li>Wo brechen Personen ab?</li>
+              <li>An welchen Stellen entstehen Rückfragen?</li>
+              <li>Welche Felder sind kritisch oder besonders erklärungsbedürftig?</li>
+            </ul>
+
+            <h3 class="mt-10">2. Flow &amp; Informationsarchitektur</h3>
+            <p>
+              Auf dieser Grundlage wurden die Inhalte in vier nachvollziehbare Schritte gegliedert.
+              Ziel: <strong>thematische Bündelung</strong> und Vermeidung von zu langen Formularseiten.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>3. UI-Design &amp; Microcopy</h3>
+            <p>
+              Klare Abschnittstitel, verständliche Hilfetexte und konsistente Fehlerdarstellung
+              unterstützen Nutzer*innen während der Eingabe:
+            </p>
+            <ul class="clean">
+              <li>Lesbare Typografie für lange Formulartexte.</li>
+              <li>Fehler-States mit eindeutigen Hinweisen.</li>
+              <li>Buttons und Links mit klaren Handlungsaufforderungen.</li>
+            </ul>
+
+            <h3 class="mt-10">4. Review &amp; iteratives Feintuning</h3>
+            <p>
+              Die Übersicht wurde mit internen Stakeholdern und Testnutzenden diskutiert.
+              Auf Basis des Feedbacks wurden Gruppierungen, Bezeichnungen
+              und Call-to-Action-Texte nachgeschärft.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typografie & Farben -->
+    <section aria-labelledby="style-title">
+      <div class="container reveal">
+        <h2 id="style-title">Typografie &amp; Farben</h2>
+
+        <div class="style-grid">
+          <div class="type-card">
+            <h3>Typografie</h3>
+            <div class="type-sample-title">Stepper-Titel – Inter / 20 px / Semibold</div>
+            <div class="type-sample-body">
+              Body – Inter / 16 px / Regular.<br>
+              Klare Lesbarkeit für lange Textzeilen in Formularen und Zusammenfassungen.
+            </div>
+            <p class="mt-10 text-0-9">
+              Wichtig war eine Hierarchie, die Nutzer*innen nicht überfordert:
+            </p>
+            <ul class="clean">
+              <li>H1: „Antrag &amp; Übersicht“ im Kontext des Produkts</li>
+              <li>H2: Schritt- und Abschnittstitel im Flow</li>
+              <li>Body: ruhige, gut lesbare Texte für Formularerklärungen</li>
+            </ul>
+          </div>
+
+          <div class="color-card">
+            <h3>Farben</h3>
+            <div class="color-row">
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-primary"></span>
+                <span>
+                  Primary<br>
+                  <small>für Stepper, Haupt-CTAs und Fokus-Stati</small>
+                </span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-accent"></span>
+                <span>
+                  Accent<br>
+                  <small>für Sekundäraktionen &amp; Hintergründe</small>
+                </span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-surface"></span>
+                <span>
+                  Surface<br>
+                  <small>für Formular- und Seitenhintergründe</small>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Learnings -->
+    <section aria-labelledby="learn-title">
+      <div class="container reveal">
+        <h2 id="learn-title">Learnings</h2>
+        <div class="card">
+          <ul class="clean">
+            <li>
+              <strong>Eine gute Antragsübersicht nimmt die Angst vor Fehlern:</strong>
+              Wenn alle Angaben noch einmal nachvollziehbar gezeigt werden,
+              senden Nutzer*innen mit mehr Vertrauen ab.
+            </li>
+            <li>
+              <strong>Ein klarer Stepper reduziert mentale Belastung:</strong>
+              Nutzer*innen wissen jederzeit, wo sie im Prozess stehen und was noch kommt.
+            </li>
+            <li>
+              <strong>Frühe Abstimmung mit Fachabteilungen lohnt sich:</strong>
+              So lassen sich Pflichtfelder, Formulierungen und Prüfregeln früh klären
+              und spätere Schleifen vermeiden.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <section>
+      <div class="container reveal">
+        <div class="bottom-nav">
+          <a href="index.html#arbeiten"><i class="fa-solid fa-arrow-left"></i> Zurück zu allen Projekten</a>
+          <div class="flex-row-gap-8">
+            <a
+              class="chip"
+              href="https://www.figma.com/design/438dB2UdOwzH69FX5bJ5Jf/Untitled?node-id=0-1&amp;p=f&amp;t=qltpH6TzdtVhCZFo-0"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-brands fa-figma"></i> Figma (Desktop &amp; Tablet)
+            </a>
+            <a
+              class="chip"
+              href="https://www.figma.com/design/1OfqmPksQMW7WxK0hWYk6M/Portalrahmen?node-id=0-1&amp;p=f&amp;t=52CGDesKtJu9eOxW-0"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-brands fa-figma"></i> Portalrahmen
+            </a>
+            <a class="chip" href="#top">
+              <i class="fa-solid fa-arrow-up"></i> Nach oben
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container frow">
+      <div>© <span id="y"></span> Merve Eser · Antragsübersichtsseite</div>
+      <div class="muted">UX Case Study – Online-Antrag</div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Jahr im Footer
+      const yearEl = document.getElementById('y');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // Mobile-Menü
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('.menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          const isOpen = menu.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        // Menü nach Klick schließen (Mobile UX)
+        menu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (menu.classList.contains('is-open')) {
+              menu.classList.remove('is-open');
+              toggle.setAttribute('aria-expanded','false');
+            }
+          });
+        });
+      }
+
+      // Hero-Video Play/Pause + Varianten
+      const heroVideo = document.getElementById('antrag-video');
+      const heroToggleBtn = document.getElementById('antrag-video-toggle');
+      const variantButtons = document.querySelectorAll('.variant-chip');
+      const heroMediaMain = document.getElementById('hero-media-main');
+
+      if (heroVideo && heroToggleBtn) {
+        const icon = heroToggleBtn.querySelector('i');
+        heroToggleBtn.setAttribute('aria-pressed','true');
+
+        heroToggleBtn.addEventListener('click', () => {
+          if (heroVideo.paused) {
+            heroVideo.play();
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
+            heroToggleBtn.setAttribute('aria-label','Video pausieren');
+            heroToggleBtn.setAttribute('aria-pressed','true');
+          } else {
+            heroVideo.pause();
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+            heroToggleBtn.setAttribute('aria-label','Video abspielen');
+            heroToggleBtn.setAttribute('aria-pressed','false');
+          }
+        });
+      }
+
+      if (heroVideo && variantButtons.length) {
+        variantButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const src = btn.getAttribute('data-src');
+            const aspect = btn.getAttribute('data-aspect');
+            if (!src) return;
+
+            variantButtons.forEach(b => {
+              b.classList.toggle('is-active', b === btn);
+              b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+            });
+
+            if (heroMediaMain && aspect) heroMediaMain.style.aspectRatio = aspect;
+
+            const wasPaused = heroVideo.paused;
+            heroVideo.setAttribute('src', src);
+            heroVideo.load();
+            if (!wasPaused) heroVideo.play().catch(() => {});
+          });
+        });
+      }
+
+      // Fade-Up beim Seitenladen für Hero
+      ['hero-text','hero-media'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) window.requestAnimationFrame(() => el.classList.add('is-visible'));
+      });
+
+      // Scroll-Reveal für .reveal-Elemente
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && revealEls.length) {
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+
+        revealEls.forEach(el => obs.observe(el));
+      }
+
+      // Smooth Scroll für interne Anker (wie Referenz)
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+          const href = link.getAttribute('href');
+          if (!href || href === '#') return;
+          const targetId = href.slice(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            e.preventDefault();
+            const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+            const offset = target.offsetTop - headerOffset;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

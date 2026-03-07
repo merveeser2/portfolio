@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RaceTrace – Dashboard Redesign · Merve Eser</title>
+  <meta name="description" content="Case Study RaceTrace Dashboard Redesign – Masterarbeit von Merve Eser. A/B-Tests, ISONORM 9241-110, VisAWI-S, UCD nach DIN EN ISO 9241-210." />
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <style>
+    :root{
+      /* =========================
+         PORTFOLIO BASE (wie andere Seiten)
+         ========================= */
+      --color-bg:#ffffff;
+      --color-surface:#ffffff;
+      --color-bg-alt:#f8f5f1;
+      --color-ink:#111827;
+      --color-muted:#6b7280;
+      --color-border:#e5e7eb;
+
+      /* Portfolio-Accent */
+      --color-accent:#c7b39a;
+      --color-primary:#8b5e3c;      /* vorher brown */
+      --color-primary-dark:#744b2f;
+
+      /* RaceTrace Branding (Sticker) */
+      --rt-primary:#0b3558;         /* Dashboard / Navigation */
+      --rt-accent:#ffb347;          /* Status / Countdown */
+      --rt-bg-dark:#020617;         /* Dark cards */
+
+      /* Layout / Typo */
+      --maxw:1160px;
+      --radius-lg:22px;
+      --header-h:72px;
+
+      --shadow-soft:0 10px 30px rgba(15,23,42,.12);
+      --shadow-card:0 6px 18px rgba(15,23,42,.08);
+      --shadow-strong:0 24px 60px rgba(15,23,42,.70);
+
+      --font-family-base: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Noto Sans",Helvetica,Arial,sans-serif;
+
+      --font-size-body: 1rem;
+      --font-size-body-small:.95rem;
+      --font-size-kicker:.78rem;
+      --font-size-chip:.8rem;
+
+      --font-size-h1-min:2.1rem;
+      --font-size-h1-max:3.1rem;
+      --font-size-h2-min:1.6rem;
+      --font-size-h2-max:2.1rem;
+
+      --line-height-body:1.55;
+      --line-height-heading:1.08;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--font-family-base);
+      color:var(--color-ink);
+      background:var(--color-bg);
+      line-height:var(--line-height-body);
+      padding-top:var(--header-h);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      font-size:var(--font-size-body);
+    }
+    img{max-width:100%;display:block}
+    a{color:var(--color-primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    section{scroll-margin-top:var(--header-h);padding:56px 0}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    .muted{color:var(--color-muted);font-size:.95rem}
+
+    /* ===== Basis-Animationen (wie andere Seiten) ===== */
+    .fade-up,.reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease-out, transform .6s ease-out;
+    }
+    .fade-up.is-visible,.reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* ===== Header / Navigation (wie andere Seiten) ===== */
+    header.site{
+      position:fixed;top:0;left:0;right:0;
+      height:var(--header-h);
+      background:var(--color-bg);
+      border-bottom:1px solid var(--color-border);
+      z-index:950;
+      box-shadow:0 2px 10px rgba(0,0,0,.06);
+    }
+    .nav{
+      height:100%;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;padding:0 20px;
+      position:relative;
+    }
+    .brand{font-weight:800;letter-spacing:.2px}
+    .brand small{display:block;color:var(--color-muted);font-weight:600;margin-top:2px;font-size:.8rem}
+
+    .menu{
+      display:flex;gap:10px;flex-wrap:wrap;font-size:var(--font-size-body-small);
+      align-items:center;
+    }
+    .menu a{padding:7px 11px;border-radius:999px}
+    .menu a:hover{background:var(--color-bg-alt);text-decoration:none}
+
+    .menu-toggle{
+      display:none;
+      border:1px solid var(--color-border);
+      border-radius:999px;
+      background:#fff;
+      padding:8px 10px;
+      font-size:.9rem;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+    }
+    .menu-toggle i{font-size:1rem;}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 14px;border-radius:999px;
+      border:1px solid var(--color-border);background:#fff;
+      cursor:pointer;font-size:var(--font-size-body-small);
+      box-shadow:var(--shadow-soft);
+      transition:background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
+      transform:translateY(0);
+    }
+    .btn.primary{
+      background:var(--color-primary);
+      color:#fff;border-color:transparent;
+    }
+    .btn.primary:hover{
+      background:var(--color-primary-dark);
+      box-shadow:0 18px 40px rgba(15,23,42,.22);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+    .btn.ghost{box-shadow:none;background:#fff}
+    .btn.ghost:hover{
+      box-shadow:0 10px 26px rgba(15,23,42,.08);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+    .btn.icon-only{
+      padding:10px 12px;
+      box-shadow:none;
+    }
+
+    .chip{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--color-border);
+      background:var(--color-bg-alt);
+      font-size:var(--font-size-chip);color:var(--color-muted);
+      white-space:nowrap;
+    }
+    .chip i{color:var(--color-primary);}
+
+    /* ===== HERO ===== */
+    .hero{
+      background:
+        radial-gradient(900px 520px at -10% -30%, #f0e6db 0%, transparent 60%),
+        radial-gradient(860px 520px at 110% 120%, rgba(199,179,154,.35) 0%, transparent 60%),
+        #fff;
+      border-bottom:1px solid #e7ded2;
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.3fr .9fr;gap:48px;align-items:center;
+      padding:56px 0 40px;
+    }
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr;gap:32px;padding:40px 0 32px}
+    }
+
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:var(--font-size-kicker);
+      color:var(--color-muted);
+    }
+    h1{
+      margin:.6rem 0 .8rem;
+      font-size:clamp(var(--font-size-h1-min),3.8vw,var(--font-size-h1-max));
+      line-height:var(--line-height-heading);
+    }
+    section h2{
+      font-size:clamp(var(--font-size-h2-min),2.6vw,var(--font-size-h2-max));
+      margin:0 0 14px;
+    }
+    .accent{
+      background:linear-gradient(90deg,var(--color-accent) 0%, var(--color-primary) 65%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      font-weight:800;
+    }
+    .lead{color:#374151;font-size:1.05rem;max-width:60ch}
+
+    .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+
+    .hero-highlight{margin-top:22px;display:grid;gap:10px;}
+    .hero-highlight-card{
+      border-radius:16px;padding:12px 14px;
+      background:#fff;border:1px solid var(--color-border);
+      box-shadow:0 8px 26px rgba(15,23,42,.06);
+      font-size:.9rem;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .hero-highlight-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(15,23,42,.1);
+    }
+    .hero-highlight-card b{display:block;margin-bottom:2px}
+
+    .hero-media{position:relative}
+    .hero-media-card{
+      border-radius:24px;
+      background:var(--rt-bg-dark);
+      padding:16px;
+      color:#e5e7eb;
+      box-shadow:var(--shadow-strong);
+      border:1px solid rgba(148,163,184,.18);
+    }
+    .hero-media-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .hero-media-tag{font-size:.8rem;color:#9ca3af}
+    .before-after-labels{display:flex;gap:8px;font-size:.78rem;margin-bottom:8px;flex-wrap:wrap}
+    .pill{
+      padding:4px 9px;border-radius:999px;border:1px solid rgba(148,163,184,.5);
+      display:inline-flex;align-items:center;gap:6px;
+    }
+    .pill span.dot{width:8px;height:8px;border-radius:999px;display:inline-block}
+    .pill.before span.dot{background:#f97373}
+    .pill.after span.dot{background:#4ade80}
+    .hero-media-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .hero-media-grid img{
+      border-radius:10px;border:1px solid #111827;height:130px;object-fit:cover;
+    }
+
+    /* ===== Meta / KPI ===== */
+    .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px;font-size:.9rem}
+    @media(max-width:900px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){.meta-grid{grid-template-columns:1fr}}
+    .meta-card{
+      border-radius:16px;border:1px solid var(--color-border);background:#fff;
+      padding:10px 12px;box-shadow:0 8px 28px rgba(15,23,42,.04);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .meta-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(15,23,42,.08);
+    }
+    .meta-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--color-muted);margin-bottom:3px}
+    .meta-value{font-weight:600}
+
+    .kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:10px}
+    @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){.kpi-grid{grid-template-columns:1fr}}
+    .kpi-card{
+      border-radius:18px;border:1px solid var(--color-border);background:#fff;
+      padding:14px 14px 12px;box-shadow:0 8px 30px rgba(15,23,42,.04);font-size:.9rem;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .kpi-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 34px rgba(15,23,42,.1);
+    }
+    .kpi-card b{font-size:1.2rem;display:block;margin-bottom:2px}
+    .kpi-tag{font-size:.8rem;color:var(--color-muted);display:block;margin-top:4px}
+
+    /* ===== 2-Spaltig allgemein ===== */
+    .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:32px}
+    @media(max-width:900px){.two-col{grid-template-columns:1fr;gap:22px}}
+
+    .card{
+      border-radius:18px;border:1px solid var(--color-border);background:#fff;
+      padding:18px 16px;box-shadow:var(--shadow-soft);font-size:.95rem;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+
+    /* ===== Gallery ===== */
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+      margin-top:10px;
+    }
+    .gallery figure{
+      margin:0;
+      border-radius:16px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      box-shadow:0 10px 30px rgba(15,23,42,.06);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      height:100%;
+      position:relative;
+    }
+    .gallery img{
+      width:100%;
+      display:block;
+      aspect-ratio:4 / 3;
+      object-fit:cover;
+      cursor:zoom-in;
+      transition:transform .18s ease-out, filter .18s ease-out;
+    }
+    .gallery figure::after{
+      content:"\f00e";
+      font-family:"Font Awesome 6 Free";
+      font-weight:900;
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      padding:4px 7px;
+      border-radius:999px;
+      background:rgba(15,23,42,.78);
+      color:#f9fafb;
+      font-size:.7rem;
+      opacity:0;
+      transform:translateY(4px);
+      transition:opacity .18s ease-out, transform .18s ease-out;
+      pointer-events:none;
+    }
+    .gallery figure:hover img{
+      transform:scale(1.03);
+      filter:brightness(1.02);
+    }
+    .gallery figure:hover::after{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .gallery figcaption{
+      padding:8px 10px 10px;
+      font-size:.8rem;
+      color:var(--color-muted);
+      border-top:1px solid var(--color-border);
+      background:#f9fafb;
+    }
+    .gallery figcaption a{
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+    .gallery figcaption a:hover{
+      text-decoration-thickness:2px;
+    }
+
+    /* ===== Prozess: Phasen ===== */
+    .phase-intro{margin-bottom:18px;}
+    .phase-row{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(0,1.05fr);
+      gap:20px;
+      align-items:flex-start;
+      margin-top:26px;
+    }
+    @media(max-width:900px){.phase-row{grid-template-columns:1fr}}
+    .phase-card{
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:16px 14px;
+      box-shadow:0 8px 26px rgba(15,23,42,.04);
+      font-size:.95rem;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .phase-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 34px rgba(15,23,42,.1);
+    }
+    .phase-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--color-bg-alt);
+      border:1px solid var(--color-border);
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:var(--color-muted);
+      width:max-content;
+    }
+    .phase-badge span.num{
+      width:20px;height:20px;border-radius:999px;
+      background:var(--color-accent);
+      display:inline-flex;align-items:center;justify-content:center;
+      font-weight:700;font-size:.8rem;color:#111827;
+    }
+    .phase-title{font-weight:600;font-size:1.02rem;}
+    .phase-meta{font-size:.85rem;color:var(--color-muted);}
+    .phase-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+    .phase-tag{
+      font-size:.75rem;
+      padding:4px 8px;
+      border-radius:999px;
+      background:#f9fafb;
+      border:1px solid var(--color-border);
+      color:var(--color-muted);
+    }
+
+    .phase-gallery{
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      box-shadow:0 8px 24px rgba(15,23,42,.04);
+      padding:10px 12px;
+      font-size:.9rem;
+    }
+    .phase-gallery summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 6px;
+    }
+    .phase-gallery summary::-webkit-details-marker{display:none;}
+    .phase-toggle-label{display:flex;align-items:center;gap:8px;font-weight:600;}
+    .phase-toggle-label i{font-size:.9rem;color:var(--color-muted);}
+    .phase-toggle-hint{font-size:.8rem;color:var(--color-muted);}
+    .phase-gallery details[open] summary i.fa-chevron-down{transform:rotate(180deg);}
+    .phase-gallery summary i.fa-chevron-down{transition:transform .18s ease-out;}
+    .phase-gallery-inner{padding-top:8px;border-top:1px solid var(--color-border);margin-top:6px;}
+
+    /* ===== Designsystem / Typografie ===== */
+    .style-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:16px;
+      margin-top:10px;
+    }
+    @media(max-width:900px){.style-grid{grid-template-columns:1fr}}
+    .type-card,.color-card{
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:14px 16px;
+      box-shadow:var(--shadow-card);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .type-card:hover,.color-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+    }
+    .type-card h3,.color-card h3{margin:0 0 8px;font-size:1.1rem;}
+    .type-sample-title{font-size:1.25rem;font-weight:700;}
+    .type-sample-sub{font-size:.9rem;color:var(--color-muted);margin-top:2px;}
+    .type-sample-body{font-size:.95rem;margin-top:8px;}
+
+    .color-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;}
+    .color-swatch{
+      display:flex;align-items:center;gap:10px;
+      border-radius:999px;padding:6px 10px;
+      border:1px solid var(--color-border);
+      font-size:.85rem;background:#fff;
+    }
+    .swatch-dot{width:18px;height:18px;border-radius:999px;border:1px solid #e5e7eb;}
+    .swatch-primary{background:var(--rt-primary);}
+    .swatch-accent{background:var(--rt-accent);}
+    .swatch-dark{background:var(--rt-bg-dark);}
+    .swatch-neutral{background:#e5e7eb;}
+
+    /* ===== Footer ===== */
+    footer{
+      border-top:1px solid var(--color-border);
+      padding:18px 0 26px;
+      background:var(--color-bg-alt);
+      margin-top:40px;
+      font-size:.9rem;
+    }
+    footer .frow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+
+    /* ===== Lightbox ===== */
+    .lightbox-backdrop{
+      position:fixed;inset:0;
+      background:rgba(15,23,42,.82);
+      display:none;align-items:center;justify-content:center;
+      z-index:1400;padding:16px;
+    }
+    .lightbox-backdrop.is-open{display:flex;}
+    .lightbox-content{max-width:min(1040px,100%);width:100%;color:#f9fafb;}
+    .lightbox-frame{
+      background:#020617;
+      border-radius:18px;
+      padding:12px 12px 10px;
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:0 24px 70px rgba(0,0,0,.7);
+    }
+    .lightbox-toolbar{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:10px;margin-bottom:8px;font-size:.85rem;color:#e5e7eb;
+    }
+    .lightbox-toolbar-left{display:flex;align-items:center;gap:8px;}
+    .lightbox-toolbar-left i{font-size:.9rem;}
+    .lightbox-toolbar-meta{font-size:.78rem;color:#9ca3af;}
+    .lightbox-buttons{display:flex;align-items:center;gap:6px;}
+    .lightbox-buttons button{
+      border:1px solid rgba(148,163,184,.6);
+      background:#020617;color:#e5e7eb;
+      border-radius:999px;padding:4px 9px;font-size:.8rem;
+      cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+    }
+    .lightbox-buttons button:hover{background:#111827;}
+    .lightbox-img-wrap{
+      border-radius:12px;overflow:hidden;
+      border:1px solid #020617;background:#020617;
+      max-height:70vh;display:flex;align-items:center;justify-content:center;
+    }
+    .lightbox-img-wrap img{width:100%;height:100%;object-fit:contain;}
+    .lightbox-caption{margin-top:8px;font-size:.8rem;color:#e5e7eb;}
+    .lightbox-caption small{color:#9ca3af;}
+
+    /* ===== Responsive (wie andere Seiten) ===== */
+    @media (max-width: 768px){
+      body{padding-top:64px;}
+      section{padding:40px 0;}
+      .nav{padding:0 14px;}
+      .menu-toggle{display:inline-flex;}
+      .menu{
+        position:absolute;top:100%;right:0;left:0;
+        background:#fff;border-bottom:1px solid var(--color-border);
+        padding:8px 16px 12px;
+        flex-direction:column;gap:4px;
+        display:none;
+      }
+      .menu.is-open{display:flex;}
+      .menu a{width:100%;text-align:left;padding:8px 10px;}
+      .hero-actions .btn{width:100%;justify-content:center;}
+      .hero-media-grid img{height:150px;}
+    }
+    @media(max-width:640px){
+      .hero-media-grid{grid-template-columns:1fr;}
+      .hero-media-grid img{height:auto;}
+    }
+    @media(max-width:480px){
+      .chip{white-space:normal;}
+      .btn.icon-only{width:auto;}
+      .lightbox-buttons button span.label{display:none;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- Header -->
+  <header class="site" role="banner">
+    <div class="nav">
+      <div class="brand">
+        Merve Eser
+        <small>UX/UI · Medieninformatik (M. Sc.)</small>
+      </div>
+
+      <button class="menu-toggle" type="button" aria-label="Navigation öffnen" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+        <span>Menü</span>
+      </button>
+
+      <nav class="menu" aria-label="Hauptnavigation">
+        <a href="index.html#arbeiten">Zur Übersicht</a>
+        <a href="#ergebnis">Ergebnisse</a>
+        <a href="#prozess">Prozess</a>
+        <a href="#redesign">Redesign</a>
+        <a href="#ds-title">Designsystem</a>
+        <a href="#learn-title">Learnings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+
+        <div class="fade-up" id="hero-text">
+          <div class="kicker">Case Study · Masterarbeit</div>
+          <h1 id="hero-title">
+            RaceTrace – <span class="accent">Dashboard Redesign</span><br>
+            für ein 24h-Radrennen
+          </h1>
+
+          <p class="lead">
+            Evaluation und Redesign eines Dashboards zur Visualisierung von (Quasi-)Echtzeitdaten
+            im Rennsport. UCD nach DIN EN ISO&nbsp;9241-210, getestet mit A/B-Tests,
+            ISONORM&nbsp;9241-110 und VisAWI-S.
+          </p>
+
+          <div class="hero-meta">
+            <span class="chip"><i class="fa-solid fa-graduation-cap"></i> Masterarbeit · TH Köln</span>
+            <span class="chip"><i class="fa-solid fa-building"></i> adesso&nbsp;SE · internes Projekt</span>
+            <span class="chip"><i class="fa-solid fa-person-biking"></i> Event: „Rad am Ring“</span>
+            <span class="chip"><i class="fa-solid fa-users-gear"></i> Rollen: UX Research · UX/UI · Prototyping</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#ergebnis"><i class="fa-solid fa-chart-line"></i> Ergebnisse ansehen</a>
+            <a class="btn ghost" href="#prozess"><i class="fa-solid fa-route"></i> Designprozess</a>
+            <a class="btn icon-only" href="index.html#arbeiten" aria-label="Zur Übersicht">
+              <i class="fa-solid fa-arrow-left-long"></i>
+            </a>
+          </div>
+
+          <div class="hero-highlight" aria-label="Ziel und Ergebnis Zusammenfassung">
+            <div class="hero-highlight-card">
+              <b>Ziel</b>
+              Verbesserung der Gebrauchstauglichkeit des Dashboards und der
+              Funktion „Neues Event erstellen“ unter Berücksichtigung unterschiedlicher Stakeholder
+              (Administrator:innen, Fahrer:innen, Zuschauer:innen).
+            </div>
+            <div class="hero-highlight-card">
+              <b>Ergebnis in Kürze</b>
+              Neues Event-Layout, vereinfachtes Team-Management, verbesserte Strecken-Konfiguration
+              und getrennte Dashboards für Einzel- und Teamrennen. Ästhetik mit VisAWI-S
+              positiv bestätigt (Gesamtwert ca. 5,8&nbsp;/&nbsp;7).
+            </div>
+          </div>
+        </div>
+
+        <!-- Before / After Teaser -->
+        <aside class="hero-media fade-up" id="hero-media" aria-label="Vorher/Nachher-Vergleich RaceTrace">
+          <div class="hero-media-card">
+            <div class="hero-media-header">
+              <div>
+                <div class="hero-media-tag">Vorher / Nachher</div>
+                <strong>Dashboard auf einen Blick</strong>
+              </div>
+              <i class="fa-solid fa-display" aria-hidden="true"></i>
+            </div>
+
+            <div class="before-after-labels">
+              <div class="pill before"><span class="dot"></span> Vorher: gemischte Admin-/Rennansicht</div>
+              <div class="pill after"><span class="dot"></span> Nachher: getrennte Dashboards &amp; vertikale Navigation</div>
+            </div>
+
+            <div class="hero-media-grid">
+              <img src="img/racetrace-before.png" alt="Altes RaceTrace Dashboard – Admin-Sicht">
+              <img src="img/racetrace-after.png" alt="Redesign RaceTrace Dashboard – Teamrennen">
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- Projektkontext & KPIs -->
+    <section id="ergebnis" aria-labelledby="ctx-title">
+      <div class="container reveal">
+        <h2 id="ctx-title">Projektkontext &amp; Ergebnisse</h2>
+        <p class="muted">
+          Die Arbeit untersucht das bestehende RaceTrace-Dashboard für das 24-Stunden-Rennen
+          „Rad am Ring“ und entwickelt auf Basis eines menschzentrierten Gestaltungsprozesses
+          ein Redesign.
+        </p>
+
+        <div class="meta-grid" aria-label="Rahmendaten">
+          <div class="meta-card">
+            <div class="meta-label">Projektart</div>
+            <div class="meta-value">Masterarbeit (M. Sc. Medieninformatik, HCI)</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Unternehmen</div>
+            <div class="meta-value">adesso SE · internes Tool</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Zeitraum</div>
+            <div class="meta-value">2023–2024</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Nutzergruppen</div>
+            <div class="meta-value">Admin · Fahrer:in · Zuschauer:in</div>
+          </div>
+        </div>
+
+        <div class="kpi-grid" aria-label="Ergebniskarten">
+          <article class="kpi-card">
+            <b>Alle 7 Dialogprinzipien ≥ +1 MW</b>
+            <span class="kpi-tag">
+              ISONORM&nbsp;9241-110 – Aufgabenangemessenheit knapp positiv,
+              Verbesserungsfokus auf Individualisierbarkeit &amp; Lernförderlichkeit.
+            </span>
+          </article>
+
+          <article class="kpi-card">
+            <b>VisAWI-S Ø ≈ 5,8&nbsp;/&nbsp;7</b>
+            <span class="kpi-tag">
+              Ästhetik deutlich über Benchmark-Schwellenwert 4,5 → kein Bedarf für
+              grundsätzliche visuelle Änderungen.
+            </span>
+          </article>
+
+          <article class="kpi-card">
+            <b>Platzhalter-KPIs</b>
+            <span class="kpi-tag">
+              Beispiel: „−20&nbsp;% Aufwand beim Anlegen neuer Events“ oder
+              „+X&nbsp;% schnellere Konfiguration der Strecke“.
+              (Werte später aus Messdaten ableitbar.)
+            </span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem & Lösung -->
+    <section aria-labelledby="pl-title">
+      <div class="container two-col reveal">
+        <div>
+          <h2 id="pl-title">Ausgangssituation &amp; Problem</h2>
+          <div class="card">
+            <p>
+              RaceTrace visualisiert Live-Daten zum Rennen (Karte, Rundenzeiten, Performance,
+              Leaderboard, nächste Wechsel, Streckenhöhe). Admins konfigurieren Strecken,
+              Teams und Profile, Fahrer:innen und Zuschauer:innen verfolgen den Rennverlauf.
+            </p>
+            <p>Das bestehende Dashboard war funktional, zeigte aber:</p>
+            <ul>
+              <li>hohe Komplexität bei der Funktion <strong>„Neues Event erstellen“</strong>,</li>
+              <li>umständliches Hinzufügen von Teammitgliedern,</li>
+              <li>eingeschränkte Unterstützung für Rennen, die nicht als Rundkurs stattfinden,</li>
+              <li>eine horizontale Navigation, in der Dashboard und Verwaltungsseiten ineinanderliefen.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <h2>Designlösung in Kürze</h2>
+          <div class="card">
+            <ul>
+              <li>Neues, getestetes Layout für <strong>„Neues Event erstellen“</strong>.</li>
+              <li>Überarbeitete <strong>Teamverwaltung</strong> mit Pflichtfeldern und klaren Fehlermeldungen.</li>
+              <li>Markierung von <strong>Start- und Zielpunkt</strong> auf der Karte + flexible <strong>Wechselzonen</strong>.</li>
+              <li>Getrennte Dashboards für <strong>Teamrennen</strong> und <strong>Einzelrennen</strong> + vertikale Navigation.</li>
+              <li>Ergänztes <strong>Typografiesystem</strong> für konsistentes Hand-off.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prozess -->
+    <section id="prozess" aria-labelledby="proc-title">
+      <div class="container reveal">
+        <h2 id="proc-title">Designprozess nach DIN EN ISO&nbsp;9241-210</h2>
+        <p class="muted phase-intro">
+          Die Case Study folgt den vier Schritten des menschzentrierten Gestaltungsprozesses.
+          Jede Phase ist mit einer Kurzbeschreibung und einer einklappbaren Galerie dokumentiert.
+        </p>
+
+        <!-- PHASE 1 -->
+        <div class="phase-row" id="phase-1">
+          <div class="phase-card">
+            <div class="phase-badge"><span class="num">1</span> Phase · Nutzungskontext</div>
+            <div class="phase-title">Stakeholderanalyse &amp; Empathy-Map</div>
+            <p>
+              In Phase&nbsp;1 wurden die relevanten Stakeholder identifiziert und mit Empathy-Maps vertieft:
+              Administrator:innen, Fahrer:innen und Zuschauer:innen.
+            </p>
+            <div class="phase-meta">Methode: Stakeholderanalyse, Empathy-Map, Kontextbeschreibung.</div>
+            <div class="phase-tags">
+              <span class="phase-tag">Stakeholder</span>
+              <span class="phase-tag">Empathy-Map</span>
+              <span class="phase-tag">Kontextanalyse</span>
+            </div>
+          </div>
+
+          <div class="phase-gallery">
+            <details>
+              <summary>
+                <div class="phase-toggle-label">
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  <span>Artefakte Phase&nbsp;1 anzeigen</span>
+                </div>
+                <div class="phase-toggle-hint">2 Visualisierungen · Stakeholder &amp; Empathy-Map</div>
+              </summary>
+              <div class="phase-gallery-inner">
+                <div class="gallery">
+                  <figure>
+                    <img src="img/stakeholder.png" alt="Stakeholderanalyse RaceTrace">
+                    <figcaption>
+                      Abb. 14: Stakeholderanalyse – Übersicht der Rollen und Beziehungen.
+                      Quelle: <a href="Masterarbeit.pdf#page=29" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 29.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/empath.png" alt="Empathy-Map RaceTrace">
+                    <figcaption>
+                      Abb. 15: Empathy-Map – Ziele, Gedanken, Gefühle und Pain Points.
+                      Quelle: <a href="Masterarbeit.pdf#page=30" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 30.
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- PHASE 2 -->
+        <div class="phase-row" id="phase-2">
+          <div class="phase-card">
+            <div class="phase-badge"><span class="num">2</span> Phase · Anforderungen</div>
+            <div class="phase-title">Erfordernisse &amp; Nutzungsanforderungen</div>
+            <p>
+              Auf Basis des Nutzungskontexts wurden Erfordernisse formuliert und daraus konkrete
+              Nutzungsanforderungen abgeleitet – u.&nbsp;a. für Eventanlage, Rollenmodell,
+              Strecken-Konfiguration und Teamverwaltung.
+            </p>
+            <div class="phase-meta">Ergebnis: strukturierte Anforderungsliste als Grundlage für das Interaction Design.</div>
+            <div class="phase-tags">
+              <span class="phase-tag">Requirements</span>
+              <span class="phase-tag">Use Cases</span>
+              <span class="phase-tag">Dashboard-Funktionalität</span>
+            </div>
+          </div>
+
+          <div class="phase-gallery">
+            <details>
+              <summary>
+                <div class="phase-toggle-label">
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  <span>Artefakte Phase&nbsp;2 anzeigen</span>
+                </div>
+                <div class="phase-toggle-hint">2 Artefakte · Erfordernisse &amp; Anforderungen</div>
+              </summary>
+              <div class="phase-gallery-inner">
+                <div class="gallery">
+                  <figure>
+                    <img src="img/erfordernisse.png" alt="Erfordernisse RaceTrace">
+                    <figcaption>
+                      Erfordernisse – Ableitung grundlegender Systemziele.
+                      Quelle: <a href="Masterarbeit.pdf#page=31" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 31.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/anforderungen.png" alt="Nutzungsanforderungen RaceTrace">
+                    <figcaption>
+                      Anforderungen – Konkretisierung in prüfbare Nutzungsanforderungen.
+                      Quelle: <a href="Masterarbeit.pdf#page=32" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 32.
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- PHASE 3 -->
+        <div class="phase-row" id="phase-3">
+          <div class="phase-card">
+            <div class="phase-badge"><span class="num">3</span> Phase · Gestaltung</div>
+            <div class="phase-title">Scribbles, Wireframes &amp; Prototyp</div>
+            <p>
+              In Phase&nbsp;3 wurden Scribbles für zentrale Dialoge erstellt, in Wireframes überführt
+              und schließlich als High-Fidelity-Prototyp in Figma ausgearbeitet.
+            </p>
+            <div class="phase-meta">Fokus: Klarere Informationsarchitektur und visuelle Hierarchie für Admin-Tasks.</div>
+            <div class="phase-tags">
+              <span class="phase-tag">Scribbles</span>
+              <span class="phase-tag">Wireframes</span>
+              <span class="phase-tag">Figma-Prototyp</span>
+            </div>
+          </div>
+
+          <div class="phase-gallery">
+            <details>
+              <summary>
+                <div class="phase-toggle-label">
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  <span>Artefakte Phase&nbsp;3 anzeigen</span>
+                </div>
+                <div class="phase-toggle-hint">2 Artefakte · Scribbles &amp; Wireframes</div>
+              </summary>
+              <div class="phase-gallery-inner">
+                <div class="gallery">
+                  <figure>
+                    <img src="img/scribbles.png" alt="Scribbles Datumsbereich">
+                    <figcaption>
+                      Abb. 19: Datum-Scribbles – Varianten für Zeitraumwahl.
+                      Quelle: <a href="Masterarbeit.pdf#page=38" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 38.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/wireframe.png" alt="Wireframes Datumsbereich">
+                    <figcaption>
+                      Abb. 20: Datum-Wireframes – konsolidierte Version für A/B-Test.
+                      Quelle: <a href="Masterarbeit.pdf#page=40" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 40.
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- PHASE 4 -->
+        <div class="phase-row" id="phase-4">
+          <div class="phase-card">
+            <div class="phase-badge"><span class="num">4</span> Phase · Evaluation</div>
+            <div class="phase-title">A/B-Tests, ISONORM &amp; VisAWI-S</div>
+            <p>
+              In Phase&nbsp;4 wurden Layoutvarianten im A/B-Test verglichen und anschließend die
+              Gebrauchstauglichkeit (ISONORM&nbsp;9241-110) sowie Ästhetik (VisAWI-S) erhoben.
+            </p>
+            <div class="phase-meta">
+              Ergebnis: Dialogprinzipien leicht verbessert, Ästhetik deutlich über Benchmark (VisAWI-S &gt; 4,5).
+            </div>
+            <div class="phase-tags">
+              <span class="phase-tag">A/B-Test</span>
+              <span class="phase-tag">ISONORM 9241-110</span>
+              <span class="phase-tag">VisAWI-S</span>
+            </div>
+          </div>
+
+          <div class="phase-gallery">
+            <details>
+              <summary>
+                <div class="phase-toggle-label">
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  <span>Artefakte Phase&nbsp;4 anzeigen</span>
+                </div>
+                <div class="phase-toggle-hint">7 Artefakte · Tests &amp; Auswertungen</div>
+              </summary>
+              <div class="phase-gallery-inner">
+                <div class="gallery">
+                  <figure>
+                    <img src="img/ab-test.png" alt="A/B-Tests Kalenderansicht">
+                    <figcaption>
+                      Abb. 23: A/B-Tests – Aufbau Kalenderansicht (A/B).
+                      Quelle: <a href="Masterarbeit.pdf#page=45" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 45.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/ab-test-ergebniss.png" alt="Ergebnisse A/B-Test Datumsformat">
+                    <figcaption>
+                      Abb. 34: Ergebnisse A/B-Test – bevorzugte Datumsdarstellung.
+                      Quelle: <a href="Masterarbeit.pdf#page=57" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 57.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/iso-test-2.png" alt="ISONORM 9241-110 Skala">
+                    <figcaption>
+                      Abb. 26: ISONORM 9241-110 – Bewertungsskala.
+                      Quelle: <a href="Masterarbeit.pdf#page=47" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 47.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/iso-test.png" alt="ISONORM 9241-110 Antworttextfeld">
+                    <figcaption>
+                      Abb. 27: ISONORM 9241-110 – qualitative Kommentare.
+                      Quelle: <a href="Masterarbeit.pdf#page=47" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 47.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/iso-ergebniss.png" alt="ISONORM 9241-110 Ergebnisse aa2">
+                    <figcaption>
+                      Abb. 35: ISONORM – Ergebnisse Frage aa2.
+                      Quelle: <a href="Masterarbeit.pdf#page=58" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 58.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/visawi-test.png" alt="VisAWI-S Skala">
+                    <figcaption>
+                      Abb. 30: VisAWI-S – Likertskala.
+                      Quelle: <a href="Masterarbeit.pdf#page=53" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 53.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/visawi-auswertung.png" alt="VisAWI-S Auswertung">
+                    <figcaption>
+                      Abb. 50: VisAWI-S – Auswertung „passt zusammen“.
+                      Quelle: <a href="Masterarbeit.pdf#page=67" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 67.
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- REDESIGN -->
+        <div class="phase-row" id="redesign">
+          <div class="phase-card">
+            <div class="phase-badge">
+              <span class="num"><i class="fa-solid fa-star" aria-hidden="true" style="font-size:.7rem;"></i></span>
+              Redesign · Vergleich
+            </div>
+            <div class="phase-title">Vorher/Nachher des RaceTrace Dashboards</div>
+            <p>
+              Gegenüberstellung der wichtigsten Screens: Navigation, Informationsdichte und visuelle Hierarchie.
+            </p>
+            <div class="phase-meta">Alt vs. Neu: Admin-/User-Ansichten, Unterseiten und neue Dashboard-Layouts.</div>
+            <div class="phase-tags">
+              <span class="phase-tag">Vorher/Nachher</span>
+              <span class="phase-tag">Dashboard</span>
+              <span class="phase-tag">Team &amp; Einzelrennen</span>
+            </div>
+          </div>
+
+          <div class="phase-gallery">
+            <details>
+              <summary>
+                <div class="phase-toggle-label">
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  <span>Redesign-Screens anzeigen</span>
+                </div>
+                <div class="phase-toggle-hint">6 Screens · Alt vs. Neu</div>
+              </summary>
+              <div class="phase-gallery-inner">
+                <div class="gallery">
+                  <figure>
+                    <img src="img/alt1.png" alt="RaceTrace Dashboard Admin-Sicht">
+                    <figcaption>
+                      Abb. 1: ursprüngliches Dashboard (Admin).
+                      Quelle: <a href="Masterarbeit.pdf#page=4" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 4.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/alt2.png" alt="RaceTrace Dashboard User-Sicht">
+                    <figcaption>
+                      Abb. 2: ursprüngliches Dashboard (User).
+                      Quelle: <a href="Masterarbeit.pdf#page=5" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 5.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/alt3.png" alt="RaceTrace Unterseite Strecke">
+                    <figcaption>
+                      Abb. 3: Unterseite „Strecke“ (alt).
+                      Quelle: <a href="Masterarbeit.pdf#page=7" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 7.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/alt4.png" alt="RaceTrace Unterseite Team">
+                    <figcaption>
+                      Abb. 4: Unterseite „Team“ (alt).
+                      Quelle: <a href="Masterarbeit.pdf#page=8" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 8.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/alt5.png" alt="RaceTrace Unterseite Profil">
+                    <figcaption>
+                      Abb. 5: Unterseite „Profil“ (alt).
+                      Quelle: <a href="Masterarbeit.pdf#page=9" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 9.
+                    </figcaption>
+                  </figure>
+                  <figure>
+                    <img src="img/neu1.png" alt="Neues Dashboard Team- und Einzelrennen">
+                    <figcaption>
+                      Abb. 85 &amp; 86: neue Dashboards – getrennte Dashboards + vertikale Navigation.
+                      Quelle: <a href="Masterarbeit.pdf#page=91" target="_blank" rel="noopener">Masterarbeit.pdf</a>, S. 91.
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Designsystem -->
+    <section aria-labelledby="ds-title">
+      <div class="container reveal">
+        <h2 id="ds-title">Designsystem &amp; Typografie</h2>
+        <p class="muted">
+          Die Farb-Sticker lesen ihre Werte zentral aus <code>:root</code>.  
+          So kann das RaceTrace-Branding an einer Stelle angepasst werden:
+        </p>
+
+        <pre style="font-size:.8rem;background:#f9fafb;padding:8px 10px;border-radius:10px;overflow-x:auto;border:1px solid #e5e7eb;margin-bottom:12px;">
+:root {
+  --rt-primary: #0b3558; /* Dashboards, Navigation */
+  --rt-accent:  #ffb347; /* Status, Countdown */
+  --rt-bg-dark: #020617; /* Dark Cards, Charts */
+}
+        </pre>
+
+        <div class="style-grid">
+          <div class="type-card">
+            <h3>Typografie</h3>
+            <div class="type-sample-title">RaceTrace Headline H1</div>
+            <div class="type-sample-sub">System Sans · ~32–40&nbsp;px · 700</div>
+            <div class="type-sample-body">
+              Section-Headlines (H2) liegen im Bereich 22–26&nbsp;px, semibold.  
+              Fließtext bleibt neutral und gut lesbar (z.&nbsp;B. 16&nbsp;px, 1.5 Zeilenhöhe).  
+              Komponenten orientieren sich an einem 4-px-Spacing-Raster, damit das Dashboard trotz Quasi-Echtzeitdaten ruhig bleibt.
+            </div>
+          </div>
+
+          <div class="color-card">
+            <h3>Farben (Sticker)</h3>
+            <p class="muted" style="margin:0 0 6px">
+              Dunkles Blau für Datenflächen, warmes Akzent-Gelb für Status/Countdown, sehr dunkles Blau-Schwarz für Night-Mode-Karten.
+            </p>
+            <div class="color-row">
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-primary"></span>
+                <span>Primary<br><small>Dashboards · Navigation<br>#0B3558</small></span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-accent"></span>
+                <span>Accent<br><small>Status · CTA · Countdown<br>#FFB347</small></span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-dark"></span>
+                <span>Dark BG<br><small>Hero-Karte · Charts<br>#020617</small></span>
+              </div>
+              <div class="color-swatch">
+                <span class="swatch-dot swatch-neutral"></span>
+                <span>Neutrals<br><small>Karten, Linien, Textflächen<br>Portfolio-System</small></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learnings -->
+    <section aria-labelledby="learn-title">
+      <div class="container reveal">
+        <h2 id="learn-title">Learnings &amp; nächste Schritte</h2>
+        <div class="card">
+          <ul>
+            <li><strong>A/B-Tests + ISONORM + VisAWI-S</strong> liefern zusammen ein rundes Bild aus Usability &amp; Wahrnehmung.</li>
+            <li>Funktionale Aspekte wie <strong>Individualisierbarkeit</strong> und <strong>Lernförderlichkeit</strong> lassen sich gezielt verbessern, ohne „Look &amp; Feel“ zu verlieren.</li>
+            <li>Als nächster Schritt: <strong>größere Stichprobe</strong> (extern), plus KPIs aus Logdaten / Zeit-&-Fehler-Messungen.</li>
+          </ul>
+          <p class="muted">
+            Numerische KPIs (z.&nbsp;B. -X&nbsp;% Bearbeitungszeit) lassen sich später aus Log-Daten oder Tests ableiten
+            (z.&nbsp;B. Excel/Sheets, R, SPSS, JASP/Jamovi).
+          </p>
+
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+            <a class="btn ghost" href="#top"><i class="fa-solid fa-arrow-up"></i> Nach oben</a>
+            <a class="btn primary" href="index.html#arbeiten"><i class="fa-solid fa-arrow-left"></i> Zurück zu allen Projekten</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container frow">
+      <div>© <span id="y"></span> Merve Eser · RaceTrace Case Study</div>
+      <div class="muted">Bereit für neue Herausforderungen im UX/UI-Bereich</div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox-backdrop" id="lightbox" aria-hidden="true">
+    <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+      <div class="lightbox-frame">
+        <div class="lightbox-toolbar">
+          <div class="lightbox-toolbar-left">
+            <i class="fa-solid fa-images" aria-hidden="true"></i>
+            <div>
+              <div id="lightbox-title">Artefaktansicht</div>
+              <div class="lightbox-toolbar-meta" id="lightbox-meta"></div>
+            </div>
+          </div>
+          <div class="lightbox-buttons">
+            <button type="button" id="lightbox-prev">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+              <span class="label">Zurück</span>
+            </button>
+            <button type="button" id="lightbox-next">
+              <span class="label">Weiter</span>
+              <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </button>
+            <button type="button" id="lightbox-close">
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              <span class="label">Schließen</span>
+            </button>
+          </div>
+        </div>
+        <div class="lightbox-img-wrap">
+          <img src="" alt="" id="lightbox-img">
+        </div>
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Jahr
+      const y = document.getElementById('y');
+      if (y) y.textContent = new Date().getFullYear();
+
+      // Mobile-Menü
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('.menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          const isOpen = menu.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        menu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (menu.classList.contains('is-open')) {
+              menu.classList.remove('is-open');
+              toggle.setAttribute('aria-expanded','false');
+            }
+          });
+        });
+      }
+
+      // Hero Fade-Up
+      ['hero-text','hero-media'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) window.requestAnimationFrame(() => el.classList.add('is-visible'));
+      });
+
+      // Scroll-Reveal
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && revealEls.length) {
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        revealEls.forEach(el => obs.observe(el));
+      }
+
+      // Smooth Scroll (wie andere Seiten, Header-Offset)
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+          const id = (link.getAttribute('href') || '').slice(1);
+          const target = document.getElementById(id);
+          if (target) {
+            e.preventDefault();
+            const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+            const top = target.offsetTop - headerOffset;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        });
+      });
+
+      // Lightbox
+      const images = Array.from(document.querySelectorAll('.gallery figure img'));
+      if (!images.length) return;
+
+      const backdrop = document.getElementById('lightbox');
+      const imgEl = document.getElementById('lightbox-img');
+      const captionEl = document.getElementById('lightbox-caption');
+      const metaEl = document.getElementById('lightbox-meta');
+      const btnPrev = document.getElementById('lightbox-prev');
+      const btnNext = document.getElementById('lightbox-next');
+      const btnClose = document.getElementById('lightbox-close');
+
+      let currentIndex = 0;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        const img = images[currentIndex];
+        const src = img.getAttribute('src');
+        const alt = img.getAttribute('alt') || '';
+        const fig = img.closest('figure');
+        const figcaption = fig ? fig.querySelector('figcaption') : null;
+        const captionHtml = figcaption ? figcaption.innerHTML : alt;
+
+        imgEl.src = src;
+        imgEl.alt = alt;
+        captionEl.innerHTML = captionHtml;
+        metaEl.textContent = 'Bild ' + (currentIndex + 1) + ' von ' + images.length;
+
+        backdrop.classList.add('is-open');
+        backdrop.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeLightbox() {
+        backdrop.classList.remove('is-open');
+        backdrop.setAttribute('aria-hidden', 'true');
+        imgEl.src = '';
+        imgEl.alt = '';
+        captionEl.textContent = '';
+      }
+
+      function showNext(delta) {
+        currentIndex = (currentIndex + delta + images.length) % images.length;
+        openLightbox(currentIndex);
+      }
+
+      images.forEach((img, index) => {
+        img.addEventListener('click', () => openLightbox(index));
+      });
+
+      btnPrev.addEventListener('click', (e) => { e.stopPropagation(); showNext(-1); });
+      btnNext.addEventListener('click', (e) => { e.stopPropagation(); showNext(1); });
+      btnClose.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeLightbox();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!backdrop.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNext(1);
+        if (e.key === 'ArrowLeft') showNext(-1);
+      });
+    });
+  </script>
+</body>
+</html>
