@@ -2,7 +2,6 @@
 <html lang="de">
 
 <head>
-
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fußballcamp Antalya – Landingpage · Merve Eser</title>
@@ -16,26 +15,17 @@
 
   <style>
     :root{
-      /* =========================
-         COLOR SYSTEM – CASE STUDY
-         ========================= */
-
-      /* Neutrals */
       --color-bg:#ffffff;
       --color-surface:#f9fafb;
       --color-ink:#0f172a;
       --color-muted:#6b7280;
       --color-border:#e5e7eb;
 
-      /* Brand / Accent (ALT – Landingpage) */
       --color-primary:#791e56;
       --color-primary-dark:#601844;
       --color-accent:#a16188;
       --color-sun:#fbbf24;
 
-      /* =========================
-         NEW (REDESIGN) – aus deinem neuen Portal-Code
-         ========================= */
       --new-brand-700:#05367c;
       --new-brand-800:#083a80;
       --new-brand-900:#0b4aa2;
@@ -46,17 +36,14 @@
       --new-text-2:#334155;
       --new-text-3:#64748b;
 
-      /* Hero / Depth */
       --color-hero-soft:#f3e8ff;
       --color-hero-wash:rgba(190,144,176,.7);
       --shadow-soft:0 10px 30px rgba(15,23,42,.12);
       --shadow-strong:0 24px 60px rgba(15,23,42,.35);
 
-      /* Layout */
       --radius-lg:22px;
       --header-h:72px;
 
-      /* TYPO */
       --font-family-base: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Noto Sans",Helvetica,Arial,sans-serif;
 
       --font-size-body: 1rem;
@@ -73,15 +60,12 @@
       --line-height-body: 1.6;
       --line-height-heading: 1.1;
 
-      /* Blink CTA Ring */
       --blink-ring: rgba(245,158,11,.35);
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    html{
-      scroll-behavior:smooth;
-    }
+    html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
+    html{scroll-behavior:smooth}
     body{
       font-family:var(--font-family-base);
       background:var(--color-bg);
@@ -92,10 +76,11 @@
       padding-top:var(--header-h);
       font-size:var(--font-size-body);
     }
+
     img{max-width:100%;display:block}
     a{color:var(--color-primary);text-decoration:none}
     a:hover{text-decoration:underline}
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .container{width:min(100%, 1100px);max-width:1100px;margin:0 auto;padding:0 20px}
     section{padding:56px 0;scroll-margin-top:var(--header-h)}
 
     .visually-hidden{
@@ -119,7 +104,6 @@
       flex-wrap:wrap;
     }
 
-    /* --- Basis-Animationen --- */
     .fade-up,
     .reveal{
       opacity:0;
@@ -138,13 +122,11 @@
       100% { transform: scale(1);   box-shadow:0 14px 40px rgba(15,23,42,.9); }
     }
 
-    /* =========================
-       NEW: Blink Button
-       ========================= */
     @keyframes blinkGlow{
       0%,100%{ box-shadow:0 0 0 0 rgba(245,158,11,0), 0 14px 34px rgba(2,6,23,.18); transform:translateY(0); }
       50%{ box-shadow:0 0 0 6px var(--blink-ring), 0 20px 44px rgba(2,6,23,.22); transform:translateY(-1px); }
     }
+
     .btn.blink{
       background: var(--new-accent-600);
       color:#1f1300;
@@ -159,7 +141,6 @@
       animation:none;
     }
 
-    /* Header */
     header.site{
       position:fixed;top:0;left:0;right:0;
       height:var(--header-h);
@@ -168,23 +149,50 @@
       z-index:950;
       box-shadow:0 2px 10px rgba(0,0,0,.06);
     }
+
     .nav{
       height:100%;
-      display:flex;align-items:center;justify-content:space-between;
-      gap:16px;padding:0 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:0 20px;
       position:relative;
     }
-    .brand{font-weight:800;letter-spacing:.2px}
-    .brand small{display:block;color:var(--color-muted);font-weight:600;margin-top:2px;font-size:.8rem}
+
+    .brand{
+      font-weight:800;
+      letter-spacing:.2px;
+      min-width:0;
+      flex:1 1 auto;
+    }
+
+    .brand small{
+      display:block;
+      color:var(--color-muted);
+      font-weight:600;
+      margin-top:2px;
+      font-size:.8rem;
+    }
 
     .menu{
-      display:flex;gap:10px;flex-wrap:wrap;font-size:var(--font-size-body-small);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      font-size:var(--font-size-body-small);
       align-items:center;
     }
-    .menu a{padding:7px 11px;border-radius:999px}
-    .menu a:hover{background:var(--color-surface);text-decoration:none}
 
-    /* Mobile Toggle */
+    .menu a{
+      padding:7px 11px;
+      border-radius:999px;
+    }
+
+    .menu a:hover{
+      background:var(--color-surface);
+      text-decoration:none;
+    }
+
     .menu-toggle{
       display:none;
       border:1px solid var(--color-border);
@@ -195,54 +203,71 @@
       align-items:center;
       gap:8px;
       cursor:pointer;
+      flex:0 0 auto;
     }
+
     .menu-toggle i{font-size:1rem;}
 
     .btn{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:10px 14px;border-radius:999px;
-      border:1px solid var(--color-border);background:#fff;
-      cursor:pointer;font-size:var(--font-size-body-small);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      cursor:pointer;
+      font-size:var(--font-size-body-small);
       box-shadow:var(--shadow-soft);
       transition:background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
       transform:translateY(0);
+      max-width:100%;
     }
+
     .btn.primary{
       background:var(--color-primary);
       color:#fff;
       border-color:transparent;
     }
+
     .btn.primary:hover{
       background:var(--color-primary-dark);
       box-shadow:0 18px 40px rgba(88,28,67,.45);
       transform:translateY(-1px);
       text-decoration:none;
     }
+
     .btn.ghost{box-shadow:none;background:#fff}
+
     .btn.ghost:hover{
       box-shadow:0 10px 26px rgba(15,23,42,.08);
       transform:translateY(-1px);
       text-decoration:none;
     }
+
     .btn.icon-only{padding:9px 10px;box-shadow:none;border-radius:999px}
 
     .chip{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:6px 10px;border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
       border:1px solid var(--color-border);
       background:var(--color-surface);
       font-size:var(--font-size-chip);
       color:var(--color-muted);
       white-space:nowrap;
       transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+      max-width:100%;
     }
+
     .chip:hover{
       background:#fff;
       transform:translateY(-1px);
       box-shadow:0 10px 26px rgba(15,23,42,.08);
     }
 
-    /* HERO */
     .hero{
       background:
         radial-gradient(800px 480px at -20% -20%, var(--color-hero-soft) 0%, transparent 60%),
@@ -250,82 +275,110 @@
         #ffffff;
       border-bottom:1px solid var(--color-border);
     }
+
     .hero-grid{
-      display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;
+      display:grid;
+      grid-template-columns:1.25fr .9fr;
+      gap:40px;
+      align-items:center;
       padding:50px 0 40px;
+      min-width:0;
     }
+
     @media(max-width:900px){
       .hero-grid{grid-template-columns:1fr;gap:30px}
     }
+
     .kicker{
       text-transform:uppercase;
       letter-spacing:.18em;
       font-size:var(--font-size-kicker);
       color:var(--color-muted);
     }
+
     h1{
       margin:.5rem 0 .7rem;
       font-size:clamp(var(--font-size-h1-min),3.4vw,var(--font-size-h1-max));
       line-height:var(--line-height-heading);
     }
+
     section h2{
       font-size:clamp(var(--font-size-h2-min),2.6vw,var(--font-size-h2-max));
       margin:0 0 14px;
     }
+
     .accent{
       background:linear-gradient(90deg,var(--color-primary) 0%, var(--color-accent) 70%);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
       font-weight:800;
     }
+
     .lead{
       color:#374151;
       font-size:1.02rem;
       max-width:60ch;
     }
+
     .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
     .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 
     .hero-highlight{
-      margin-top:18px;display:grid;gap:10px;
+      margin-top:18px;
+      display:grid;
+      gap:10px;
     }
+
     .hero-highlight-card{
-      border-radius:16px;padding:10px 12px;
-      background:#fff;border:1px solid var(--color-border);
+      border-radius:16px;
+      padding:10px 12px;
+      background:#fff;
+      border:1px solid var(--color-border);
       box-shadow:0 8px 26px rgba(15,23,42,.06);
       font-size:var(--font-size-body-small);
       transition:transform .2s ease, box-shadow .2s ease;
+      min-width:0;
+      overflow-wrap:anywhere;
     }
+
     .hero-highlight-card:hover{
       transform:translateY(-2px);
       box-shadow:0 14px 34px rgba(15,23,42,.1);
     }
+
     .hero-highlight-card b{display:block;margin-bottom:2px}
 
-    /* Hero Video */
     .hero-media-card{
       border-radius:24px;
       background:#000;
       box-shadow:var(--shadow-strong);
       overflow:hidden;
       transition:transform .25s ease, box-shadow .25s ease;
+      min-width:0;
     }
+
     .hero-media-card:hover{
       transform:translateY(-4px);
       box-shadow:0 30px 70px rgba(15,23,42,.4);
     }
+
     .hero-media-main{
       position:relative;
       aspect-ratio:16 / 9;
       background:#000;
     }
+
     .hero-media-main video{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
       object-fit:cover;
+      object-position:center;
       display:block;
     }
+
     .hero-video-toggle{
       position:absolute;
       right:18px;
@@ -345,96 +398,147 @@
       transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
       animation:pulse-soft 2.4s ease-in-out infinite;
     }
+
     .hero-video-toggle:hover{
       transform:translateY(-1px);
       box-shadow:0 20px 55px rgba(15,23,42,.95);
       background:#020617;
       animation:none;
     }
-    .hero-video-toggle i{
-      font-size:1.2rem;
-    }
+
+    .hero-video-toggle i{font-size:1.2rem}
 
     .muted{color:var(--color-muted);font-size:.95rem}
 
-    /* 2-Spaltig */
-    .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+    .two-col{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      min-width:0;
+    }
+
     @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 
     .card{
-      border-radius:18px;border:1px solid var(--color-border);background:#fff;
-      padding:18px 16px;box-shadow:var(--shadow-soft);font-size:.95rem;
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:18px 16px;
+      box-shadow:var(--shadow-soft);
+      font-size:.95rem;
       transition:transform .2s ease, box-shadow .2s ease;
+      min-width:0;
+      overflow-wrap:anywhere;
     }
+
     .card:hover{
       transform:translateY(-2px);
       box-shadow:0 16px 40px rgba(15,23,42,.12);
     }
 
-    /* Meta-Grid */
-    .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px;font-size:.9rem}
+    .meta-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:10px;
+      font-size:.9rem;
+      min-width:0;
+    }
+
     @media(max-width:900px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:640px){.meta-grid{grid-template-columns:1fr}}
+
     .meta-card{
-      border-radius:16px;border:1px solid var(--color-border);background:#fff;
-      padding:10px 12px;box-shadow:0 8px 22px rgba(15,23,42,.04);
+      border-radius:16px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:10px 12px;
+      box-shadow:0 8px 22px rgba(15,23,42,.04);
       transition:transform .2s ease, box-shadow .2s ease;
+      min-width:0;
+      overflow-wrap:anywhere;
     }
+
     .meta-card:hover{
       transform:translateY(-2px);
       box-shadow:0 14px 32px rgba(15,23,42,.08);
     }
+
     .meta-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--color-muted);margin-bottom:3px}
     .meta-value{font-weight:600}
 
-    /* Listen */
     ul.clean{margin:0 0 6px;padding-left:1.1em}
     ul.clean li{margin-bottom:4px}
 
-    /* Typografie & Farben */
-    .style-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:10px}
-    @media(max-width:900px){.style-grid{grid-template-columns:1fr}}
-    .type-card,.color-card{
-      border-radius:18px;border:1px solid var(--color-border);
-      background:#fff;padding:14px 16px;
-      transition:transform .2s ease, box-shadow .2s ease;
+    .style-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+      margin-top:10px;
+      min-width:0;
     }
+
+    @media(max-width:900px){.style-grid{grid-template-columns:1fr}}
+
+    .type-card,.color-card{
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:14px 16px;
+      transition:transform .2s ease, box-shadow .2s ease;
+      min-width:0;
+    }
+
     .type-card:hover,.color-card:hover{
       transform:translateY(-2px);
       box-shadow:0 16px 40px rgba(15,23,42,.12);
     }
+
     .type-sample-title{font-size:1.35rem;font-weight:700;margin-bottom:4px}
     .type-sample-body{font-size:.95rem;margin-top:4px}
 
     .color-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+
     .color-swatch{
-      display:flex;align-items:center;gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       border-radius:999px;
       padding:6px 10px;
       border:1px solid var(--color-border);
       font-size:.85rem;
+      max-width:100%;
     }
+
+    .color-swatch span{
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
     .swatch-dot{
-      width:18px;height:18px;border-radius:999px;border:1px solid #e5e7eb;
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
     }
+
     .swatch-primary{background:var(--color-primary);}
     .swatch-accent{background:var(--color-accent);}
     .swatch-sun{background:var(--color-sun);}
-
-    /* NEW Swatches (Redesign) */
     .swatch-new-700{background:var(--new-brand-700);}
     .swatch-new-900{background:var(--new-brand-900);}
     .swatch-new-accent{background:var(--new-accent-600);}
     .swatch-new-muted{background:var(--new-muted);}
     .swatch-new-text2{background:var(--new-text-2);}
 
-    /* UI Shadows & Overlays */
     .shadow-grid{
       display:grid;
       grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
       gap:18px;
       margin-top:18px;
+      min-width:0;
     }
+
     @media(max-width:900px){
       .shadow-grid{grid-template-columns:1fr;}
     }
@@ -446,6 +550,7 @@
       padding:14px 16px;
       box-shadow:0 10px 30px rgba(15,23,42,.05);
       font-size:.9rem;
+      min-width:0;
     }
 
     .shadow-card h3{
@@ -467,10 +572,12 @@
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
+      gap:12px;
     }
 
     .shadow-box{
-      width:56%;
+      width:48%;
+      min-width:120px;
       height:52px;
       border-radius:14px;
       background:#ffffff;
@@ -479,6 +586,7 @@
     .shadow-meta{
       flex:1;
       padding-left:12px;
+      min-width:0;
     }
 
     .shadow-meta strong{
@@ -496,7 +604,6 @@
     .shadow-strong-box{ box-shadow:var(--shadow-strong); }
     .shadow-header-box{ box-shadow:0 2px 10px rgba(0,0,0,.06); }
 
-    /* Overlay-Chips */
     .overlay-list{
       margin-top:6px;
       display:flex;
@@ -514,9 +621,7 @@
       align-items:center;
     }
 
-    .overlay-label{
-      font-weight:500;
-    }
+    .overlay-label{font-weight:500;}
 
     .overlay-swatch{
       width:18px;
@@ -525,41 +630,30 @@
       border:1px solid #e5e7eb;
     }
 
-    .overlay-hero{
-      background:linear-gradient(90deg,var(--color-hero-soft),var(--color-hero-wash));
-    }
-    .overlay-dark{
-      background:rgba(15,23,42,.92);
-    }
-    .overlay-light{
-      background:rgba(248,250,252,.95);
-    }
+    .overlay-hero{background:linear-gradient(90deg,var(--color-hero-soft),var(--color-hero-wash));}
+    .overlay-dark{background:rgba(15,23,42,.92);}
+    .overlay-light{background:rgba(248,250,252,.95);}
 
-    /* --- Social Media Sektion (Karten) --- */
-    #social h2{
-      margin-bottom:10px;
-    }
-
-    #social > .container > .muted:first-of-type{
-      margin-top:0;
-    }
-
-    #social .muted.mt-14{
-      margin-top:10px;
-    }
+    #social h2{margin-bottom:10px}
+    #social > .container > .muted:first-of-type{margin-top:0}
+    #social .muted.mt-14{margin-top:10px}
 
     .social-grid{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:16px;
       margin-top:16px;
+      min-width:0;
     }
+
     @media(max-width:900px){
       .social-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
     }
+
     @media(max-width:640px){
       .social-grid{grid-template-columns:1fr;}
     }
+
     .social-card{
       border-radius:18px;
       border:1px solid var(--color-border);
@@ -567,7 +661,10 @@
       padding:14px 16px;
       box-shadow:0 10px 26px rgba(15,23,42,.06);
       font-size:.9rem;
+      min-width:0;
+      overflow-wrap:anywhere;
     }
+
     .social-date{
       font-size:.78rem;
       text-transform:uppercase;
@@ -575,6 +672,7 @@
       color:var(--color-muted);
       margin-bottom:4px;
     }
+
     .social-channel{
       display:flex;
       align-items:center;
@@ -582,18 +680,16 @@
       font-weight:600;
       margin-bottom:6px;
     }
-    .social-channel i{
-      font-size:.95rem;
-    }
-    .social-number{
-      font-size:1rem;
-      font-weight:600;
-    }
+
+    .social-channel i{font-size:.95rem;}
+    .social-number{font-size:1rem;font-weight:600;}
+
     .social-note{
       font-size:.85rem;
       color:var(--color-muted);
       margin-top:4px;
     }
+
     .social-bar{
       margin-top:8px;
       height:5px;
@@ -601,25 +697,26 @@
       background:#e5e7eb;
       overflow:hidden;
     }
+
     .social-bar span{
       display:block;
       height:100%;
       background:linear-gradient(90deg,var(--color-primary),var(--color-accent));
     }
 
-    /* Drei Mockups nebeneinander */
     .mockup-row{
       margin-top:16px;
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:16px;
       align-items:flex-start;
+      min-width:0;
     }
+
     @media(max-width:900px){
       .mockup-row{grid-template-columns:1fr;}
     }
 
-    /* --- Social Media Sektion: Instagram / iPhone Frames --- */
     .insta-mockup{
       border-radius:24px;
       border:1px solid var(--color-border);
@@ -630,7 +727,9 @@
       overflow:hidden;
       margin:0 auto;
       transition:transform .25s ease, box-shadow .25s ease;
+      min-width:0;
     }
+
     .insta-mockup:hover{
       transform:translateY(-6px);
       box-shadow:0 26px 60px rgba(15,23,42,.18);
@@ -659,6 +758,7 @@
       align-items:center;
       justify-content:center;
     }
+
     .insta-avatar-inner{
       width:100%;
       height:100%;
@@ -669,6 +769,7 @@
       align-items:center;
       justify-content:center;
     }
+
     .insta-avatar-img{
       width:100%;
       height:100%;
@@ -692,9 +793,8 @@
       cursor:pointer;
       transition:transform .15s ease;
     }
-    .insta-three-dots:hover{
-      transform:scale(1.1);
-    }
+
+    .insta-three-dots:hover{transform:scale(1.1);}
 
     .insta-media{
       position:relative;
@@ -709,9 +809,11 @@
       width:100%;
       height:100%;
       object-fit:cover;
+      object-position:center;
       display:block;
       transition:transform .4s ease;
     }
+
     .insta-mockup:hover .insta-media img{
       transform:scale(1.03);
     }
@@ -757,6 +859,7 @@
       z-index:2;
       transition:background .2s ease, transform .2s ease;
     }
+
     .insta-arrow:hover{
       background:rgba(15,23,42,.9);
       transform:translateY(-50%) scale(1.05);
@@ -766,9 +869,7 @@
     .insta-arrow-right{right:10px;}
     .insta-arrow i{font-size:.85rem;}
 
-    .insta-footer{
-      padding:10px 14px 12px;
-    }
+    .insta-footer{padding:10px 14px 12px;}
 
     .insta-icons{
       display:flex;
@@ -782,11 +883,13 @@
       gap:10px;
       font-size:1.1rem;
     }
+
     .insta-icons-left i,
     .insta-icons > i{
       cursor:pointer;
       transition:transform .15s ease;
     }
+
     .insta-icons-left i:hover,
     .insta-icons > i:hover{
       transform:scale(1.15);
@@ -798,13 +901,8 @@
       margin-bottom:4px;
     }
 
-    .insta-caption{
-      font-size:var(--font-size-caption);
-    }
-
-    .insta-caption strong{
-      font-weight:600;
-    }
+    .insta-caption{font-size:var(--font-size-caption);}
+    .insta-caption strong{font-weight:600;}
 
     .insta-link-row{
       margin-top:6px;
@@ -824,7 +922,6 @@
       gap:4px;
     }
 
-    /* Story iPhone Mockups */
     .iphone-frame{
       max-width:280px;
       margin:0 auto;
@@ -834,7 +931,9 @@
       box-shadow:0 18px 50px rgba(15,23,42,.55);
       position:relative;
       transition:transform .25s ease, box-shadow .25s ease;
+      min-width:0;
     }
+
     .iphone-frame:hover{
       transform:translateY(-6px) rotate3d(1,-1,0,6deg);
       box-shadow:0 26px 60px rgba(15,23,42,.8);
@@ -885,25 +984,28 @@
       right:16px;
       bottom:16px;
       z-index:3;
-      width:40px;height:40px;
+      width:40px;
+      height:40px;
       border-radius:999px;
       border:none;
       background:rgba(15,23,42,.9);
       color:#e5e7eb;
-      display:flex;align-items:center;justify-content:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       cursor:pointer;
       box-shadow:0 14px 40px rgba(15,23,42,.9);
       transition:transform .2s ease, box-shadow .2s ease, background .2s ease, opacity .2s ease;
       opacity:.95;
     }
+
     .story-toggle:hover{
       transform:translateY(-1px);
       box-shadow:0 20px 55px rgba(15,23,42,.95);
       background:#020617;
     }
-    .iphone-frame:hover .story-toggle{
-      opacity:1;
-    }
+
+    .iphone-frame:hover .story-toggle{opacity:1;}
     .story-toggle i{font-size:1rem;}
 
     .story-label{
@@ -912,11 +1014,13 @@
       font-size:.8rem;
       color:var(--color-muted);
     }
+
     .story-link{
       text-align:center;
       margin-top:4px;
       font-size:.78rem;
     }
+
     .story-link a{text-decoration:underline;}
 
     .kuno-row{
@@ -928,13 +1032,13 @@
       color:var(--color-muted);
       flex-wrap:wrap;
     }
+
     .kuno-row img{
       height:22px;
       width:auto;
       display:block;
     }
 
-    /* Bottom Nav */
     .bottom-nav{
       margin-top:32px;
       display:flex;
@@ -954,24 +1058,28 @@
       margin-top:40px;
       font-size:.88rem;
     }
+
     footer .frow{
-      display:flex;justify-content:space-between;align-items:center;
-      gap:10px;flex-wrap:wrap;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    /* =========================
-       NEW: Redesign Preview Blocks
-       ========================= */
     .redesign-grid{
       display:grid;
       grid-template-columns:1.05fr .95fr;
       gap:18px;
       align-items:start;
       margin-top:14px;
+      min-width:0;
     }
+
     @media(max-width:900px){
       .redesign-grid{grid-template-columns:1fr;}
     }
+
     .preview-card{
       border-radius:18px;
       border:1px solid var(--color-border);
@@ -979,22 +1087,29 @@
       box-shadow:0 14px 40px rgba(15,23,42,.08);
       overflow:hidden;
       transition:transform .25s ease, box-shadow .25s ease;
+      min-width:0;
     }
+
     .preview-card:hover{
       transform:translateY(-3px);
       box-shadow:0 20px 55px rgba(15,23,42,.14);
     }
+
     .preview-img{
       width:100%;
       height:auto;
       display:block;
     }
+
     .preview-meta{
       padding:12px 14px 14px;
       border-top:1px solid var(--color-border);
       font-size:.9rem;
+      overflow-wrap:anywhere;
     }
+
     .preview-meta strong{display:block;margin-bottom:4px;}
+
     .preview-actions{
       display:flex;
       gap:10px;
@@ -1002,20 +1117,49 @@
       margin-top:10px;
     }
 
-    /* ================= RESPONSIVE TWEAKS ================= */
+    @media (max-width: 992px){
+      .container{padding:0 16px;}
+      .nav{padding:0 16px;}
+
+      .hero-grid{
+        grid-template-columns:1fr;
+        gap:24px;
+        padding:36px 0 28px;
+      }
+
+      .two-col,
+      .style-grid,
+      .shadow-grid,
+      .redesign-grid{
+        grid-template-columns:1fr;
+      }
+
+      .social-grid{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+
+      .mockup-row{
+        grid-template-columns:1fr;
+      }
+
+      .hero-actions{gap:8px;}
+      .hero-highlight{gap:8px;}
+      .shadow-box{width:44%;}
+    }
+
     @media (max-width: 768px){
-      body{
-        padding-top:64px;
-      }
-      section{
-        padding:40px 0;
-      }
-      .nav{
-        padding:0 14px;
-      }
+      :root{--header-h:64px;}
+
+      body{padding-top:var(--header-h);}
+      section{padding:36px 0;}
+
+      .nav{padding:0 14px;}
+
       .menu-toggle{
         display:inline-flex;
+        flex:0 0 auto;
       }
+
       .menu{
         position:absolute;
         top:100%;
@@ -1023,49 +1167,179 @@
         left:0;
         background:#fff;
         border-bottom:1px solid var(--color-border);
-        padding:8px 16px 12px;
+        padding:8px 14px 12px;
         flex-direction:column;
         gap:4px;
         display:none;
+        box-shadow:0 10px 30px rgba(15,23,42,.08);
       }
-      .menu.is-open{
-        display:flex;
-      }
+
+      .menu.is-open{display:flex;}
+
       .menu a{
         width:100%;
         text-align:left;
-        padding:8px 10px;
+        padding:10px 12px;
       }
-      .hero-grid{
-        padding:40px 0 30px;
+
+      .hero-grid{padding:30px 0 24px;}
+      h1{line-height:1.05;}
+      .lead{font-size:.98rem;}
+
+      .hero-actions,
+      .preview-actions{
+        flex-direction:column;
+        align-items:stretch;
       }
+
       .hero-actions .btn,
+      .preview-actions .btn{
+        width:100%;
+        justify-content:center;
+      }
+
+      .hero-meta{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
       .hero-meta .chip{
         width:100%;
         justify-content:center;
       }
+
+      .meta-grid{grid-template-columns:1fr;}
+      .social-grid{grid-template-columns:1fr;}
+      .insta-mockup{max-width:100%;}
+
+      .iphone-frame{
+        max-width:260px;
+      }
+
+      .shadow-sample{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .shadow-box{
+        width:100%;
+        min-width:0;
+      }
+
+      .shadow-meta{
+        padding-left:0;
+      }
+
       .bottom-nav{
         flex-direction:column;
-        align-items:flex-start;
+        align-items:stretch;
       }
-      .insta-mockup{
-        max-width:100%;
+
+      .bottom-nav .flex-row-gap-8{
+        width:100%;
       }
+
+      .bottom-nav .chip{
+        width:100%;
+        justify-content:center;
+      }
+
       .iphone-frame:hover{
         transform:none;
         box-shadow:0 18px 50px rgba(15,23,42,.55);
       }
+
       .preview-card:hover{transform:none;}
     }
 
+    @media (max-width: 520px){
+      .container{padding:0 14px;}
+      .nav{padding:0 14px;gap:10px;}
+
+      .brand{font-size:.98rem;}
+      .brand small{display:none;}
+
+      .menu-toggle span{display:none;}
+      .menu-toggle{padding:8px 10px;}
+
+      h1{
+        font-size:clamp(1.8rem, 8vw, 2.2rem);
+      }
+
+      section h2{
+        font-size:clamp(1.35rem, 6vw, 1.7rem);
+      }
+
+      .card,
+      .social-card,
+      .type-card,
+      .color-card,
+      .shadow-card,
+      .preview-meta{
+        padding:14px;
+      }
+
+      .hero-highlight-card{padding:10px;}
+      .insta-header,
+      .insta-footer{padding:10px 12px;}
+
+      .insta-arrow{
+        width:26px;
+        height:26px;
+      }
+
+      .iphone-frame{
+        max-width:235px;
+        padding:8px;
+        border-radius:34px;
+      }
+
+      .iphone-inner{border-radius:26px;}
+
+      .iphone-notch{
+        width:74px;
+        height:12px;
+      }
+
+      .hero-video-toggle,
+      .story-toggle{
+        width:42px;
+        height:42px;
+      }
+    }
+
+    @media (max-width: 380px){
+      .container{padding:0 12px;}
+
+      .btn,
+      .chip{
+        font-size:.84rem;
+      }
+
+      .card,
+      .social-card,
+      .type-card,
+      .color-card,
+      .shadow-card{
+        padding:12px;
+      }
+
+      .iphone-frame{
+        max-width:220px;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce){
-      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+      *{
+        animation:none!important;
+        transition:none!important;
+        scroll-behavior:auto!important
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Header -->
   <header class="site" role="banner">
     <div class="nav">
       <div class="brand">
@@ -1073,15 +1347,13 @@
         <small>UX/UI · Frontend</small>
       </div>
 
-      <!-- Mobile Toggle -->
-      <button class="menu-toggle" type="button" aria-label="Navigation öffnen" aria-expanded="false">
+      <button class="menu-toggle" type="button" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="main-menu">
         <i class="fa-solid fa-bars"></i>
         <span>Menü</span>
       </button>
 
-      <nav class="menu" aria-label="Hauptnavigation">
+      <nav class="menu" id="main-menu" aria-label="Hauptnavigation">
         <a href="index.html#arbeiten">Zur Übersicht</a>
-        <!-- NEW -->
         <a href="#update">Redesign-Update</a>
         <a href="#redesign-preview">Redesign Einblick</a>
       </nav>
@@ -1089,7 +1361,6 @@
   </header>
 
   <main>
-    <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="fade-up" id="hero-text">
@@ -1108,7 +1379,6 @@
             <span class="chip"><i class="fa-solid fa-futbol"></i> VfB Stuttgart Fußballcamp (7–14 Jahre)</span>
             <span class="chip"><i class="fa-solid fa-hotel"></i> Miracle Resort, Lara · Antalya</span>
             <span class="chip"><i class="fa-solid fa-calendar-days"></i> 27.12.2025 – 03.01.2026</span>
-            <!-- NEW -->
             <span class="chip"><i class="fa-solid fa-rotate"></i> Nach Event: Interessenportal</span>
           </div>
 
@@ -1116,11 +1386,7 @@
             <a class="btn primary" href="https://fussballcamp-antalya.de" target="_blank" rel="noopener">
               <i class="fa-solid fa-up-right-from-square"></i> Live-Seite öffnen
             </a>
-            <!-- GitHub-Link bleibt unverändert als Platzhalter -->
-            <a class="btn ghost" href="HREF_GITHUB_HIER" target="_blank" rel="noopener">
-              <i class="fa-brands fa-github"></i> Code auf GitHub
-            </a>
-            <!-- NEW -->
+            
             <a class="btn blink" href="#redesign-preview">
               <i class="fa-solid fa-wand-magic-sparkles"></i> Redesign ansehen
             </a>
@@ -1143,7 +1409,6 @@
           </div>
         </div>
 
-        <!-- Hero-Video -->
         <aside aria-label="Landingpage-Video" class="fade-up" id="hero-media">
           <div class="hero-media-card">
             <div class="hero-media-main">
@@ -1168,9 +1433,6 @@
       </div>
     </section>
 
-    <!-- =========================
-         NEW: Redesign Update Section
-         ========================= -->
     <section id="update" aria-labelledby="update-title">
       <div class="container reveal">
         <h2 id="update-title">Redesign nach Veranstaltungsende: Interessenportal</h2>
@@ -1214,16 +1476,12 @@
       </div>
     </section>
 
-    <!-- =========================
-         NEW: Redesign Preview + Screenshot
-         ========================= -->
     <section id="redesign-preview" aria-labelledby="redesign-title">
       <div class="container reveal">
         <h2 id="redesign-title">Redesign Einblick: neue Seite (Interessenportal)</h2>
 
         <div class="redesign-grid">
           <figure class="preview-card" aria-label="Screenshot der neuen Interessenportal-Seite">
-            <!-- Lege dein Screenshot als ./img/redesign.png ab -->
             <img class="preview-img" src="./img/redesign.png" alt="Screenshot: Fußballcamp Interessenportal – Header, Navigation und CTA" loading="lazy">
             <figcaption class="preview-meta">
               <strong>Neuer Above-the-fold Aufbau</strong>
@@ -1275,7 +1533,6 @@
       </div>
     </section>
 
-    <!-- Original Content -->
     <section aria-labelledby="ctx-title">
       <div class="container reveal">
         <h2 id="ctx-title">Projektkontext & Rolle</h2>
@@ -1342,7 +1599,6 @@
       </div>
     </section>
 
-    <!-- KPIs / verbessert als "Erfolg erklären" ohne echte Zahlen zu erzwingen -->
     <section aria-labelledby="kpi-title">
       <div class="container reveal">
         <h2 id="kpi-title">Projektwirkung & KPIs (Portfolio-freundlich)</h2>
@@ -1377,7 +1633,6 @@
       </div>
     </section>
 
-    <!-- Typografie & Farben & Shadows -->
     <section aria-labelledby="style-title">
       <div class="container reveal">
         <h2 id="style-title">Typografie, Farben &amp; UI-Shadows</h2>
@@ -1470,7 +1725,6 @@
       </div>
     </section>
 
-    <!-- Learnings -->
     <section aria-labelledby="learn-title">
       <div class="container reveal">
         <h2 id="learn-title">Learnings</h2>
@@ -1497,7 +1751,6 @@
       </div>
     </section>
 
-    <!-- Social Media Kampagne -->
     <section id="social" aria-labelledby="social-title">
       <div class="container reveal">
         <h2 id="social-title">Social Media Kampagne</h2>
@@ -1506,7 +1759,6 @@
         </p>
 
         <div class="social-grid" aria-label="Social Media Ergebnisse">
-          <!-- Instagram -->
           <article class="social-card">
             <div class="social-date">17.10. &amp; 23.10.2025</div>
             <div class="social-channel">
@@ -1522,7 +1774,6 @@
             </p>
           </article>
 
-          <!-- Facebook -->
           <article class="social-card">
             <div class="social-date">17.10.2025</div>
             <div class="social-channel">
@@ -1538,7 +1789,6 @@
             </p>
           </article>
 
-          <!-- TikTok -->
           <article class="social-card">
             <div class="social-date">05.11.2025</div>
             <div class="social-channel">
@@ -1561,7 +1811,6 @@
         </p>
 
         <div class="mockup-row" aria-label="Visuals der Social Media Kampagne">
-          <!-- iPhone Story · Deutsch -->
           <div>
             <div class="iphone-frame">
               <div class="iphone-inner">
@@ -1582,7 +1831,6 @@
             <div class="story-label">Story-Variante · Deutsch</div>
           </div>
 
-          <!-- iPhone Story · Türkisch -->
           <div>
             <div class="iphone-frame">
               <div class="iphone-inner">
@@ -1603,7 +1851,6 @@
             <div class="story-label">Story-Variante · Türkisch</div>
           </div>
 
-          <!-- Instagram-Post Mockup -->
           <div>
             <div class="insta-mockup" aria-label="Instagram Feed-Post Mockup">
               <div class="insta-header">
@@ -1621,6 +1868,7 @@
                   <i class="fa-solid fa-ellipsis"></i>
                 </div>
               </div>
+
               <div class="insta-media">
                 <button class="insta-arrow insta-arrow-left" type="button" aria-label="Vorheriges Bild" id="insta-prev">
                   <i class="fa-solid fa-chevron-left"></i>
@@ -1635,6 +1883,7 @@
                   <span class="insta-dot" data-dot="2"></span>
                 </div>
               </div>
+
               <div class="insta-footer">
                 <div class="insta-icons">
                   <div class="insta-icons-left">
@@ -1659,11 +1908,9 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- Bottom Navigation -->
     <section>
       <div class="container reveal">
         <div class="bottom-nav">
@@ -1671,10 +1918,6 @@
           <div class="flex-row-gap-8">
             <a class="chip" href="https://fussballcamp-antalya.de" target="_blank" rel="noopener">
               <i class="fa-solid fa-up-right-from-square"></i> Live ansehen
-            </a>
-            <!-- GitHub-Link bleibt hier ebenfalls unverändert -->
-            <a class="chip" href="HREF_GITHUB_HIER" target="_blank" rel="noopener">
-              <i class="fa-brands fa-github"></i> GitHub-Code
             </a>
           </div>
         </div>
@@ -1691,21 +1934,20 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Jahr im Footer
       const yearEl = document.getElementById('y');
       if (yearEl) {
         yearEl.textContent = new Date().getFullYear();
       }
 
-      // Mobile-Menü
       const toggle = document.querySelector('.menu-toggle');
       const menu = document.querySelector('.menu');
+
       if (toggle && menu) {
         toggle.addEventListener('click', () => {
           const isOpen = menu.classList.toggle('is-open');
           toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
-        // Menü nach Klick auf beliebigen Link schließen (Mobile UX)
+
         menu.querySelectorAll('a').forEach(link => {
           link.addEventListener('click', () => {
             if (menu.classList.contains('is-open')) {
@@ -1714,11 +1956,18 @@
             }
           });
         });
+
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 768 && menu.classList.contains('is-open')) {
+            menu.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        });
       }
 
-      // Hero-Video Play/Pause
       const heroVideo = document.getElementById('camp-video');
       const heroToggleBtn = document.getElementById('camp-video-toggle');
+
       if (heroVideo && heroToggleBtn) {
         const icon = heroToggleBtn.querySelector('i');
         heroToggleBtn.setAttribute('aria-pressed', 'true');
@@ -1728,20 +1977,19 @@
             heroVideo.play();
             icon.classList.remove('fa-play');
             icon.classList.add('fa-pause');
-            heroToggleBtn.setAttribute('aria-label','Video pausieren');
-            heroToggleBtn.setAttribute('aria-pressed','true');
+            heroToggleBtn.setAttribute('aria-label', 'Video pausieren');
+            heroToggleBtn.setAttribute('aria-pressed', 'true');
           } else {
             heroVideo.pause();
             icon.classList.remove('fa-pause');
             icon.classList.add('fa-play');
-            heroToggleBtn.setAttribute('aria-label','Video abspielen');
-            heroToggleBtn.setAttribute('aria-pressed','false');
+            heroToggleBtn.setAttribute('aria-label', 'Video abspielen');
+            heroToggleBtn.setAttribute('aria-pressed', 'false');
           }
         });
       }
 
-      // Instagram Carousel
-      const instaImages = ['./img/w1.png','./img/w2.png','./img/w3.png'];
+      const instaImages = ['./img/w1.png', './img/w2.png', './img/w3.png'];
       let instaIndex = 0;
       const instaImgEl = document.getElementById('insta-slide');
       const instaPrev = document.getElementById('insta-prev');
@@ -1761,10 +2009,12 @@
           instaIndex = (instaIndex - 1 + instaImages.length) % instaImages.length;
           updateInstaSlide();
         });
+
         instaNext.addEventListener('click', () => {
           instaIndex = (instaIndex + 1) % instaImages.length;
           updateInstaSlide();
         });
+
         instaDots.forEach(dot => {
           dot.addEventListener('click', () => {
             const idx = Number(dot.getAttribute('data-dot'));
@@ -1776,13 +2026,13 @@
         });
       }
 
-      // Story-Videos (mit Ton beim Klicken)
       function setupStoryVideo(videoId, btnId) {
         const v = document.getElementById(videoId);
         const b = document.getElementById(btnId);
         if (!v || !b) return;
+
         const icon = b.querySelector('i');
-        b.setAttribute('aria-pressed','false');
+        b.setAttribute('aria-pressed', 'false');
 
         b.addEventListener('click', () => {
           if (v.paused) {
@@ -1790,21 +2040,20 @@
             v.play();
             icon.classList.remove('fa-play');
             icon.classList.add('fa-pause');
-            b.setAttribute('aria-pressed','true');
+            b.setAttribute('aria-pressed', 'true');
           } else {
             v.pause();
             icon.classList.remove('fa-pause');
             icon.classList.add('fa-play');
-            b.setAttribute('aria-pressed','false');
+            b.setAttribute('aria-pressed', 'false');
           }
         });
       }
 
-      setupStoryVideo('story-de-video','story-de-toggle');
-      setupStoryVideo('story-tr-video','story-tr-toggle');
+      setupStoryVideo('story-de-video', 'story-de-toggle');
+      setupStoryVideo('story-tr-video', 'story-tr-toggle');
 
-      // Fade-Up beim Seitenladen für Hero
-      ['hero-text','hero-media'].forEach(id => {
+      ['hero-text', 'hero-media'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
           window.requestAnimationFrame(() => {
@@ -1813,7 +2062,6 @@
         }
       });
 
-      // Scroll-Reveal für .reveal-Elemente
       const revealEls = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window && revealEls.length) {
         const obs = new IntersectionObserver(entries => {
@@ -1828,7 +2076,6 @@
         revealEls.forEach(el => obs.observe(el));
       }
 
-      // Smooth Scroll für interne Anker auf dieser Seite
       document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', e => {
           const targetId = link.getAttribute('href').slice(1);
@@ -1848,4 +2095,3 @@
   </script>
 </body>
 </html>
-
