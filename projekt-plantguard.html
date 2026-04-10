@@ -14,34 +14,28 @@
       /* =========================
          COLOR SYSTEM – Plant Guard
          ========================= */
-
-      /* Neutrals */
       --color-bg:#ffffff;
       --color-surface:#f9fafb;
       --color-ink:#111827;
       --color-muted:#6b7280;
       --color-border:#e5e7eb;
 
-      /* Brand / Accent */
-      --color-primary:#166534;       /* satten Grünton */
+      --color-primary:#166534;
       --color-primary-dark:#0f4f27;
-      --color-accent:#c7b39a;        /* beige */
+      --color-accent:#c7b39a;
       --color-success:#16a34a;
       --color-danger:#dc2626;
 
-      /* Layout */
       --radius-lg:22px;
       --header-h:72px;
 
-      /* Shadows */
       --shadow-soft:0 10px 30px rgba(15,23,42,.12);
       --shadow-card:0 6px 18px rgba(15,23,42,.08);
       --shadow-strong:0 24px 60px rgba(15,23,42,.30);
 
-      /* Typo */
       --font-family-base: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Noto Sans",Helvetica,Arial,sans-serif;
 
-      --font-size-body: 1rem;
+      --font-size-body:1rem;
       --font-size-body-small:.9rem;
       --font-size-kicker:.78rem;
       --font-size-chip:.8rem;
@@ -49,14 +43,15 @@
       --font-size-h1-min:2rem;
       --font-size-h1-max:2.6rem;
       --font-size-h2-min:1.5rem;
-      --font-size-h2-max:2.0rem;
+      --font-size-h2-max:2rem;
 
       --line-height-body:1.6;
       --line-height-heading:1.1;
 
-      /* Hero wash */
-      --color-hero-green: rgba(22,101,52,.16);
-      --color-hero-beige: rgba(199,179,154,.22);
+      --color-hero-green:rgba(22,101,52,.16);
+      --color-hero-beige:rgba(199,179,154,.22);
+
+      --maxw:1120px;
     }
 
     *{box-sizing:border-box}
@@ -72,12 +67,24 @@
       padding-top:var(--header-h);
       font-size:var(--font-size-body);
     }
+
     img,video{max-width:100%;display:block}
     a{color:var(--color-primary);text-decoration:none}
     a:hover{text-decoration:underline}
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    section{padding:56px 0;scroll-margin-top:var(--header-h)}
+
+    .container{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:0 20px;
+    }
+
+    section{
+      padding:56px 0;
+      scroll-margin-top:var(--header-h);
+    }
+
     .muted{color:var(--color-muted);font-size:.95rem}
+
     ul.clean{margin:0 0 6px;padding-left:1.1em}
     ul.clean li{margin-bottom:4px}
 
@@ -91,11 +98,10 @@
       border:0;
     }
 
-    .mt-10{margin-top:10px;}
-    .mt-14{margin-top:14px;}
-    .flex-row-gap-8{display:flex;gap:8px;flex-wrap:wrap;}
+    .mt-10{margin-top:10px}
+    .mt-14{margin-top:14px}
+    .flex-row-gap-8{display:flex;gap:8px;flex-wrap:wrap}
 
-    /* --- Basis-Animationen --- */
     .fade-up,.reveal{
       opacity:0;
       transform:translateY(18px);
@@ -108,28 +114,51 @@
 
     /* Header */
     header.site{
-      position:fixed;top:0;left:0;right:0;
+      position:fixed;
+      top:0;left:0;right:0;
       height:var(--header-h);
       background:#fff;
       border-bottom:1px solid var(--color-border);
       z-index:950;
       box-shadow:0 2px 10px rgba(0,0,0,.06);
     }
+
     .nav{
       height:100%;
-      display:flex;align-items:center;justify-content:space-between;
-      gap:16px;padding:0 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:0 20px;
       position:relative;
     }
+
     .brand{font-weight:800;letter-spacing:.2px}
-    .brand small{display:block;color:var(--color-muted);font-weight:600;margin-top:2px;font-size:.8rem}
+    .brand small{
+      display:block;
+      color:var(--color-muted);
+      font-weight:600;
+      margin-top:2px;
+      font-size:.8rem;
+    }
 
     .menu{
-      display:flex;gap:10px;flex-wrap:wrap;font-size:var(--font-size-body-small);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      font-size:var(--font-size-body-small);
       align-items:center;
     }
-    .menu a{padding:7px 11px;border-radius:999px}
-    .menu a:hover{background:var(--color-surface);text-decoration:none}
+
+    .menu a{
+      padding:7px 11px;
+      border-radius:999px;
+    }
+
+    .menu a:hover{
+      background:var(--color-surface);
+      text-decoration:none;
+    }
 
     .menu-toggle{
       display:none;
@@ -142,28 +171,42 @@
       gap:8px;
       cursor:pointer;
     }
-    .menu-toggle i{font-size:1rem;}
+
+    .menu-toggle i{font-size:1rem}
 
     .btn{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:10px 14px;border-radius:999px;
-      border:1px solid var(--color-border);background:#fff;
-      cursor:pointer;font-size:var(--font-size-body-small);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      cursor:pointer;
+      font-size:var(--font-size-body-small);
       box-shadow:var(--shadow-soft);
       transition:background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
       transform:translateY(0);
     }
+
     .btn.primary{
       background:var(--color-primary);
-      color:#fff;border-color:transparent;
+      color:#fff;
+      border-color:transparent;
     }
+
     .btn.primary:hover{
       background:var(--color-primary-dark);
       box-shadow:0 18px 40px rgba(22,101,52,.26);
       transform:translateY(-1px);
       text-decoration:none;
     }
-    .btn.ghost{box-shadow:none;background:#fff}
+
+    .btn.ghost{
+      box-shadow:none;
+      background:#fff;
+    }
+
     .btn.ghost:hover{
       box-shadow:0 10px 26px rgba(15,23,42,.08);
       transform:translateY(-1px);
@@ -171,8 +214,11 @@
     }
 
     .chip{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:6px 10px;border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
       border:1px solid var(--color-border);
       background:var(--color-surface);
       font-size:var(--font-size-chip);
@@ -180,14 +226,16 @@
       white-space:nowrap;
       transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
     }
-    .chip i{color:var(--color-primary);}
+
+    .chip i{color:var(--color-primary)}
+
     .chip:hover{
       background:#fff;
       transform:translateY(-1px);
       box-shadow:0 10px 26px rgba(15,23,42,.08);
     }
 
-    /* HERO */
+    /* Hero */
     .hero{
       background:
         radial-gradient(840px 520px at -20% -20%, var(--color-hero-green) 0%, transparent 60%),
@@ -195,46 +243,67 @@
         #ffffff;
       border-bottom:1px solid var(--color-border);
     }
+
     .hero-grid{
-      display:grid;grid-template-columns:1.2fr .9fr;gap:40px;align-items:start;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
+      gap:44px;
+      align-items:start;
       padding:50px 0 40px;
     }
-    @media(max-width:900px){
-      .hero-grid{grid-template-columns:1fr;gap:30px}
-    }
+
     .kicker{
       text-transform:uppercase;
       letter-spacing:.18em;
       font-size:var(--font-size-kicker);
       color:var(--color-muted);
     }
+
     h1{
       margin:.5rem 0 .7rem;
       font-size:clamp(var(--font-size-h1-min),3.2vw,var(--font-size-h1-max));
       line-height:var(--line-height-heading);
     }
+
     section h2{
       font-size:clamp(var(--font-size-h2-min),2.6vw,var(--font-size-h2-max));
       margin:0 0 14px;
     }
+
     .accent{
       background:linear-gradient(90deg,var(--color-primary) 0%, var(--color-accent) 75%);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
       font-weight:800;
     }
+
     .lead{
       color:#374151;
       font-size:1.02rem;
       max-width:60ch;
     }
-    .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+    .hero-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:14px 0;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
 
     .hero-highlight{
       margin-top:18px;
       display:grid;
       gap:10px;
     }
+
     .hero-highlight-card{
       border-radius:16px;
       padding:10px 12px;
@@ -244,55 +313,117 @@
       font-size:var(--font-size-body-small);
       transition:transform .2s ease, box-shadow .2s ease;
     }
+
     .hero-highlight-card:hover{
       transform:translateY(-2px);
       box-shadow:0 14px 34px rgba(15,23,42,.1);
     }
-    .hero-highlight-card b{display:block;margin-bottom:2px}
 
-    /* Cards / Grids */
-    .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
-    @media(max-width:900px){.two-col{grid-template-columns:1fr}}
+    .hero-highlight-card b{
+      display:block;
+      margin-bottom:2px;
+    }
+
+    .hero-media{
+      width:100%;
+    }
+
+    .hero-media-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .hero-media-kicker{
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--color-muted);
+      margin-bottom:4px;
+    }
+
+    .hero-media-title{
+      font-size:1.08rem;
+      font-weight:700;
+      line-height:1.35;
+      margin:0;
+    }
+
+    /* Layout blocks */
+    .two-col{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+    }
 
     .card{
-      border-radius:18px;border:1px solid var(--color-border);background:#fff;
-      padding:18px 16px;box-shadow:var(--shadow-soft);font-size:.95rem;
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:18px 16px;
+      box-shadow:var(--shadow-soft);
+      font-size:.95rem;
       transition:transform .2s ease, box-shadow .2s ease;
     }
+
     .card:hover{
       transform:translateY(-2px);
       box-shadow:0 16px 40px rgba(15,23,42,.12);
     }
 
-    .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px;font-size:.9rem}
-    @media(max-width:900px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:640px){.meta-grid{grid-template-columns:1fr}}
+    .meta-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:10px;
+      font-size:.9rem;
+    }
+
     .meta-card{
-      border-radius:16px;border:1px solid var(--color-border);background:#fff;
-      padding:10px 12px;box-shadow:0 8px 22px rgba(15,23,42,.04);
+      border-radius:16px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:10px 12px;
+      box-shadow:0 8px 22px rgba(15,23,42,.04);
       transition:transform .2s ease, box-shadow .2s ease;
     }
+
     .meta-card:hover{
       transform:translateY(-2px);
       box-shadow:0 14px 32px rgba(15,23,42,.08);
     }
-    .meta-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--color-muted);margin-bottom:3px}
+
+    .meta-label{
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:var(--color-muted);
+      margin-bottom:3px;
+    }
+
     .meta-value{font-weight:600}
 
-    /* Media Cards (Bild + Video) */
+    /* Media */
     .media-card{
-      border-radius:24px;
+      border-radius:28px;
       border:1px solid var(--color-border);
       background:#fff;
       box-shadow:var(--shadow-strong);
       overflow:hidden;
       transition:transform .25s ease, box-shadow .25s ease;
     }
+
     .media-card:hover{
       transform:translateY(-4px);
       box-shadow:0 30px 70px rgba(15,23,42,.32);
     }
-    .media-inner{padding:12px 12px 10px;}
+
+    .media-inner{
+      padding:14px 16px 16px;
+    }
+
     .media-label{
       font-size:.78rem;
       text-transform:uppercase;
@@ -300,6 +431,7 @@
       color:var(--color-muted);
       margin-bottom:8px;
     }
+
     .media-img{
       border-radius:16px;
       border:1px solid var(--color-border);
@@ -307,6 +439,7 @@
       width:100%;
       height:auto;
     }
+
     .media-caption{
       font-size:.85rem;
       color:var(--color-muted);
@@ -314,45 +447,79 @@
     }
 
     .video-shell{
-      border-top:1px solid var(--color-border);
       background:#0b0f25;
     }
+
     .video-shell video{
       width:100%;
-      height:auto;
       display:block;
       background:#000;
+      min-height:520px;
+      max-height:640px;
+      object-fit:cover;
     }
 
-    /* Style Section */
-    .style-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:10px}
-    @media(max-width:900px){.style-grid{grid-template-columns:1fr}}
+    /* Style */
+    .style-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+      margin-top:10px;
+    }
+
     .type-card,.color-card{
-      border-radius:18px;border:1px solid var(--color-border);
-      background:#fff;padding:14px 16px;
+      border-radius:18px;
+      border:1px solid var(--color-border);
+      background:#fff;
+      padding:14px 16px;
       transition:transform .2s ease, box-shadow .2s ease;
     }
+
     .type-card:hover,.color-card:hover{
       transform:translateY(-2px);
       box-shadow:0 16px 40px rgba(15,23,42,.12);
     }
-    .type-sample-title{font-size:1.1rem;font-weight:700;margin-bottom:4px}
-    .type-sample-body{font-size:.95rem;margin-top:4px}
 
-    .color-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+    .type-sample-title{
+      font-size:1.1rem;
+      font-weight:700;
+      margin-bottom:4px;
+    }
+
+    .type-sample-body{
+      font-size:.95rem;
+      margin-top:4px;
+    }
+
+    .color-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:6px;
+    }
+
     .color-swatch{
-      display:flex;align-items:center;gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       border-radius:999px;
       padding:6px 10px;
       border:1px solid var(--color-border);
       font-size:.85rem;
     }
-    .swatch-dot{width:18px;height:18px;border-radius:999px;border:1px solid #e5e7eb;}
-    .swatch-primary{background:var(--color-primary);}
-    .swatch-accent{background:var(--color-accent);}
-    .swatch-surface{background:var(--color-surface);}
 
-    /* Bottom Nav + Footer */
+    .swatch-dot{
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+    }
+
+    .swatch-primary{background:var(--color-primary)}
+    .swatch-accent{background:var(--color-accent)}
+    .swatch-surface{background:var(--color-surface)}
+
+    /* Bottom */
     .bottom-nav{
       margin-top:32px;
       display:flex;
@@ -364,6 +531,7 @@
       padding-top:16px;
       flex-wrap:wrap;
     }
+
     footer{
       border-top:1px solid var(--color-border);
       padding:18px 0 26px;
@@ -371,17 +539,35 @@
       margin-top:40px;
       font-size:.88rem;
     }
+
     footer .frow{
-      display:flex;justify-content:space-between;align-items:center;
-      gap:10px;flex-wrap:wrap;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
     /* Responsive */
-    @media (max-width: 768px){
-      body{padding-top:64px;}
-      section{padding:40px 0;}
-      .nav{padding:0 14px;}
-      .menu-toggle{display:inline-flex;}
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr;gap:30px}
+      .two-col{grid-template-columns:1fr}
+      .meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .style-grid{grid-template-columns:1fr}
+      .video-shell video{
+        min-height:auto;
+        max-height:none;
+        object-fit:contain;
+      }
+    }
+
+    @media(max-width:768px){
+      body{padding-top:64px}
+      section{padding:40px 0}
+      .nav{padding:0 14px}
+
+      .menu-toggle{display:inline-flex}
+
       .menu{
         position:absolute;
         top:100%;
@@ -394,22 +580,38 @@
         gap:4px;
         display:none;
       }
-      .menu.is-open{display:flex;}
-      .menu a{width:100%;text-align:left;padding:8px 10px;}
-      .hero-grid{padding:40px 0 30px;}
+
+      .menu.is-open{display:flex}
+      .menu a{
+        width:100%;
+        text-align:left;
+        padding:8px 10px;
+      }
+
+      .hero-grid{padding:40px 0 30px}
       .hero-actions .btn,
-      .hero-meta .chip{width:100%;justify-content:center;}
-      .bottom-nav{flex-direction:column;align-items:flex-start;}
+      .hero-meta .chip{
+        width:100%;
+        justify-content:center;
+      }
+
+      .bottom-nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
     }
 
-    @media (prefers-reduced-motion: reduce){
+    @media(max-width:640px){
+      .meta-grid{grid-template-columns:1fr}
+    }
+
+    @media(prefers-reduced-motion: reduce){
       *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     }
   </style>
 </head>
 
 <body id="top">
-  <!-- Header -->
   <header class="site" role="banner">
     <div class="nav">
       <div class="brand">
@@ -434,10 +636,8 @@
   </header>
 
   <main>
-    <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
-        <!-- Text -->
         <div class="fade-up" id="hero-text">
           <div class="kicker">UX Case Study · Plant Care</div>
           <h1 id="hero-title">
@@ -460,9 +660,6 @@
             <a class="btn primary" href="#proto-title">
               <i class="fa-solid fa-mobile-screen-button"></i> Prototyp ansehen
             </a>
-            <a class="btn ghost" href="index.html#arbeiten">
-              <i class="fa-solid fa-arrow-left"></i> Zur Übersicht
-            </a>
           </div>
 
           <div class="hero-highlight">
@@ -472,32 +669,33 @@
             </div>
             <div class="hero-highlight-card">
               <b>Ergebnis</b>
-              Klickbarer Prototyp mit Scan-Flow, Diagnoseansicht und Empfehlungslogik – Grundlage für Business- & Tech-Entscheidungen.
+              Klickbarer Prototyp mit Scan-Flow, Diagnoseansicht und Empfehlungslogik – Grundlage für Business- &amp; Tech-Entscheidungen.
             </div>
           </div>
 
-          <div class="hero-highlight mt-14">
-            <div class="hero-highlight-card">
-              <b>KPIs (Beispiel / Platzhalter)</b>
-              <ul class="clean">
-                <li>„X Testpersonen fanden den Diagnosefluss nachvollziehbar“</li>
-                <li>„Unterstützt Kaufentscheidung durch klare Empfehlungen“</li>
-              </ul>
-              <p class="muted mt-10" style="margin:0;">
-                Platzhalter, bis echte Tests / Daten vorliegen.
-              </p>
-            </div>
-          </div>
+       
         </div>
 
-        <!-- Hero Media (Bild) -->
-        <aside aria-label="Plant Guard Prototyp – Mockups" class="fade-up" id="hero-media">
+        <aside class="hero-media fade-up" id="hero-media" aria-label="Plant Guard Prototyp Video">
+          <div class="hero-media-head">
+            <div>
+              <div class="hero-media-kicker">Prototyp</div>
+              <p class="hero-media-title">Scan → Diagnose → Produktempfehlung</p>
+            </div>
+          </div>
+
           <div class="media-card">
+            <div class="video-shell">
+              <video controls playsinline preload="metadata" aria-label="Plant Guard Prototyp Video">
+                <source src="healthybee.webm" type="video/webm">
+                <source src="img/Portfolio-3.mp4" type="video/mp4">
+                Dein Browser unterstützt das Video-Format nicht.
+              </video>
+            </div>
             <div class="media-inner">
-              <div class="media-label">Prototyp – Diagnose- und Scan-Flows</div>
-              <img class="media-img" src="Bildschirmfoto 2025-11-01 um 23.11.04.png" alt="Plant Guard – Mobile Mockups">
+              <div class="media-label">Prototyp Demo</div>
               <div class="media-caption">
-                Auszug aus dem Prototyp: Scan-Ansicht, Diagnosebildschirm, Empfehlungen mit passenden Produkten.
+                Kurz-Demo des zentralen Flows: Pflanze scannen, Diagnose verstehen und passende Empfehlungen erhalten.
               </div>
             </div>
           </div>
@@ -505,10 +703,9 @@
       </div>
     </section>
 
-    <!-- Kontext -->
     <section aria-labelledby="ctx-title">
       <div class="container reveal">
-        <h2 id="ctx-title">Ideenfindung & Recherche</h2>
+        <h2 id="ctx-title">Ideenfindung &amp; Recherche</h2>
 
         <div class="two-col">
           <div class="card">
@@ -537,32 +734,41 @@
       </div>
     </section>
 
-    <!-- Prototyp Video -->
-    <section aria-labelledby="proto-title" id="proto-title">
+    <section id="proto-title" aria-labelledby="proto-heading">
       <div class="container reveal">
-        <h2>Prototyp</h2>
+        <h2 id="proto-heading">Prototyp</h2>
 
-        <div class="media-card">
-          <div class="video-shell">
-            <video controls playsinline preload="metadata" aria-label="Plant Guard Prototyp Video">
-              <source src="healthybee.webm" type="video/webm">
-              <source src="img/Portfolio-3.mp4" type="video/mp4">
-              Dein Browser unterstützt das Video-Format nicht.
-            </video>
+        <div class="meta-grid" aria-label="Projektübersicht">
+          <div class="meta-card">
+            <div class="meta-label">Format</div>
+            <div class="meta-value">App-Konzept</div>
           </div>
-          <div class="media-inner">
-            <div class="media-caption">
-              Kurz-Demo des Prototyps (Video-Asset wie im ursprünglichen Portfolio eingebunden).
-            </div>
+          <div class="meta-card">
+            <div class="meta-label">Fokus</div>
+            <div class="meta-value">Diagnose-Flow</div>
           </div>
+          <div class="meta-card">
+            <div class="meta-label">Output</div>
+            <div class="meta-value">Klickbarer Prototyp</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Zielgruppe</div>
+            <div class="meta-value">Hobbygärtner*innen</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <p style="margin:0;">
+            Der Prototyp konzentriert sich auf den Kernnutzen: eine kranke Pflanze schnell einschätzen,
+            verständlich erklären und direkt eine sinnvolle nächste Handlung anbieten.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Typografie & Farben -->
     <section aria-labelledby="style-title" id="style-title">
       <div class="container reveal">
-        <h2>Typografie & Farben</h2>
+        <h2>Typografie &amp; Farben</h2>
         <p class="muted">
           Die Farb-Sticker lesen ihre Werte aus <code>:root</code>.
           Für Plant Guard liegt der Fokus auf einem natürlichen Grün als Primary-Farbe.
@@ -573,7 +779,7 @@
             <h3>Typografie</h3>
             <div class="type-sample-title">Titel – System Sans / Bold</div>
             <div class="type-sample-body">
-              Body – System Sans / Regular.  
+              Body – System Sans / Regular.
               Klar und schlicht, damit Produktnamen und Diagnoseinformationen im Vordergrund stehen.
             </div>
           </div>
@@ -599,7 +805,6 @@
       </div>
     </section>
 
-    <!-- Learnings -->
     <section aria-labelledby="learn-title" id="learn-title">
       <div class="container reveal">
         <h2>Learnings</h2>
@@ -628,35 +833,33 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Jahr im Footer
       const yearEl = document.getElementById('y');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-      // Mobile-Menü
       const toggle = document.querySelector('.menu-toggle');
       const menu = document.querySelector('.menu');
+
       if (toggle && menu) {
         toggle.addEventListener('click', () => {
           const isOpen = menu.classList.toggle('is-open');
           toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
+
         menu.querySelectorAll('a').forEach(link => {
           link.addEventListener('click', () => {
             if (menu.classList.contains('is-open')) {
               menu.classList.remove('is-open');
-              toggle.setAttribute('aria-expanded','false');
+              toggle.setAttribute('aria-expanded', 'false');
             }
           });
         });
       }
 
-      // Fade-Up beim Seitenladen für Hero
-      ['hero-text','hero-media'].forEach(id => {
+      ['hero-text', 'hero-media'].forEach(id => {
         const el = document.getElementById(id);
         if (el) window.requestAnimationFrame(() => el.classList.add('is-visible'));
       });
 
-      // Scroll-Reveal für .reveal-Elemente
       const revealEls = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window && revealEls.length) {
         const obs = new IntersectionObserver(entries => {
@@ -671,14 +874,20 @@
         revealEls.forEach(el => obs.observe(el));
       }
 
-      // Smooth Scroll für interne Anker
       document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', e => {
-          const targetId = link.getAttribute('href').slice(1);
+          const href = link.getAttribute('href');
+          if (!href) return;
+
+          const targetId = href.slice(1);
           const target = document.getElementById(targetId);
+
           if (target) {
             e.preventDefault();
-            const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+            const headerOffset = parseInt(
+              getComputedStyle(document.documentElement).getPropertyValue('--header-h')
+            ) || 72;
+
             const offset = target.offsetTop - headerOffset;
             window.scrollTo({ top: offset, behavior: 'smooth' });
           }

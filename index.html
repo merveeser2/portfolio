@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light" />
   <title>Merve Eser – UX/UI Designerin · Portfolio</title>
   <meta name="description" content="Portfolio von Merve Eser: UX/UI, Research, Prototyping & Frontend." />
-  <meta name="theme-color" content="#0b1220" />
+  <meta name="theme-color" content="#ffffff" />
 
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -15,7 +15,8 @@
   <style>
     :root{
       --bg:#ffffff;
-      --bg2:#f7f8fc;
+      --bg-soft:#f7f8fc;
+      --bg-soft-2:#f4f7ff;
       --card:#ffffff;
 
       --ink:#0b1220;
@@ -27,11 +28,12 @@
       --accent2:#0ea5e9;
 
       --maxw:1120px;
-      --radius:20px;
+      --radius:22px;
       --radius-sm:16px;
 
       --shadow:0 10px 24px rgba(2,6,23,.08);
       --shadow2:0 22px 60px rgba(2,6,23,.14);
+      --shadow3:0 30px 80px rgba(2,6,23,.12);
 
       --header-h:72px;
       --focus:0 0 0 4px rgba(79,70,229,.18);
@@ -54,7 +56,7 @@
     img{max-width:100%;display:block}
     a{color:inherit}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-    section{scroll-margin-top:calc(var(--header-h) + 12px);padding:80px 0}
+    section{scroll-margin-top:calc(var(--header-h) + 12px);padding:84px 0}
     @media (max-width:768px){section{padding:58px 0}}
 
     .muted{color:var(--muted)}
@@ -87,13 +89,13 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px
+      gap:16px;
     }
 
     .brand{
       font-weight:950;
       letter-spacing:-.02em;
-      line-height:1.05
+      line-height:1.05;
     }
 
     .brand small{
@@ -101,14 +103,14 @@
       color:var(--muted);
       font-weight:700;
       margin-top:4px;
-      font-size:.88rem
+      font-size:.88rem;
     }
 
     .menu{
       display:flex;
       align-items:center;
       gap:10px;
-      font-size:.98rem
+      font-size:.98rem;
     }
 
     .menu a{
@@ -116,12 +118,13 @@
       color:rgba(11,18,32,.78);
       padding:10px 12px;
       border-radius:999px;
-      transition:background .2s var(--ease), transform .2s var(--ease);
+      transition:background .2s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease);
     }
 
     .menu a:hover{
       background:rgba(79,70,229,.08);
-      transform:translateY(-1px)
+      transform:translateY(-1px);
+      box-shadow:0 10px 24px rgba(2,6,23,.04);
     }
 
     .menu-toggle{
@@ -165,39 +168,54 @@
       align-items:center;
       justify-content:center;
       gap:10px;
-      padding:12px 14px;
+      padding:13px 16px;
       border-radius:999px;
-      border:1px solid var(--line);
-      background:var(--card);
+      border:1px solid rgba(11,18,32,.08);
+      background:rgba(255,255,255,.78);
       color:inherit;
       text-decoration:none;
       font-weight:900;
       box-shadow:0 10px 24px rgba(2,6,23,.06);
-      transition:transform .22s var(--ease), box-shadow .22s var(--ease), background .22s var(--ease);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      transition:
+        transform .22s var(--ease),
+        box-shadow .22s var(--ease),
+        background .22s var(--ease),
+        border-color .22s var(--ease);
       white-space:nowrap;
+      cursor:pointer;
     }
 
     .btn:hover{
       transform:translateY(-2px);
-      box-shadow:0 16px 34px rgba(2,6,23,.10);
-      background:rgba(11,18,32,.02)
+      box-shadow:0 18px 38px rgba(2,6,23,.10);
+      background:rgba(255,255,255,.96);
+      border-color:rgba(79,70,229,.14);
     }
 
     .btn.primary{
       border-color:transparent;
-      color:white;
-      background:linear-gradient(120deg,var(--accent),var(--accent2));
-      box-shadow:0 22px 54px rgba(14,165,233,.18);
+      color:#fff;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:
+        0 16px 34px rgba(79,70,229,.18),
+        0 22px 54px rgba(14,165,233,.18);
     }
 
-    .btn.primary:hover{box-shadow:0 26px 70px rgba(14,165,233,.22)}
+    .btn.primary:hover{
+      box-shadow:
+        0 20px 40px rgba(79,70,229,.22),
+        0 28px 70px rgba(14,165,233,.22);
+    }
+
     .btn.ghost{background:transparent;box-shadow:none}
     .btn.ghost:hover{background:rgba(79,70,229,.08)}
 
     .reveal{
       opacity:0;
       transform:translateY(12px);
-      transition:opacity .65s var(--ease), transform .65s var(--ease)
+      transition:opacity .65s var(--ease), transform .65s var(--ease);
     }
     .reveal.is-in{opacity:1;transform:none}
 
@@ -211,33 +229,57 @@
       border:1px solid var(--line);
       border-radius:var(--radius);
       background:var(--card);
-      box-shadow:var(--shadow)
+      box-shadow:var(--shadow);
     }
 
     .hero{
       position:relative;
       overflow:hidden;
       background:
-        radial-gradient(900px 520px at 18% -10%, rgba(79,70,229,.14), transparent 60%),
-        radial-gradient(900px 520px at 92% 115%, rgba(14,165,233,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, var(--bg) 100%);
+        radial-gradient(760px 420px at 10% 10%, rgba(79,70,229,.16), transparent 60%),
+        radial-gradient(820px 460px at 92% 88%, rgba(14,165,233,.12), transparent 60%),
+        linear-gradient(180deg, #ffffff 0%, #f7f8fc 52%, #ffffff 100%);
       border-bottom:1px solid var(--line);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      left:-120px;
+      top:40px;
+      width:420px;
+      height:420px;
+      background:radial-gradient(circle, rgba(79,70,229,.10), transparent 68%);
+      filter:blur(60px);
+      pointer-events:none;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      right:-60px;
+      bottom:-40px;
+      width:340px;
+      height:340px;
+      background:radial-gradient(circle, rgba(14,165,233,.12), transparent 70%);
+      filter:blur(54px);
+      pointer-events:none;
     }
 
     .hero-grid{
       display:grid;
-      grid-template-columns:1.15fr .85fr;
+      grid-template-columns:minmax(0,1.02fr) minmax(340px,.98fr);
       align-items:center;
-      gap:44px;
-      padding:86px 0 62px;
+      gap:56px;
+      padding:100px 0 78px;
     }
 
     @media (max-width:920px){
       .hero-grid{
         grid-template-columns:1fr;
-        gap:22px;
-        padding:74px 0 54px;
-        text-align:center
+        gap:34px;
+        padding:78px 0 66px;
+        text-align:center;
       }
     }
 
@@ -246,22 +288,36 @@
       align-items:center;
       gap:10px;
       font-size:.82rem;
-      letter-spacing:.14em;
+      letter-spacing:.16em;
       text-transform:uppercase;
-      color:rgba(11,18,32,.70);
+      color:rgba(11,18,32,.62);
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.6);
+      border:1px solid rgba(255,255,255,.72);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      box-shadow:0 10px 24px rgba(2,6,23,.04);
     }
 
     .dot{
-      width:10px;height:10px;border-radius:999px;
+      width:10px;
+      height:10px;
+      border-radius:999px;
       background:linear-gradient(120deg,var(--accent),var(--accent2));
-      box-shadow:0 0 0 6px rgba(79,70,229,.12)
+      box-shadow:0 0 0 6px rgba(79,70,229,.12);
     }
 
     h1{
-      margin:.75rem 0 .7rem;
-      font-size:clamp(2.15rem,5vw,3.25rem);
-      line-height:1.05;
-      letter-spacing:-.04em;
+      margin:.85rem 0 .9rem;
+      font-size:clamp(2.3rem,5vw,3.7rem);
+      line-height:.95;
+      letter-spacing:-.055em;
+      max-width:11ch;
+    }
+
+    @media (max-width:920px){
+      h1{max-width:none}
     }
 
     .accent-text{
@@ -273,9 +329,9 @@
     }
 
     .lead{
-      font-size:1.06rem;
-      color:rgba(11,18,32,.76);
-      max-width:68ch;
+      font-size:1.08rem;
+      color:rgba(11,18,32,.74);
+      max-width:62ch;
       margin:0 auto 0 0;
     }
 
@@ -285,37 +341,191 @@
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:18px;
-      align-items:center
+      margin-top:22px;
+      align-items:center;
     }
 
     @media (max-width:920px){.cta-row{justify-content:center}}
     @media (max-width:520px){.cta-row .btn{width:100%}}
 
-    .portrait{
-      width:min(360px, 92%);
-      aspect-ratio:4/5;
-      border-radius:30px;
-      overflow:hidden;
-      border:1px solid rgba(11,18,32,.10);
-      box-shadow:var(--shadow2);
-      margin-left:auto;
-      background:#fff;
+    .hero-visual{
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
     }
 
-    @media (max-width:920px){.portrait{margin:0 auto}}
-    .portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+    @media (max-width:920px){
+      .hero-visual{justify-content:center}
+    }
+
+    .portrait-stage{
+      position:relative;
+      width:min(500px, 100%);
+      min-height:640px;
+      margin-left:auto;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      isolation:isolate;
+    }
+
+    @media (max-width:920px){
+      .portrait-stage{
+        width:min(440px, 92vw);
+        min-height:540px;
+        margin:0 auto;
+      }
+    }
+
+    .shape{
+      position:absolute;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .shape-back{
+      width:78%;
+      height:78%;
+      right:2%;
+      top:8%;
+      border-radius:38px 100px 40px 120px;
+      background:linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,255,255,.18));
+      border:1px solid rgba(255,255,255,.7);
+      box-shadow:
+        0 30px 70px rgba(2,6,23,.10),
+        inset 0 1px 0 rgba(255,255,255,.6);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      transform:rotate(-6deg);
+    }
+
+    .shape-front{
+      width:86%;
+      height:84%;
+      right:3%;
+      bottom:4%;
+      border-radius:42px 88px 46px 110px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(79,70,229,.12), transparent 34%),
+        radial-gradient(circle at 74% 70%, rgba(14,165,233,.14), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.10));
+      filter:blur(10px);
+      opacity:.96;
+    }
+
+    .portrait-ring{
+      position:absolute;
+      inset:12% 8% 10% 8%;
+      border-radius:42px;
+      background:
+        radial-gradient(circle at 45% 38%, rgba(79,70,229,.16), transparent 42%),
+        radial-gradient(circle at 62% 68%, rgba(14,165,233,.12), transparent 40%);
+      filter:blur(26px);
+      z-index:1;
+      pointer-events:none;
+    }
+
+    .portrait-free{
+      position:relative;
+      z-index:3;
+      margin:0;
+      width:100%;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+    }
+
+    .portrait-free img{
+      width:min(88%, 430px);
+      height:auto;
+      object-fit:contain;
+      object-position:center bottom;
+      filter:
+        drop-shadow(0 18px 28px rgba(2,6,23,.10))
+        drop-shadow(0 36px 70px rgba(2,6,23,.14));
+      transform:translateY(10px);
+    }
+
+    .portrait-base{
+      position:absolute;
+      left:50%;
+      bottom:28px;
+      transform:translateX(-50%);
+      width:56%;
+      height:36px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(2,6,23,.22) 0%, rgba(2,6,23,.10) 34%, transparent 72%);
+      filter:blur(14px);
+      z-index:2;
+      pointer-events:none;
+    }
+
+    .portrait-badge{
+      position:absolute;
+      left:4px;
+      bottom:58px;
+      z-index:4;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.76);
+      border:1px solid rgba(255,255,255,.72);
+      box-shadow:0 18px 38px rgba(2,6,23,.12);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      font-weight:900;
+      color:rgba(11,18,32,.84);
+      letter-spacing:-.01em;
+    }
+
+    .badge-dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background:linear-gradient(120deg,var(--accent),var(--accent2));
+      box-shadow:0 0 0 6px rgba(79,70,229,.10);
+      flex:0 0 10px;
+    }
+
+    @media (max-width:920px){
+      .portrait-badge{
+        left:50%;
+        transform:translateX(-50%);
+        bottom:0;
+      }
+    }
+
+    @media (max-width:560px){
+      .portrait-stage{min-height:470px}
+      .shape-back{
+        width:82%;
+        height:74%;
+        border-radius:30px 70px 30px 82px;
+      }
+      .shape-front{
+        border-radius:30px 70px 30px 82px;
+      }
+      .portrait-free img{
+        width:min(92%, 340px);
+      }
+      .portrait-badge{
+        font-size:.92rem;
+        padding:10px 14px;
+      }
+    }
 
     h2{
       font-size:clamp(1.7rem,2.6vw,2.15rem);
       margin:0 0 10px;
-      letter-spacing:-.02em
+      letter-spacing:-.02em;
     }
 
     .section-lead{
       margin:0 0 18px;
       max-width:78ch;
-      color:rgba(11,18,32,.68)
+      color:rgba(11,18,32,.68);
     }
 
     .about-wrap{display:flex;flex-direction:column;gap:14px}
@@ -351,13 +561,13 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px
+      gap:10px;
     }
 
     .kpi-title{
       font-weight:950;
       letter-spacing:-.01em;
-      font-size:1.02rem
+      font-size:1.02rem;
     }
 
     .kpi-ic{
@@ -374,7 +584,7 @@
       color:rgba(11,18,32,.66);
       font-weight:650;
       font-size:.95rem;
-      line-height:1.4
+      line-height:1.4;
     }
 
     .work-top{
@@ -390,13 +600,13 @@
       display:flex;
       flex-direction:column;
       gap:16px;
-      margin-top:16px
+      margin-top:16px;
     }
 
     .work-link{
       display:block;
       text-decoration:none;
-      color:inherit
+      color:inherit;
     }
 
     .work-item{
@@ -457,14 +667,14 @@
       justify-content:space-between;
       gap:10px;
       align-items:flex-start;
-      flex-wrap:wrap
+      flex-wrap:wrap;
     }
 
     .work-title{
       margin:0;
       font-size:1.18rem;
       letter-spacing:-.015em;
-      line-height:1.25
+      line-height:1.25;
     }
 
     .badge{
@@ -485,13 +695,13 @@
       margin:6px 0 0;
       color:rgba(11,18,32,.66);
       font-size:.96rem;
-      font-weight:650
+      font-weight:650;
     }
 
     .work-impact{
       margin:10px 0 0;
       color:rgba(11,18,32,.74);
-      font-size:1rem
+      font-size:1rem;
     }
 
     .work-impact strong{font-weight:950}
@@ -500,7 +710,7 @@
       display:flex;
       flex-wrap:wrap;
       gap:8px;
-      margin-top:12px
+      margin-top:12px;
     }
 
     .tag{
@@ -521,7 +731,7 @@
       gap:10px;
       flex-wrap:wrap;
       margin-top:12px;
-      align-items:center
+      align-items:center;
     }
 
     .link-mini{
@@ -542,84 +752,188 @@
     .link-mini:hover{
       transform:translateY(-2px);
       box-shadow:0 16px 34px rgba(2,6,23,.10);
-      background:rgba(79,70,229,.06)
+      background:rgba(79,70,229,.06);
     }
 
     .projects-cta{
       margin-top:18px;
       display:flex;
-      justify-content:center
+      justify-content:center;
     }
 
-    .tools-grid{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:14px;
+    .more-projects-wrap{
+      margin-top:22px;
+      overflow:hidden;
+      max-height:0;
+      opacity:0;
+      transform:translateY(-10px);
+      transition:max-height .55s var(--ease), opacity .35s var(--ease), transform .35s var(--ease), margin-top .35s var(--ease);
     }
 
-    @media (max-width:1000px){.tools-grid{grid-template-columns:repeat(3,1fr)}}
-    @media (max-width:640px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:460px){.tools-grid{grid-template-columns:1fr}}
+    .more-projects-wrap.is-open{
+      opacity:1;
+      transform:none;
+      margin-top:28px;
+    }
 
-    .tool{
-      padding:16px;
+    .more-projects-box{
+      padding:22px;
+      border-radius:var(--radius);
+      border:1px solid rgba(11,18,32,.10);
+      background:
+        radial-gradient(700px 280px at 10% 0%, rgba(79,70,229,.07), transparent 58%),
+        radial-gradient(700px 280px at 100% 100%, rgba(14,165,233,.08), transparent 58%),
+        linear-gradient(180deg, rgba(247,248,252,.82), rgba(255,255,255,1));
+      box-shadow:var(--shadow);
+    }
+
+    .more-projects-head{
       display:flex;
-      align-items:center;
+      align-items:flex-end;
+      justify-content:space-between;
       gap:12px;
-      min-height:92px;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+
+    .more-projects-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    @media (max-width: 980px){
+      .more-projects-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 640px){
+      .more-projects-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .mini-project{
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      text-decoration:none;
+      color:inherit;
       transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .22s var(--ease);
     }
 
-    .tool:hover{
+    .mini-project:hover{
       transform:translateY(-3px);
       box-shadow:var(--shadow2);
-      border-color:rgba(79,70,229,.16)
+      border-color:rgba(79,70,229,.18);
     }
 
-    .tool-ic{
-      width:52px;height:52px;border-radius:16px;
-      display:flex;align-items:center;justify-content:center;
-      border:1px solid rgba(11,18,32,.10);
-      background:rgba(11,18,32,.02);
-      flex:0 0 52px;
+    .mini-shot{
+      position:relative;
+      aspect-ratio:16/10;
       overflow:hidden;
+      background:rgba(11,18,32,.03);
+      border-bottom:1px solid rgba(11,18,32,.08);
+      display:flex;
+      align-items:flex-end;
     }
 
-    .tool-ic i{
-      font-size:31px;
-      line-height:1;
+    .mini-shot img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .35s var(--ease);
     }
 
-    .tool-ic img{
-      width:28px;
-      height:28px;
-      object-fit:contain;
-      display:block;
+    .mini-project:hover .mini-shot img{
+      transform:scale(1.05);
     }
 
-    .tool-text{min-width:0}
-    .tool-name{
+    .bee-shot{
+      background:
+        radial-gradient(circle at 18% 22%, rgba(245,158,11,.20), transparent 34%),
+        radial-gradient(circle at 80% 70%, rgba(14,165,233,.16), transparent 34%),
+        linear-gradient(180deg, #fff9eb 0%, #f5f9ff 100%);
+    }
+
+    .plant-shot{
+      background:
+        radial-gradient(circle at 18% 22%, rgba(34,197,94,.20), transparent 34%),
+        radial-gradient(circle at 80% 70%, rgba(14,165,233,.14), transparent 34%),
+        linear-gradient(180deg, #f2fff7 0%, #eef7ff 100%);
+    }
+
+    .mini-shot-label{
+      position:absolute;
+      bottom:12px;
+      left:12px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(11,18,32,.08);
+      box-shadow:0 12px 26px rgba(2,6,23,.08);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      font-weight:900;
+      color:rgba(11,18,32,.78);
+      z-index:2;
+    }
+
+    .mini-shot-label i{
+      color:var(--accent);
+    }
+
+    .mini-body{
+      padding:16px;
+    }
+
+    .mini-kicker{
+      margin:0 0 8px;
+      font-size:.82rem;
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:rgba(11,18,32,.56);
+    }
+
+    .mini-body h3{
+      margin:0 0 8px;
+      font-size:1.12rem;
+      line-height:1.2;
+      letter-spacing:-.02em;
+    }
+
+    .mini-body p{
       margin:0;
-      font-weight:950;
-      line-height:1.1;
-      letter-spacing:-.01em;
+      color:rgba(11,18,32,.66);
     }
 
-    .tool-sub{
-      margin:5px 0 0;
-      font-size:.92rem;
-      color:rgba(11,18,32,.62);
-      line-height:1.3;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
+    .mini-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:14px;
+      font-weight:900;
+      color:var(--accent);
+    }
+
+    .toggle-icon{
+      transition:transform .25s var(--ease);
+    }
+
+    .btn[aria-expanded="true"] .toggle-icon{
+      transform:rotate(180deg);
     }
 
     .contact-grid{
       display:grid;
       grid-template-columns:1.1fr .9fr;
-      gap:18px
+      gap:18px;
     }
 
     @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
@@ -630,7 +944,7 @@
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:14px
+      margin-top:14px;
     }
 
     .iconbtn{
@@ -648,7 +962,7 @@
     .iconbtn:hover{
       transform:translateY(-2px);
       box-shadow:0 16px 34px rgba(2,6,23,.10);
-      background:rgba(79,70,229,.06)
+      background:rgba(79,70,229,.06);
     }
 
     .footer{
@@ -659,104 +973,104 @@
     }
 
     .tool-groups{
-  display:flex;
-  flex-direction:column;
-  gap:30px;
-  margin-top:20px;
-}
+      display:flex;
+      flex-direction:column;
+      gap:30px;
+      margin-top:20px;
+    }
 
-.tool-group{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
+    .tool-group{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
 
-.tool-group-head{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+    .tool-group-head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
 
-.tool-group-head h3{
-  margin:0;
-  font-size:1.25rem;
-  letter-spacing:-.02em;
-}
+    .tool-group-head h3{
+      margin:0;
+      font-size:1.25rem;
+      letter-spacing:-.02em;
+    }
 
-.tools-grid{
-  display:grid;
-  gap:14px;
-}
+    .tools-grid{
+      display:grid;
+      gap:14px;
+    }
 
-.tools-grid-3{
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
+    .tools-grid-3{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
 
-@media (max-width: 980px){
-  .tools-grid-3{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-}
+    @media (max-width: 980px){
+      .tools-grid-3{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
 
-@media (max-width: 640px){
-  .tools-grid-3{
-    grid-template-columns:1fr;
-  }
-}
+    @media (max-width: 640px){
+      .tools-grid-3{
+        grid-template-columns:1fr;
+      }
+    }
 
-.tool{
-  padding:16px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  min-height:96px;
-  transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .22s var(--ease);
-}
+    .tool{
+      padding:16px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-height:96px;
+      transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .22s var(--ease);
+    }
 
-.tool:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow2);
-  border-color:rgba(79,70,229,.16);
-}
+    .tool:hover{
+      transform:translateY(-3px);
+      box-shadow:var(--shadow2);
+      border-color:rgba(79,70,229,.16);
+    }
 
-.tool-ic{
-  width:60px;
-  height:60px;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(11,18,32,.10);
-  background:#fff;
-  flex:0 0 60px;
-  overflow:hidden;
-  padding:10px;
-}
+    .tool-ic{
+      width:60px;
+      height:60px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(11,18,32,.10);
+      background:#fff;
+      flex:0 0 60px;
+      overflow:hidden;
+      padding:10px;
+    }
 
-.tool-ic img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  display:block;
-}
+    .tool-ic img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
 
-.tool-text{
-  min-width:0;
-}
+    .tool-text{
+      min-width:0;
+    }
 
-.tool-name{
-  margin:0;
-  font-weight:950;
-  line-height:1.1;
-  letter-spacing:-.01em;
-}
+    .tool-name{
+      margin:0;
+      font-weight:950;
+      line-height:1.1;
+      letter-spacing:-.01em;
+    }
 
-.tool-sub{
-  margin:5px 0 0;
-  font-size:.92rem;
-  color:rgba(11,18,32,.62);
-  line-height:1.3;
-}
+    .tool-sub{
+      margin:5px 0 0;
+      font-size:.92rem;
+      color:rgba(11,18,32,.62);
+      line-height:1.3;
+    }
   </style>
 </head>
 
@@ -790,9 +1104,8 @@
           <div class="kicker"><span class="dot"></span> UX · UI · Research · Prototyping · Frontend</div>
           <h1>Merve Eser — <span class="accent-text">UX/UI Designerin</span><br>Ich mache Komplexes verständlich.</h1>
           <p class="lead">
-            Ich entwickle Interfaces, die schnell verständlich sind – mit Fokus auf klare Informationsarchitektur,
-            saubere UI und nachvollziehbare Entscheidungen. Von Research bis zum klickbaren Prototyp
-            und bei Bedarf bis zur Frontend-Umsetzung.
+            Ich entwickle Interfaces, die schnell verständlich sind – mit klaren Strukturen und sauberem UI.
+Von der Recherche bis zum klickbaren Prototyp und bei Bedarf auch bis zur Umsetzung im Frontend.
           </p>
 
           <div class="cta-row">
@@ -801,9 +1114,22 @@
           </div>
         </div>
 
-        <aside class="reveal" aria-label="Portrait">
-          <div class="portrait">
-            <img src="img/merve1.png" alt="Portrait von Merve Eser" width="1000" height="1200" loading="eager" decoding="async">
+        <aside class="reveal hero-visual" aria-label="Portrait">
+          <div class="portrait-stage">
+            <div class="shape shape-back"></div>
+            <div class="shape shape-front"></div>
+            <div class="portrait-ring"></div>
+
+            <figure class="portrait-free">
+              <img src="img/mervee.PNG" alt="Portrait von Merve Eser" width="900" height="1200" loading="eager" decoding="async">
+            </figure>
+
+            <div class="portrait-base"></div>
+
+            <div class="portrait-badge">
+              <span class="badge-dot"></span>
+              UX/UI Designerin
+            </div>
           </div>
         </aside>
       </div>
@@ -814,24 +1140,22 @@
         <div class="card about-card reveal">
           <h2 id="about-title">Über mich</h2>
           <p class="about-text">
-            Ich bin UX/UI Designerin mit einem Master in Medieninformatik und liebe es, komplexe Inhalte so zu strukturieren,
-            dass Nutzer sie intuitiv verstehen. In Projekten arbeite ich gerne daten- und feedbackbasiert:
-            zuerst das Problem sauber klären, dann Lösungen schnell sichtbar machen und anschließend iterieren,
-            bis Flow, Copy und Interface wirklich passen.
-            <br><br>
-            Besonders wichtig sind mir klare Hierarchien, verständliche Microcopy und ein ruhiges, modernes UI.
-            Wenn es hilft, setze ich Designs auch technisch um – mit HTML, CSS und JavaScript für realistische Prototypen
-            oder saubere Übergaben.
+            Ich bin UX/UI-Designerin mit Master in Medieninformatik und bringe Struktur in komplexe Inhalte, damit sie verständlich und gut nutzbar sind.
+Ich arbeite mit Daten und Feedback: zuerst kläre ich das Problem, dann entwickle ich Lösungen und verbessere sie Schritt für Schritt, bis Nutzerführung, Texte und Interface zusammenpassen. <br><br>
+Wichtig sind mir klare Hierarchien, verständliche Texte und ein ruhiges, modernes UI. Bei Bedarf setze ich Designs auch selbst um – mit HTML, CSS und JavaScript für realistische Prototypen und saubere Übergaben.
+Nebenbei erstelle und betreue ich Content für Social Media.
+           
+           
           </p>
         </div>
 
         <div class="kpi-grid reveal" aria-label="Schwerpunkte">
           <div class="kpi">
             <div class="kpi-top">
-              <div class="kpi-title">Research & IA</div>
+              <div class="kpi-title">Research & Konzept</div>
               <div class="kpi-ic"><i class="fa-solid fa-magnifying-glass"></i></div>
             </div>
-            <p class="kpi-sub">Interviews, Insights, User Flows und Informationsarchitektur – damit Entscheidungen begründet sind.</p>
+            <p class="kpi-sub">Interviews, Insights, User Flows und Informationsarchitektur – um fundierte Entscheidungen zu treffen</p>
           </div>
 
           <div class="kpi">
@@ -844,7 +1168,7 @@
 
           <div class="kpi">
             <div class="kpi-top">
-              <div class="kpi-title">Frontend Basics</div>
+              <div class="kpi-title">Frontend Umsetzung</div>
               <div class="kpi-ic"><i class="fa-solid fa-code"></i></div>
             </div>
             <p class="kpi-sub">HTML, CSS und JavaScript für realistische Prototypen, bessere Übergaben und kleine Umsetzungen.</p>
@@ -858,10 +1182,20 @@
         <div class="work-top reveal">
           <div>
             <h2 id="work-title">Top Projekte</h2>
-            <p class="section-lead">Vier ausgewählte Projekte mit Fokus auf UX, Struktur, UI und Umsetzung.</p>
+            <p class="section-lead">Ausgewählte Projekte mit Fokus auf UX, Struktur, UI und Umsetzung.</p>
           </div>
 
-          <a class="btn ghost" href="projekte.html"><i class="fa-solid fa-layer-group"></i> Alle Projekte</a>
+          <button
+            class="btn ghost"
+            id="moreProjectsToggleTop"
+            type="button"
+            aria-expanded="false"
+            aria-controls="more-projects"
+          >
+            <i class="fa-solid fa-layer-group"></i>
+            <span class="toggle-label">Weitere Projekte</span>
+            <i class="fa-solid fa-chevron-down toggle-icon"></i>
+          </button>
         </div>
 
         <div class="work-list">
@@ -982,252 +1316,291 @@
           </a>
         </div>
 
+        <div id="more-projects" class="more-projects-wrap" hidden>
+          <div class="more-projects-box reveal">
+            <div class="more-projects-head">
+              <div>
+                <h2 style="margin:0 0 8px;">Weitere Projekte</h2>
+                <p class="section-lead" style="margin:0;">
+                  Zusätzliche Arbeiten aus den Bereichen UX/UI, Interface Design, Prototyping und Frontend.
+                </p>
+              </div>
+
+              <button
+                class="btn ghost"
+                id="moreProjectsCloseTop"
+                type="button"
+                aria-expanded="true"
+                aria-controls="more-projects"
+              >
+                <i class="fa-solid fa-xmark"></i> Schließen
+              </button>
+            </div>
+
+            <div class="more-projects-grid">
+              <a class="mini-project card reveal" href="projekt-b.html" aria-label="Projekt öffnen: Terra Hotel Broschüre">
+                <div class="mini-shot">
+                  <img src="img/broschure.png" alt="Terra Hotel Broschüre">
+                  <div class="mini-shot-label">
+                    <i class="fa-solid fa-window-maximize"></i>
+                    <span>Terra Hotel</span>
+                  </div>
+                </div>
+                <div class="mini-body">
+                  <p class="mini-kicker">Broschüre</p>
+                  <h3>Terra Hotel Broschüre</h3>
+                  <p>Weiteres Projekt mit Fokus auf Struktur, modernes Interface und klare Nutzerführung.</p>
+                  <span class="mini-link">Projekt ansehen <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+              </a>
+
+              <a class="mini-project card reveal" href="projekt-healthybee.html" aria-label="Projekt öffnen: HealthyBee">
+                 <div class="mini-shot">
+                  <img src="img/health.png" alt="Terra Hotel Broschüre">
+                  <div class="mini-shot-label">
+                    <i class="fa-solid fa-window-maximize"></i>
+                    <span>HealthyBee</span>
+                  </div>
+                </div>
+                <div class="mini-body">
+                  <p class="mini-kicker">App · Health / UX</p>
+                  <h3>HealthyBee</h3>
+                  <p>Konzept und UI mit Fokus auf verständliche Inhalte, ruhige Oberfläche und gute Orientierung.</p>
+                  <span class="mini-link">Projekt ansehen <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+              </a>
+
+              <a class="mini-project card reveal" href="projekt-plantguard.html" aria-label="Projekt öffnen: PlantGuard">
+                 <div class="mini-shot">
+                  <img src="img/plant.png" alt="Terra Hotel Broschüre">
+                  <div class="mini-shot-label">
+                    <i class="fa-solid fa-window-maximize"></i>
+                    <span>PlantGuard</span>
+                  </div>
+                </div>
+                <div class="mini-body">
+                  <p class="mini-kicker">Dashboard · Smart System</p>
+                  <h3>PlantGuard</h3>
+                  <p>Projekt mit Fokus auf Übersicht, Statusdarstellung, Informationsarchitektur und visuelle Klarheit.</p>
+                  <span class="mini-link">Projekt ansehen <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div class="projects-cta reveal">
-          <a class="btn primary" href="projekte.html"><i class="fa-solid fa-layer-group"></i> Alle Projekte ansehen</a>
+          <button
+            class="btn primary"
+            id="moreProjectsToggleBottom"
+            type="button"
+            aria-expanded="false"
+            aria-controls="more-projects"
+          >
+            <i class="fa-solid fa-layer-group"></i>
+            <span class="toggle-label">Weitere Projekte ansehen</span>
+            <i class="fa-solid fa-chevron-down toggle-icon"></i>
+          </button>
         </div>
       </div>
     </section>
 
-  <section id="tools">
-  <div class="container">
-    <div class="reveal">
-      <h2>Tools & Platforms</h2>
-      <p class="section-lead">
-        Design, Entwicklung, Projektmanagement, Hosting und CRM – mit originalen Logos.
-      </p>
-    </div>
-
-    <div class="tool-groups">
-
-      <!-- Prototyping & Design -->
-      <div class="tool-group reveal">
-        <div class="tool-group-head">
-          <h3>Prototyping & Design</h3>
+    <section id="tools">
+      <div class="container">
+        <div class="reveal">
+          <h2>Tools & Platforms</h2>
+          <p class="section-lead">
+            Design, Entwicklung, Projektmanagement, Hosting und CRM – mit originalen Logos.
+          </p>
         </div>
 
-        <div class="tools-grid tools-grid-3">
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/figma.png" alt="Figma Logo">
+        <div class="tool-groups">
+          <div class="tool-group reveal">
+            <div class="tool-group-head">
+              <h3>Prototyping & Design</h3>
             </div>
-            <div class="tool-text">
-              <p class="tool-name">Figma</p>
-              <p class="tool-sub">UI · Wireframes · Prototyping</p>
+
+            <div class="tools-grid tools-grid-3">
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/figma.png" alt="Figma Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Figma</p>
+                  <p class="tool-sub">UI · Wireframes · Prototyping</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/adobe-cc.png" alt="Adobe Creative Cloud Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Adobe Creative Cloud</p>
+                  <p class="tool-sub">Creative Suite</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/photoshop.png" alt="Photoshop Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Photoshop</p>
+                  <p class="tool-sub">Bildbearbeitung</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/premiere-pro.png" alt="Premiere Pro Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Premiere Pro</p>
+                  <p class="tool-sub">Video Editing</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/adobe-cc.png" alt="Adobe Creative Cloud Logo">
+          <div class="tool-group reveal">
+            <div class="tool-group-head">
+              <h3>Entwicklung</h3>
             </div>
-            <div class="tool-text">
-              <p class="tool-name">Adobe Creative Cloud</p>
-              <p class="tool-sub">Creative Suite</p>
+
+            <div class="tools-grid tools-grid-3">
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/github.png" alt="GitHub Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">GitHub</p>
+                  <p class="tool-sub">Versionierung · Repositories</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/vscode.png" alt="VS Code Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">VS Code</p>
+                  <p class="tool-sub">Code Editor</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/html5.png" alt="HTML5 Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">HTML5</p>
+                  <p class="tool-sub">Semantik · Struktur</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/css3.png" alt="CSS3 Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">CSS3</p>
+                  <p class="tool-sub">Responsive UI</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/javascript.png" alt="JavaScript Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">JavaScript</p>
+                  <p class="tool-sub">Interaktion</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/php.png" alt="PHP Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">PHP</p>
+                  <p class="tool-sub">Backend Basics</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/netlify.png" alt="Netlify Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Netlify</p>
+                  <p class="tool-sub">Deploy · Hosting</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/photoshop.png" alt="Photoshop Logo">
+          <div class="tool-group reveal">
+            <div class="tool-group-head">
+              <h3>Projektmanagement & Hosting</h3>
             </div>
-            <div class="tool-text">
-              <p class="tool-name">Photoshop</p>
-              <p class="tool-sub">Bildbearbeitung</p>
+
+            <div class="tools-grid tools-grid-3">
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/jira.png" alt="Jira Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Jira</p>
+                  <p class="tool-sub">Tickets · Projektsteuerung</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/miro.png" alt="Miro Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Miro</p>
+                  <p class="tool-sub">Workshops · Struktur</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/notion.png" alt="Notion Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Notion</p>
+                  <p class="tool-sub">Dokumentation · Planung</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/all-inkl.png" alt="ALL-INKL Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">ALL-INKL</p>
+                  <p class="tool-sub">Hosting · Domains · DNS</p>
+                </div>
+              </div>
+
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/reseller-interface.png" alt="Reseller Interface Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Reseller Interface</p>
+                  <p class="tool-sub">Accounts · Domains · Verwaltung</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/premiere-pro.png" alt="Premiere Pro Logo">
+          <div class="tool-group reveal">
+            <div class="tool-group-head">
+              <h3>CRM & AI</h3>
             </div>
-            <div class="tool-text">
-              <p class="tool-name">Premiere Pro</p>
-              <p class="tool-sub">Video Editing</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Entwicklung -->
-      <div class="tool-group reveal">
-        <div class="tool-group-head">
-          <h3>Entwicklung</h3>
-        </div>
+            <div class="tools-grid tools-grid-3">
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/hubspot.png" alt="HubSpot Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">HubSpot</p>
+                  <p class="tool-sub">CRM · Marketing</p>
+                </div>
+              </div>
 
-        <div class="tools-grid tools-grid-3">
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/github.png" alt="GitHub Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">GitHub</p>
-              <p class="tool-sub">Versionierung · Repositories</p>
-            </div>
-          </div>
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/chatgpt.png" alt="ChatGPT Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">ChatGPT</p>
+                  <p class="tool-sub">Ideation · UX Copy · Struktur</p>
+                </div>
+              </div>
 
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/vscode.png" alt="VS Code Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">VS Code</p>
-              <p class="tool-sub">Code Editor</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/html5.png" alt="HTML5 Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">HTML5</p>
-              <p class="tool-sub">Semantik · Struktur</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/css3.png" alt="CSS3 Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">CSS3</p>
-              <p class="tool-sub">Responsive UI</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/javascript.png" alt="JavaScript Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">JavaScript</p>
-              <p class="tool-sub">Interaktion</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/php.png" alt="PHP Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">PHP</p>
-              <p class="tool-sub">Backend Basics</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/netlify.png" alt="Netlify Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">Netlify</p>
-              <p class="tool-sub">Deploy · Hosting</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Projektmanagement & Hosting -->
-      <div class="tool-group reveal">
-        <div class="tool-group-head">
-          <h3>Projektmanagement & Hosting</h3>
-        </div>
-
-        <div class="tools-grid tools-grid-3">
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/jira.png" alt="Jira Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">Jira</p>
-              <p class="tool-sub">Tickets · Projektsteuerung</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/miro.png" alt="Miro Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">Miro</p>
-              <p class="tool-sub">Workshops · Struktur</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/notion.png" alt="Notion Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">Notion</p>
-              <p class="tool-sub">Dokumentation · Planung</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/all-inkl.png" alt="ALL-INKL Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">ALL-INKL</p>
-              <p class="tool-sub">Hosting · Domains · DNS</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/reseller-interface.png" alt="Reseller Interface Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">Reseller Interface</p>
-              <p class="tool-sub">Accounts · Domains · Verwaltung</p>
+              <div class="tool card">
+                <div class="tool-ic"><img src="img/logos/gemini.png" alt="Gemini Logo"></div>
+                <div class="tool-text">
+                  <p class="tool-name">Gemini</p>
+                  <p class="tool-sub">Recherche · Varianten</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- CRM & AI -->
-      <div class="tool-group reveal">
-        <div class="tool-group-head">
-          <h3>CRM & AI</h3>
-        </div>
-
-        <div class="tools-grid tools-grid-3">
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/hubspot.png" alt="HubSpot Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">HubSpot</p>
-              <p class="tool-sub">CRM · Marketing</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/chatgpt.png" alt="ChatGPT Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">ChatGPT</p>
-              <p class="tool-sub">Ideation · UX Copy · Struktur</p>
-            </div>
-          </div>
-
-          <div class="tool card">
-            <div class="tool-ic">
-              <img src="img/logos/gemini.png" alt="Gemini Logo">
-            </div>
-            <div class="tool-text">
-              <p class="tool-name">Gemini</p>
-              <p class="tool-sub">Recherche · Varianten</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+    </section>
 
     <section id="kontakt">
       <div class="container">
@@ -1294,20 +1667,115 @@
     }
 
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReduced) {
-      const els = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-in');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.14, rootMargin: '0px 0px -10% 0px' });
-      els.forEach(el => io.observe(el));
-    } else {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-in'));
+    let io = null;
+
+    function observeReveals(scope = document){
+      const elements = scope.querySelectorAll('.reveal');
+      if (prefersReduced) {
+        elements.forEach(el => el.classList.add('is-in'));
+        return;
+      }
+      if (!io) {
+        io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.14, rootMargin: '0px 0px -10% 0px' });
+      }
+      elements.forEach(el => {
+        if (!el.classList.contains('is-in')) io.observe(el);
+      });
     }
+
+    observeReveals();
+
+    const moreProjects = document.getElementById('more-projects');
+    const toggleButtons = [
+      document.getElementById('moreProjectsToggleTop'),
+      document.getElementById('moreProjectsToggleBottom')
+    ].filter(Boolean);
+    const closeButton = document.getElementById('moreProjectsCloseTop');
+
+    function updateToggleLabels(isOpen){
+      toggleButtons.forEach(btn => {
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        const label = btn.querySelector('.toggle-label');
+        if (label) {
+          label.textContent = isOpen ? 'Weitere Projekte ausblenden' : (btn.id === 'moreProjectsToggleBottom' ? 'Weitere Projekte ansehen' : 'Weitere Projekte');
+        }
+      });
+      if (closeButton) {
+        closeButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+    }
+
+    function openMoreProjects(){
+      if (!moreProjects) return;
+      moreProjects.hidden = false;
+      moreProjects.classList.add('is-open');
+      moreProjects.style.maxHeight = moreProjects.scrollHeight + 'px';
+      updateToggleLabels(true);
+      observeReveals(moreProjects);
+
+      setTimeout(() => {
+        moreProjects.style.maxHeight = moreProjects.scrollHeight + 'px';
+      }, 50);
+    }
+
+    function closeMoreProjects(){
+      if (!moreProjects) return;
+      moreProjects.style.maxHeight = moreProjects.scrollHeight + 'px';
+
+      requestAnimationFrame(() => {
+        moreProjects.classList.remove('is-open');
+        moreProjects.style.maxHeight = '0px';
+      });
+
+      updateToggleLabels(false);
+
+      moreProjects.addEventListener('transitionend', function handler(e){
+        if (e.propertyName === 'max-height' && !moreProjects.classList.contains('is-open')) {
+          moreProjects.hidden = true;
+          moreProjects.removeEventListener('transitionend', handler);
+        }
+      });
+    }
+
+    function toggleMoreProjects(){
+      if (!moreProjects) return;
+      const isOpen = moreProjects.classList.contains('is-open');
+      if (isOpen) {
+        closeMoreProjects();
+      } else {
+        openMoreProjects();
+        setTimeout(() => {
+          moreProjects.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+        }, 120);
+      }
+    }
+
+    toggleButtons.forEach(btn => {
+      btn.addEventListener('click', toggleMoreProjects);
+    });
+
+    if (closeButton) {
+      closeButton.addEventListener('click', () => {
+        closeMoreProjects();
+        setTimeout(() => {
+          const topButton = document.getElementById('moreProjectsToggleTop');
+          if (topButton) topButton.focus();
+        }, 200);
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      if (moreProjects && moreProjects.classList.contains('is-open')) {
+        moreProjects.style.maxHeight = moreProjects.scrollHeight + 'px';
+      }
+    });
   </script>
 </body>
 </html>
